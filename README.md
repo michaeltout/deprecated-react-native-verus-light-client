@@ -1,2 +1,13 @@
 # react-native-verus-light-client
-A light client to connect to the Verus ecosystem and use Verus IDs and Z-Transactions on iOS/Android
+
+## Getting started
+
+`$ npm install VerusCoin/react-native-verus-light-client#dev --save`
+
+### Mostly automatic installation
+
+`$ react-native link VerusCoin/react-native-verus-light-client`
+
+## Usage
+```javascript
+import VerusLightClient from 'react-native-verus-light-client';
