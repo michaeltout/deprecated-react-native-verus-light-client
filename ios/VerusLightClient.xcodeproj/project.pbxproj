@@ -1,0 +1,918 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		20DEFBB25657F3EB41DD42E2 /* Pods_VerusLightClient_VerusLightClientTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8140616B56229CA053E7E05E /* Pods_VerusLightClient_VerusLightClientTests.framework */; };
+		4E4F32BC240ACDB700F9B5C9 /* ZcashWalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32BB240ACDB700F9B5C9 /* ZcashWalletTests.swift */; };
+		4E4F32BF240BC60D00F9B5C9 /* DbManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32BE240BC60D00F9B5C9 /* DbManager.swift */; };
+		4E4F32C1240BC81B00F9B5C9 /* DbUrlStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32C0240BC81B00F9B5C9 /* DbUrlStructures.swift */; };
+		4E4F32C7240C0DCC00F9B5C9 /* JsonRpcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32C6240C0DCC00F9B5C9 /* JsonRpcTests.swift */; };
+		4E4F32C8240C100800F9B5C9 /* JsonRpcResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92524094B110022D01A /* JsonRpcResponse.swift */; };
+		4E4F32C9240C100A00F9B5C9 /* JsonRpcErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92324094B070022D01A /* JsonRpcErrors.swift */; };
+		4E4F32CA240C140300F9B5C9 /* DbManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32BE240BC60D00F9B5C9 /* DbManager.swift */; };
+		4E4F32CB240C140A00F9B5C9 /* DbUrlStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32C0240BC81B00F9B5C9 /* DbUrlStructures.swift */; };
+		4E4F32CD240C141900F9B5C9 /* CoinWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32CC240C141900F9B5C9 /* CoinWallet.swift */; };
+		4E4F32CE240C141900F9B5C9 /* CoinWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32CC240C141900F9B5C9 /* CoinWallet.swift */; };
+		4E4F32D8240C1EED00F9B5C9 /* sapling-output.params in Resources */ = {isa = PBXBuildFile; fileRef = 4E4F32D7240C1EED00F9B5C9 /* sapling-output.params */; };
+		4E4F32DA240C1F0200F9B5C9 /* sapling-spend.params in Resources */ = {isa = PBXBuildFile; fileRef = 4E4F32D9240C1F0200F9B5C9 /* sapling-spend.params */; };
+		4E4F32DB240C219B00F9B5C9 /* sapling-output.params in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E4F32D7240C1EED00F9B5C9 /* sapling-output.params */; };
+		4E4F32DC240C219E00F9B5C9 /* sapling-spend.params in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E4F32D9240C1F0200F9B5C9 /* sapling-spend.params */; };
+		4E4F32E7240D1E2900F9B5C9 /* CoinWalletErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32E6240D1E2900F9B5C9 /* CoinWalletErrors.swift */; };
+		4E4F32E8240D1E2900F9B5C9 /* CoinWalletErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32E6240D1E2900F9B5C9 /* CoinWalletErrors.swift */; };
+		4E4F32EA240D203100F9B5C9 /* ApiErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32E9240D203100F9B5C9 /* ApiErrors.swift */; };
+		4E4F32EB240D203100F9B5C9 /* ApiErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32E9240D203100F9B5C9 /* ApiErrors.swift */; };
+		4E4F32EE240D37DA00F9B5C9 /* WalletFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32ED240D37DA00F9B5C9 /* WalletFolder.swift */; };
+		4E4F32EF240D37DA00F9B5C9 /* WalletFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32ED240D37DA00F9B5C9 /* WalletFolder.swift */; };
+		4E4F32F2240D3FB100F9B5C9 /* CoinKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32F1240D3FB100F9B5C9 /* CoinKey.swift */; };
+		4E4F32F3240D3FB100F9B5C9 /* CoinKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32F1240D3FB100F9B5C9 /* CoinKey.swift */; };
+		4E4F32F6240D420B00F9B5C9 /* WalletFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32F5240D420B00F9B5C9 /* WalletFolderTests.swift */; };
+		4E4F32F9240D567C00F9B5C9 /* ListAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32F8240D567C00F9B5C9 /* ListAddresses.swift */; };
+		4E4F32FA240D567C00F9B5C9 /* ListAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32F8240D567C00F9B5C9 /* ListAddresses.swift */; };
+		4E4F32FC240D58F200F9B5C9 /* ZcashApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32FB240D58F200F9B5C9 /* ZcashApiTests.swift */; };
+		4E4F32FE240D597900F9B5C9 /* TestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F32FD240D597900F9B5C9 /* TestConfig.swift */; };
+		4E4F32FF240D5C0B00F9B5C9 /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92924094B5F0022D01A /* RequestHandler.swift */; };
+		4E4F3300240D5C1700F9B5C9 /* GetBlockCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92C24094BA10022D01A /* GetBlockCount.swift */; };
+		4E4F3303240D659500F9B5C9 /* SatMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F3302240D659500F9B5C9 /* SatMath.swift */; };
+		4E4F3304240D659500F9B5C9 /* SatMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F3302240D659500F9B5C9 /* SatMath.swift */; };
+		4E4F3306240D66E900F9B5C9 /* GetPrivateBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F3305240D66E900F9B5C9 /* GetPrivateBalance.swift */; };
+		4E4F3307240D66E900F9B5C9 /* GetPrivateBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F3305240D66E900F9B5C9 /* GetPrivateBalance.swift */; };
+		4E4F330B240D692000F9B5C9 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F330A240D692000F9B5C9 /* StringExtensions.swift */; };
+		4E4F330C240D692000F9B5C9 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F330A240D692000F9B5C9 /* StringExtensions.swift */; };
+		4E595A9024250E5500D256FB /* GetAddressBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E595A8F24250E5500D256FB /* GetAddressBalance.swift */; };
+		4E595A9124250E5500D256FB /* GetAddressBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E595A8F24250E5500D256FB /* GetAddressBalance.swift */; };
+		4E65B8DC240949670022D01A /* VerusLightClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B8DB240949670022D01A /* VerusLightClient.swift */; };
+		4E65B92424094B070022D01A /* JsonRpcErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92324094B070022D01A /* JsonRpcErrors.swift */; };
+		4E65B92624094B110022D01A /* JsonRpcResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92524094B110022D01A /* JsonRpcResponse.swift */; };
+		4E65B92A24094B5F0022D01A /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92924094B5F0022D01A /* RequestHandler.swift */; };
+		4E65B92D24094BA10022D01A /* GetBlockCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92C24094BA10022D01A /* GetBlockCount.swift */; };
+		4E65B92F24094BBF0022D01A /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92E24094BBF0022D01A /* AppConfig.swift */; };
+		4E65B96C240955070022D01A /* VerusLightClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B96B240955070022D01A /* VerusLightClientTests.swift */; };
+		4EA0E3E024194C3900D8130D /* ListTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E3DF24194C3900D8130D /* ListTransactions.swift */; };
+		4EA0E3E124194C3C00D8130D /* ListTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E3DF24194C3900D8130D /* ListTransactions.swift */; };
+		4EA0E40724194DB600D8130D /* TransactionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E40624194DB600D8130D /* TransactionProtocols.swift */; };
+		4EA0E40824194DB600D8130D /* TransactionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E40624194DB600D8130D /* TransactionProtocols.swift */; };
+		4EA0E40B241BE74D00D8130D /* GetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E40A241BE74D00D8130D /* GetInfo.swift */; };
+		4EA0E40C241BE74E00D8130D /* GetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E40A241BE74D00D8130D /* GetInfo.swift */; };
+		4EA4857624166444002B5E37 /* VerusApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA4857524166444002B5E37 /* VerusApiTests.swift */; };
+		B09A51237D792B9260443463 /* Pods_VerusLightClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FA5224826B2A3FEDC4AF54A /* Pods_VerusLightClient.framework */; };
+		B3E7B58A1CC2AC0600A0062D /* VerusLightClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* VerusLightClient.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4E65B95D240952AC0022D01A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 58B511D31A9E6C8500147676 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 58B511DA1A9E6C8500147676;
+			remoteInfo = VerusLightClient;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				4E4F32DC240C219E00F9B5C9 /* sapling-spend.params in CopyFiles */,
+				4E4F32DB240C219B00F9B5C9 /* sapling-output.params in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		134814201AA4EA6300B7C361 /* libVerusLightClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVerusLightClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E4F32BB240ACDB700F9B5C9 /* ZcashWalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcashWalletTests.swift; sourceTree = "<group>"; };
+		4E4F32BE240BC60D00F9B5C9 /* DbManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbManager.swift; sourceTree = "<group>"; };
+		4E4F32C0240BC81B00F9B5C9 /* DbUrlStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbUrlStructures.swift; sourceTree = "<group>"; };
+		4E4F32C6240C0DCC00F9B5C9 /* JsonRpcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcTests.swift; sourceTree = "<group>"; };
+		4E4F32CC240C141900F9B5C9 /* CoinWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinWallet.swift; sourceTree = "<group>"; };
+		4E4F32D7240C1EED00F9B5C9 /* sapling-output.params */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sapling-output.params"; sourceTree = "<group>"; };
+		4E4F32D9240C1F0200F9B5C9 /* sapling-spend.params */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sapling-spend.params"; sourceTree = "<group>"; };
+		4E4F32E6240D1E2900F9B5C9 /* CoinWalletErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinWalletErrors.swift; sourceTree = "<group>"; };
+		4E4F32E9240D203100F9B5C9 /* ApiErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrors.swift; sourceTree = "<group>"; };
+		4E4F32ED240D37DA00F9B5C9 /* WalletFolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletFolder.swift; sourceTree = "<group>"; };
+		4E4F32F1240D3FB100F9B5C9 /* CoinKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinKey.swift; sourceTree = "<group>"; };
+		4E4F32F5240D420B00F9B5C9 /* WalletFolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletFolderTests.swift; sourceTree = "<group>"; };
+		4E4F32F8240D567C00F9B5C9 /* ListAddresses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAddresses.swift; sourceTree = "<group>"; };
+		4E4F32FB240D58F200F9B5C9 /* ZcashApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZcashApiTests.swift; sourceTree = "<group>"; };
+		4E4F32FD240D597900F9B5C9 /* TestConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestConfig.swift; sourceTree = "<group>"; };
+		4E4F3302240D659500F9B5C9 /* SatMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatMath.swift; sourceTree = "<group>"; };
+		4E4F3305240D66E900F9B5C9 /* GetPrivateBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPrivateBalance.swift; sourceTree = "<group>"; };
+		4E4F330A240D692000F9B5C9 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		4E595A8F24250E5500D256FB /* GetAddressBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddressBalance.swift; sourceTree = "<group>"; };
+		4E65B8AF240948370022D01A /* VerusLightClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VerusLightClient-Bridging-Header.h"; sourceTree = "<group>"; };
+		4E65B8DB240949670022D01A /* VerusLightClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerusLightClient.swift; sourceTree = "<group>"; };
+		4E65B92324094B070022D01A /* JsonRpcErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcErrors.swift; sourceTree = "<group>"; };
+		4E65B92524094B110022D01A /* JsonRpcResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcResponse.swift; sourceTree = "<group>"; };
+		4E65B92924094B5F0022D01A /* RequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
+		4E65B92C24094BA10022D01A /* GetBlockCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockCount.swift; sourceTree = "<group>"; };
+		4E65B92E24094BBF0022D01A /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		4E65B957240952AC0022D01A /* VerusLightClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerusLightClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E65B96B240955070022D01A /* VerusLightClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerusLightClientTests.swift; sourceTree = "<group>"; };
+		4E65B96D2409550F0022D01A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4EA0E3DF24194C3900D8130D /* ListTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTransactions.swift; sourceTree = "<group>"; };
+		4EA0E40624194DB600D8130D /* TransactionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionProtocols.swift; sourceTree = "<group>"; };
+		4EA0E40A241BE74D00D8130D /* GetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInfo.swift; sourceTree = "<group>"; };
+		4EA4857524166444002B5E37 /* VerusApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerusApiTests.swift; sourceTree = "<group>"; };
+		4FA5224826B2A3FEDC4AF54A /* Pods_VerusLightClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VerusLightClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		602289A89A943A96B4F7339D /* Pods-VerusLightClient-VerusLightClientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerusLightClient-VerusLightClientTests.release.xcconfig"; path = "Target Support Files/Pods-VerusLightClient-VerusLightClientTests/Pods-VerusLightClient-VerusLightClientTests.release.xcconfig"; sourceTree = "<group>"; };
+		8140616B56229CA053E7E05E /* Pods_VerusLightClient_VerusLightClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VerusLightClient_VerusLightClientTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		90F8BB2967727F96502469B2 /* Pods-VerusLightClient-VerusLightClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerusLightClient-VerusLightClientTests.debug.xcconfig"; path = "Target Support Files/Pods-VerusLightClient-VerusLightClientTests/Pods-VerusLightClient-VerusLightClientTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* VerusLightClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerusLightClient.m; sourceTree = "<group>"; };
+		CC191137BBB727EA6DE183E6 /* Pods-VerusLightClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerusLightClient.debug.xcconfig"; path = "Target Support Files/Pods-VerusLightClient/Pods-VerusLightClient.debug.xcconfig"; sourceTree = "<group>"; };
+		FF482BDBFECAE6754E1C98CB /* Pods-VerusLightClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerusLightClient.release.xcconfig"; path = "Target Support Files/Pods-VerusLightClient/Pods-VerusLightClient.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4E65B954240952AC0022D01A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20DEFBB25657F3EB41DD42E2 /* Pods_VerusLightClient_VerusLightClientTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		58B511D81A9E6C8500147676 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B09A51237D792B9260443463 /* Pods_VerusLightClient.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		134814211AA4EA7D00B7C361 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				134814201AA4EA6300B7C361 /* libVerusLightClient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4E4F32BA240ACD9E00F9B5C9 /* CoinWalletTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32E3240C3A5E00F9B5C9 /* Zcash */,
+			);
+			path = CoinWalletTests;
+			sourceTree = "<group>";
+		};
+		4E4F32BD240BC5F300F9B5C9 /* DbManager */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32BE240BC60D00F9B5C9 /* DbManager.swift */,
+				4E4F32C0240BC81B00F9B5C9 /* DbUrlStructures.swift */,
+			);
+			name = DbManager;
+			sourceTree = "<group>";
+		};
+		4E4F32C2240BCC8800F9B5C9 /* CoinWallet */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32CC240C141900F9B5C9 /* CoinWallet.swift */,
+				4E4F32E6240D1E2900F9B5C9 /* CoinWalletErrors.swift */,
+			);
+			name = CoinWallet;
+			sourceTree = "<group>";
+		};
+		4E4F32C3240C0DA600F9B5C9 /* ApiTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32C6240C0DCC00F9B5C9 /* JsonRpcTests.swift */,
+				4E4F32FB240D58F200F9B5C9 /* ZcashApiTests.swift */,
+				4EA4857524166444002B5E37 /* VerusApiTests.swift */,
+			);
+			path = ApiTests;
+			sourceTree = "<group>";
+		};
+		4E4F32CF240C1A6B00F9B5C9 /* SaplingParams */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32D7240C1EED00F9B5C9 /* sapling-output.params */,
+				4E4F32D9240C1F0200F9B5C9 /* sapling-spend.params */,
+			);
+			path = SaplingParams;
+			sourceTree = "<group>";
+		};
+		4E4F32E3240C3A5E00F9B5C9 /* Zcash */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32BB240ACDB700F9B5C9 /* ZcashWalletTests.swift */,
+			);
+			path = Zcash;
+			sourceTree = "<group>";
+		};
+		4E4F32EC240D37C600F9B5C9 /* WalletFolder */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32ED240D37DA00F9B5C9 /* WalletFolder.swift */,
+			);
+			name = WalletFolder;
+			sourceTree = "<group>";
+		};
+		4E4F32F0240D3FA200F9B5C9 /* CoinKey */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32F1240D3FB100F9B5C9 /* CoinKey.swift */,
+			);
+			name = CoinKey;
+			sourceTree = "<group>";
+		};
+		4E4F32F4240D41D900F9B5C9 /* WalletFolderTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32F5240D420B00F9B5C9 /* WalletFolderTests.swift */,
+			);
+			path = WalletFolderTests;
+			sourceTree = "<group>";
+		};
+		4E4F32F7240D561800F9B5C9 /* ListAddresses */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32F8240D567C00F9B5C9 /* ListAddresses.swift */,
+			);
+			name = ListAddresses;
+			sourceTree = "<group>";
+		};
+		4E4F3301240D658100F9B5C9 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F3302240D659500F9B5C9 /* SatMath.swift */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+		4E4F3308240D66ED00F9B5C9 /* GetPrivateBalance */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F3305240D66E900F9B5C9 /* GetPrivateBalance.swift */,
+			);
+			name = GetPrivateBalance;
+			sourceTree = "<group>";
+		};
+		4E4F3309240D691500F9B5C9 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F330A240D692000F9B5C9 /* StringExtensions.swift */,
+			);
+			name = Types;
+			sourceTree = "<group>";
+		};
+		4E595A8E24250E3A00D256FB /* GetAddressBalance */ = {
+			isa = PBXGroup;
+			children = (
+				4E595A8F24250E5500D256FB /* GetAddressBalance.swift */,
+			);
+			name = GetAddressBalance;
+			sourceTree = "<group>";
+		};
+		4E65B92124094AE50022D01A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				4EA0E40524194DA500D8130D /* Transactions */,
+				4E4F3309240D691500F9B5C9 /* Types */,
+				4E4F3301240D658100F9B5C9 /* Math */,
+				4E4F32F0240D3FA200F9B5C9 /* CoinKey */,
+				4E4F32BD240BC5F300F9B5C9 /* DbManager */,
+				4E65B92224094AFB0022D01A /* JsonRpc */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		4E65B92224094AFB0022D01A /* JsonRpc */ = {
+			isa = PBXGroup;
+			children = (
+				4E65B92324094B070022D01A /* JsonRpcErrors.swift */,
+				4E65B92524094B110022D01A /* JsonRpcResponse.swift */,
+			);
+			name = JsonRpc;
+			sourceTree = "<group>";
+		};
+		4E65B92724094B460022D01A /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				4E595A8E24250E3A00D256FB /* GetAddressBalance */,
+				4EA0E409241BE60900D8130D /* GetInfo */,
+				4EA0E3DE24194C2A00D8130D /* ListTransactions */,
+				4E4F3308240D66ED00F9B5C9 /* GetPrivateBalance */,
+				4E4F32F7240D561800F9B5C9 /* ListAddresses */,
+				4E65B92B24094B950022D01A /* GetBlockCount */,
+				4E65B92924094B5F0022D01A /* RequestHandler.swift */,
+				4E4F32E9240D203100F9B5C9 /* ApiErrors.swift */,
+			);
+			name = Api;
+			sourceTree = "<group>";
+		};
+		4E65B92B24094B950022D01A /* GetBlockCount */ = {
+			isa = PBXGroup;
+			children = (
+				4E65B92C24094BA10022D01A /* GetBlockCount.swift */,
+			);
+			name = GetBlockCount;
+			sourceTree = "<group>";
+		};
+		4E65B930240950800022D01A /* VerusLightClient */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32EC240D37C600F9B5C9 /* WalletFolder */,
+				4E4F32C2240BCC8800F9B5C9 /* CoinWallet */,
+				4E65B92124094AE50022D01A /* Util */,
+				4E65B92724094B460022D01A /* Api */,
+				B3E7B5891CC2AC0600A0062D /* VerusLightClient.m */,
+				4E65B92E24094BBF0022D01A /* AppConfig.swift */,
+				4E65B8DB240949670022D01A /* VerusLightClient.swift */,
+			);
+			name = VerusLightClient;
+			sourceTree = "<group>";
+		};
+		4E65B958240952AC0022D01A /* VerusLightClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F32F4240D41D900F9B5C9 /* WalletFolderTests */,
+				4E4F32C3240C0DA600F9B5C9 /* ApiTests */,
+				4E65B96B240955070022D01A /* VerusLightClientTests.swift */,
+				4E4F32BA240ACD9E00F9B5C9 /* CoinWalletTests */,
+				4E65B96D2409550F0022D01A /* Info.plist */,
+				4E4F32FD240D597900F9B5C9 /* TestConfig.swift */,
+			);
+			path = VerusLightClientTests;
+			sourceTree = "<group>";
+		};
+		4EA0E3DE24194C2A00D8130D /* ListTransactions */ = {
+			isa = PBXGroup;
+			children = (
+				4EA0E3DF24194C3900D8130D /* ListTransactions.swift */,
+			);
+			name = ListTransactions;
+			sourceTree = "<group>";
+		};
+		4EA0E40524194DA500D8130D /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				4EA0E40624194DB600D8130D /* TransactionProtocols.swift */,
+			);
+			name = Transactions;
+			sourceTree = "<group>";
+		};
+		4EA0E409241BE60900D8130D /* GetInfo */ = {
+			isa = PBXGroup;
+			children = (
+				4EA0E40A241BE74D00D8130D /* GetInfo.swift */,
+			);
+			name = GetInfo;
+			sourceTree = "<group>";
+		};
+		58B511D21A9E6C8500147676 = {
+			isa = PBXGroup;
+			children = (
+				4E4F32CF240C1A6B00F9B5C9 /* SaplingParams */,
+				4E65B930240950800022D01A /* VerusLightClient */,
+				4E65B958240952AC0022D01A /* VerusLightClientTests */,
+				134814211AA4EA7D00B7C361 /* Products */,
+				C4DB6A319AAFCCA6F6080E41 /* Pods */,
+				4E65B8AF240948370022D01A /* VerusLightClient-Bridging-Header.h */,
+				4E65B957240952AC0022D01A /* VerusLightClientTests.xctest */,
+				FA322857CAA41602743CE9B3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C4DB6A319AAFCCA6F6080E41 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CC191137BBB727EA6DE183E6 /* Pods-VerusLightClient.debug.xcconfig */,
+				FF482BDBFECAE6754E1C98CB /* Pods-VerusLightClient.release.xcconfig */,
+				90F8BB2967727F96502469B2 /* Pods-VerusLightClient-VerusLightClientTests.debug.xcconfig */,
+				602289A89A943A96B4F7339D /* Pods-VerusLightClient-VerusLightClientTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FA322857CAA41602743CE9B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4FA5224826B2A3FEDC4AF54A /* Pods_VerusLightClient.framework */,
+				8140616B56229CA053E7E05E /* Pods_VerusLightClient_VerusLightClientTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4E65B956240952AC0022D01A /* VerusLightClientTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E65B95F240952AC0022D01A /* Build configuration list for PBXNativeTarget "VerusLightClientTests" */;
+			buildPhases = (
+				F92F42DECF6C29D8E9527E61 /* [CP] Check Pods Manifest.lock */,
+				4E65B953240952AC0022D01A /* Sources */,
+				4E65B954240952AC0022D01A /* Frameworks */,
+				4E65B955240952AC0022D01A /* Resources */,
+				04D9F05BE674E56F3E5F86A7 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E65B95E240952AC0022D01A /* PBXTargetDependency */,
+			);
+			name = VerusLightClientTests;
+			productName = VerusLightClientTests;
+			productReference = 4E65B957240952AC0022D01A /* VerusLightClientTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		58B511DA1A9E6C8500147676 /* VerusLightClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "VerusLightClient" */;
+			buildPhases = (
+				8BF22630C6DA4A7E58C1627F /* [CP] Check Pods Manifest.lock */,
+				58B511D71A9E6C8500147676 /* Sources */,
+				58B511D81A9E6C8500147676 /* Frameworks */,
+				58B511D91A9E6C8500147676 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VerusLightClient;
+			productName = RCTDataManager;
+			productReference = 134814201AA4EA6300B7C361 /* libVerusLightClient.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58B511D31A9E6C8500147676 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					4E65B956240952AC0022D01A = {
+						CreatedOnToolsVersion = 11.3;
+						DevelopmentTeam = J8Y97B5NMQ;
+						LastSwiftMigration = 1130;
+						ProvisioningStyle = Automatic;
+					};
+					58B511DA1A9E6C8500147676 = {
+						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1130;
+					};
+				};
+			};
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "VerusLightClient" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 58B511D21A9E6C8500147676;
+			productRefGroup = 58B511D21A9E6C8500147676;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				58B511DA1A9E6C8500147676 /* VerusLightClient */,
+				4E65B956240952AC0022D01A /* VerusLightClientTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4E65B955240952AC0022D01A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E4F32D8240C1EED00F9B5C9 /* sapling-output.params in Resources */,
+				4E4F32DA240C1F0200F9B5C9 /* sapling-spend.params in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04D9F05BE674E56F3E5F86A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VerusLightClient-VerusLightClientTests/Pods-VerusLightClient-VerusLightClientTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
+				"${BUILT_PRODUCTS_DIR}/FBReactNativeSpec/FBReactNativeSpec.framework",
+				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
+				"${BUILT_PRODUCTS_DIR}/RCTTypeSafety/RCTTypeSafety.framework",
+				"${BUILT_PRODUCTS_DIR}/React-Core/React.framework",
+				"${BUILT_PRODUCTS_DIR}/React-CoreModules/CoreModules.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTActionSheet/RCTActionSheet.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTAnimation/RCTAnimation.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTBlob/RCTBlob.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTImage/RCTImage.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTLinking/RCTLinking.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTNetwork/RCTNetwork.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTSettings/RCTSettings.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTText/RCTText.framework",
+				"${BUILT_PRODUCTS_DIR}/React-RCTVibration/RCTVibration.framework",
+				"${BUILT_PRODUCTS_DIR}/React-cxxreact/cxxreact.framework",
+				"${BUILT_PRODUCTS_DIR}/React-jsi/jsi.framework",
+				"${BUILT_PRODUCTS_DIR}/React-jsiexecutor/jsireact.framework",
+				"${BUILT_PRODUCTS_DIR}/React-jsinspector/jsinspector.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactCommon/ReactCommon.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
+				"${BUILT_PRODUCTS_DIR}/ZcashLightClientKit/ZcashLightClientKit.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBReactNativeSpec.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTTypeSafety.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreModules.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTActionSheet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTAnimation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTBlob.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTLinking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTNetwork.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTSettings.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RCTVibration.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/cxxreact.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsi.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsireact.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jsinspector.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactCommon.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZcashLightClientKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VerusLightClient-VerusLightClientTests/Pods-VerusLightClient-VerusLightClientTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8BF22630C6DA4A7E58C1627F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VerusLightClient-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F92F42DECF6C29D8E9527E61 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VerusLightClient-VerusLightClientTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4E65B953240952AC0022D01A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E4F32CB240C140A00F9B5C9 /* DbUrlStructures.swift in Sources */,
+				4E4F32C9240C100A00F9B5C9 /* JsonRpcErrors.swift in Sources */,
+				4E4F3304240D659500F9B5C9 /* SatMath.swift in Sources */,
+				4E4F32F6240D420B00F9B5C9 /* WalletFolderTests.swift in Sources */,
+				4E4F32BC240ACDB700F9B5C9 /* ZcashWalletTests.swift in Sources */,
+				4E4F32F3240D3FB100F9B5C9 /* CoinKey.swift in Sources */,
+				4EA0E40C241BE74E00D8130D /* GetInfo.swift in Sources */,
+				4E4F330C240D692000F9B5C9 /* StringExtensions.swift in Sources */,
+				4E4F32C7240C0DCC00F9B5C9 /* JsonRpcTests.swift in Sources */,
+				4E4F32CA240C140300F9B5C9 /* DbManager.swift in Sources */,
+				4E4F32FC240D58F200F9B5C9 /* ZcashApiTests.swift in Sources */,
+				4EA0E3E124194C3C00D8130D /* ListTransactions.swift in Sources */,
+				4E595A9124250E5500D256FB /* GetAddressBalance.swift in Sources */,
+				4EA4857624166444002B5E37 /* VerusApiTests.swift in Sources */,
+				4E4F3307240D66E900F9B5C9 /* GetPrivateBalance.swift in Sources */,
+				4E4F32EF240D37DA00F9B5C9 /* WalletFolder.swift in Sources */,
+				4E4F32E8240D1E2900F9B5C9 /* CoinWalletErrors.swift in Sources */,
+				4E4F32FA240D567C00F9B5C9 /* ListAddresses.swift in Sources */,
+				4EA0E40824194DB600D8130D /* TransactionProtocols.swift in Sources */,
+				4E4F32CE240C141900F9B5C9 /* CoinWallet.swift in Sources */,
+				4E65B96C240955070022D01A /* VerusLightClientTests.swift in Sources */,
+				4E4F32FF240D5C0B00F9B5C9 /* RequestHandler.swift in Sources */,
+				4E4F3300240D5C1700F9B5C9 /* GetBlockCount.swift in Sources */,
+				4E4F32EB240D203100F9B5C9 /* ApiErrors.swift in Sources */,
+				4E4F32FE240D597900F9B5C9 /* TestConfig.swift in Sources */,
+				4E4F32C8240C100800F9B5C9 /* JsonRpcResponse.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		58B511D71A9E6C8500147676 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E4F32EE240D37DA00F9B5C9 /* WalletFolder.swift in Sources */,
+				4EA0E3E024194C3900D8130D /* ListTransactions.swift in Sources */,
+				4E4F32E7240D1E2900F9B5C9 /* CoinWalletErrors.swift in Sources */,
+				4E4F32C1240BC81B00F9B5C9 /* DbUrlStructures.swift in Sources */,
+				B3E7B58A1CC2AC0600A0062D /* VerusLightClient.m in Sources */,
+				4E65B92A24094B5F0022D01A /* RequestHandler.swift in Sources */,
+				4E4F32CD240C141900F9B5C9 /* CoinWallet.swift in Sources */,
+				4E4F32EA240D203100F9B5C9 /* ApiErrors.swift in Sources */,
+				4E65B92D24094BA10022D01A /* GetBlockCount.swift in Sources */,
+				4E4F32BF240BC60D00F9B5C9 /* DbManager.swift in Sources */,
+				4E65B92F24094BBF0022D01A /* AppConfig.swift in Sources */,
+				4E4F3303240D659500F9B5C9 /* SatMath.swift in Sources */,
+				4EA0E40B241BE74D00D8130D /* GetInfo.swift in Sources */,
+				4E4F32F9240D567C00F9B5C9 /* ListAddresses.swift in Sources */,
+				4E4F330B240D692000F9B5C9 /* StringExtensions.swift in Sources */,
+				4E4F32F2240D3FB100F9B5C9 /* CoinKey.swift in Sources */,
+				4E4F3306240D66E900F9B5C9 /* GetPrivateBalance.swift in Sources */,
+				4EA0E40724194DB600D8130D /* TransactionProtocols.swift in Sources */,
+				4E595A9024250E5500D256FB /* GetAddressBalance.swift in Sources */,
+				4E65B92424094B070022D01A /* JsonRpcErrors.swift in Sources */,
+				4E65B8DC240949670022D01A /* VerusLightClient.swift in Sources */,
+				4E65B92624094B110022D01A /* JsonRpcResponse.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E65B95E240952AC0022D01A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 58B511DA1A9E6C8500147676 /* VerusLightClient */;
+			targetProxy = 4E65B95D240952AC0022D01A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4E65B960240952AC0022D01A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90F8BB2967727F96502469B2 /* Pods-VerusLightClient-VerusLightClientTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = J8Y97B5NMQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = VerusLightClientTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "michael-f-toutonghi.VerusLightClientTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4E65B961240952AC0022D01A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 602289A89A943A96B4F7339D /* Pods-VerusLightClient-VerusLightClientTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = J8Y97B5NMQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = VerusLightClientTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "michael-f-toutonghi.VerusLightClientTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		58B511ED1A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58B511EE1A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		58B511F01A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC191137BBB727EA6DE183E6 /* Pods-VerusLightClient.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = VerusLightClient;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VerusLightClient-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF482BDBFECAE6754E1C98CB /* Pods-VerusLightClient.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = VerusLightClient;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "VerusLightClient-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4E65B95F240952AC0022D01A /* Build configuration list for PBXNativeTarget "VerusLightClientTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E65B960240952AC0022D01A /* Debug */,
+				4E65B961240952AC0022D01A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "VerusLightClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511ED1A9E6C8500147676 /* Debug */,
+				58B511EE1A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "VerusLightClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511F01A9E6C8500147676 /* Debug */,
+				58B511F11A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58B511D31A9E6C8500147676 /* Project object */;
+}

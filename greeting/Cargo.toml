@@ -1,0 +1,70 @@
+[package]
+name = "zcash-android-wallet-sdk"
+version = "0.0.1"
+authors = [
+    "Jack Grigg <jack@z.cash>",
+    "Kevin Gorham <kevin.gorham@z.cash>",
+]
+description = "JNI backend for the Android wallet SDK"
+publish = false
+edition = "2018"
+
+[dependencies]
+android_logger = "0.6"
+failure = "0.1"
+futures = { version = "0.1", optional = true }
+grpc = { version = "0.6", optional = true }
+hex = "0.3"
+httpbis = { version = "0.7", optional = true }
+jni = { version = "0.13", default-features = false }
+log = "0.4"
+log-panics = "2.0.0"
+protobuf = { version = "2", optional = true }
+tls-api = { version = "0.1", optional = true }
+tls-api-rustls = { version = "0.1", optional = true }
+
+[dependencies.ff]
+git = "https://github.com/str4d/librustzcash.git"
+branch = "decrypt_and_store_tx"
+
+[dependencies.pairing]
+git = "https://github.com/str4d/librustzcash.git"
+branch = "decrypt_and_store_tx"
+
+[dependencies.zcash_client_backend]
+git = "https://github.com/str4d/librustzcash.git"
+branch = "decrypt_and_store_tx"
+
+[dependencies.zcash_client_sqlite]
+git = "https://github.com/str4d/librustzcash.git"
+branch = "decrypt_and_store_tx"
+
+[dependencies.zcash_primitives]
+git = "https://github.com/str4d/librustzcash.git"
+branch = "decrypt_and_store_tx"
+
+[dependencies.zcash_proofs]
+git = "https://github.com/str4d/librustzcash.git"
+branch = "decrypt_and_store_tx"
+
+#[patch.'https://github.com/str4d/librustzcash.git']
+#ff = { path = '../../clones/librustzcash/ff' }
+#pairing = { path = '../../clones/librustzcash/pairing' }
+#zcash_client_backend = { path = '../../clones/librustzcash/zcash_client_backend' }
+#zcash_client_sqlite = { path = '../../clones/librustzcash/zcash_client_sqlite' }
+#zcash_primitives = { path = '../../clones/librustzcash/zcash_primitives' }
+#zcash_proofs = { path = '../../clones/librustzcash/zcash_proofs' }
+
+[features]
+mainnet = ["zcash_client_sqlite/mainnet"]
+updater = ["futures", "grpc", "httpbis", "protobuf", "tls-api", "tls-api-rustls"]
+
+[lib]
+name = "zcashwalletsdk"
+path = "src/main/rust/lib.rs"
+crate-type = ["staticlib", "cdylib"]
+
+[[bin]]
+name = "update-sapling-tree"
+path = "src/main/rust/bin/update_sapling_tree.rs"
+required-features = ["updater"]
