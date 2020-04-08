@@ -12,6 +12,10 @@
     "url": "git+https://github.com/github_account/react-native-verus-light-client.git",
     "baseUrl": "https://github.com/github_account/react-native-verus-light-client"
   },
+  "resolutions": {
+    "minimist": "^1.2.3",
+    "mem": "^4.0.0"
+  },
   "keywords": [
     "react-native",
     "Verus",
