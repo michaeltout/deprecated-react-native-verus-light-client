@@ -14,7 +14,9 @@ javascript
 `import VerusLightClient from 'react-native-verus-light-client';
 
 ## Installation on Android
-####Improtant: Do you have Rust installed? Without rust the library will not work
+####Important: Do you have Rust installed? Without rust the library will not work
+
+####Important: Do you have the NDK installed? Check the version. the version should be : 20.0.5594570
 
 To install this on android, add this package to your package.JSON in dependancies.
 make sure that the version is at least: 417f646d73bf2434c1ff64a69569dd068af07502, this commit hash.
