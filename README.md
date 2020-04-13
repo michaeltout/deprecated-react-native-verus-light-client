@@ -3,11 +3,11 @@
 
 ## Getting started
 
-`$ npm install <user>/react-native-verus-light-client#dev --save`
+`$ npm install git+https://github.com/VerusCoin/react-native-verus-light-client.git --save`
 
 ### Mostly automatic installation
 
-`$ react-native link <user>/react-native-verus-light-client`
+`$ react-native link react-native-verus-light-client`
 
 ## Usage
 javascript
