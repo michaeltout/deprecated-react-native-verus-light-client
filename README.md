@@ -3,12 +3,11 @@
 
 ## Getting started
 
-`$ npm install michaeltout/react-native-verus-light-client#dev --save`
+`$ npm install <user>/react-native-verus-light-client#dev --save`
 
 ### Mostly automatic installation
 
-`$ react-native link mic
-haeltout/react-native-verus-light-client`
+`$ react-native link <user>/react-native-verus-light-client`
 
 ## Usage
 javascript
