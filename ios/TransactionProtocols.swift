@@ -12,14 +12,14 @@ typealias TransactionJson = [String: Any?]
 
 class CompactTransaction {
   var address: String?
-  var amount: Int // Not represented in satoshis/zatoshis
+  var amount: Double // Not represented in satoshis/zatoshis
   var category: String?
   var status: String?
   var time: TimeInterval?
   var txid: String
   var height: Int
   
-  init(address: String?, amount: Int, dbType: String, time: TimeInterval?, txid: String, height: Int, localAddrs: [String]) {
+  init(address: String?, amount: Double, dbType: String, time: TimeInterval?, txid: String, height: Int, localAddrs: [String]) {
     self.address = address
     self.amount = amount
     self.category = "unknown"
