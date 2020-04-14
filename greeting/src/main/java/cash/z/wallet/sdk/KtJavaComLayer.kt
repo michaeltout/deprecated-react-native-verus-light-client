@@ -394,6 +394,9 @@ class KtJavaComLayer (){
     		text = "The flow has thrown an exception: $e";
 			}
 			text;
+				}else{
+					"error: Not initialized";
+				}
 	}
 
 		//helper methods
