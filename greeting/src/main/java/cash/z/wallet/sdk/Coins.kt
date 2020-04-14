@@ -39,6 +39,8 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.Main
 
+import java.io.File
+
 
 class Coins (
   ticker: String,
@@ -100,7 +102,13 @@ class Coins (
       indexNumber = iIndexNumber;
       numberOfAccounts = iNumberOfAccounts;
       seedInByteArray = iSeedInByteArray;
-      birthdayWallet = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(context, birthdayInt)
+      birthdayString = birthdayInt.toString();
+      val file = File("zcash/saplingtree/$birthdayString.json");
+      if(file.exists() == true){
+        birthdayWallet = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(context, birthdayInt);
+      }else{
+        birthdayWallet = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(context);
+      }
     }
     /*Funcitons that allow access to the infroamtion in this object*/
     //gets index number
