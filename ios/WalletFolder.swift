@@ -15,7 +15,7 @@ class WalletFolder {
         self.coinWallets = [String: CoinWallet]()
     }
     
-    func createWallet(coinId: String, coinProto: String, address: String, port: Int, accountHash: String, numAddresses: Int, seed: String, spendParams: URL, outputParams: URL, birthday: Int) {
+    func createWallet(coinId: String, coinProto: String, accountHash: String, address: String, port: Int, numAddresses: Int, seed: String, spendParams: URL, outputParams: URL, birthday: Int) {
         let walletKey = getCoinKey(coinId: coinId, coinProtocol: coinProto, accountHash: accountHash)
         let endpoint = ["address": address, "port": String(port)]
         
@@ -53,7 +53,7 @@ class WalletFolder {
     }
     
     func createAndOpenWallet(coinId: String, coinProto: String, address: String, port: Int, accountHash: String, numAddresses: Int, seed: String, spendParams: URL, outputParams: URL, birthday: Int) throws {
-        createWallet(coinId: coinId, coinProto: coinProto, address: address, port: port, accountHash: accountHash, numAddresses: numAddresses, seed: seed, spendParams: spendParams, outputParams: outputParams, birthday: birthday)
+        createWallet(coinId: coinId, coinProto: coinProto, accountHash: accountHash, address: address, port: port, numAddresses: numAddresses, seed: seed, spendParams: spendParams, outputParams: outputParams, birthday: birthday)
         
         try openWallet(coinId: coinId, coinProto: coinProto, accountHash: accountHash)
     }
