@@ -115,15 +115,19 @@ class KtJavaComLayer (){
 
 	//starts the sycronizer
 	fun syncronizerstart(mContext: Context, index: Int): String {
-		coins[index].synchronizer = Synchronizer(mContext, coins[index].initializer!!);
-		try{
-			GlobalScope.launch { //has to happen here, becuase java does not have coroutines
-					coins[index].synchronizer?.start(this);
+		if(coins[index].initializer != null){
+			coins[index].synchronizer = Synchronizer(mContext, coins[index].initializer!!);
+			try{
+				GlobalScope.launch { //has to happen here, becuase java does not have coroutines
+						coins[index].synchronizer?.start(this);
+				}
+				return "true";
+			}catch(e: Exception){
+					val error = e.toString();
+					return "error: $error";
 			}
-			return "true";
-		}catch(e: Exception){
-				val error = e.toString();
-				return "error: $error";
+		}else{
+			return "error: initialize the wallet first";
 		}
 	}
 
@@ -212,6 +216,7 @@ class KtJavaComLayer (){
 			//[ "pending" OR "cleared" OR "received" OR "sent" OR "all"]
 			var stonks: String = "";
 			var arraylist = ArrayList<String>();
+			if(coins[index].synchronizer != null){
 			if(info.equals("pending")){
 				coins[index].synchronizer?.pendingTransactions!!.collect(
 					{
@@ -226,7 +231,7 @@ class KtJavaComLayer (){
 						}
 					}
 					);
-			}
+				}
 			if(info.equals("cleared")){
 						coins[index].synchronizer?.clearedTransactions!!.collect({
 						x ->
@@ -269,6 +274,9 @@ class KtJavaComLayer (){
 					}
 				}
 				);
+			}
+			}else{
+				"error: Not initialized";
 			}
 		var array = arrayOfNulls<String>(arraylist.size);
 		arraylist.toArray(array);
@@ -344,6 +352,7 @@ class KtJavaComLayer (){
 			val numberOfAccounts = coins[index].getNumberOfAccounts();
 			var totalBalance: Long = 0;
 			var availableBalance: Long = 0;
+			if(coins[index].synchronizer != null){
 			if(address == ""){
 				for(x in 0 until numberOfAccounts){
 					if(includePending == false){
@@ -367,10 +376,14 @@ class KtJavaComLayer (){
 			val aB = availableBalance.toString();
 			val tB = totalBalance.toString();
 			"total: " + tB + ", confirmed: " + aB + "";
+			}else{
+				"error: Not initialized";
+			}
 		}
 
 		//sends a transactions
 		fun putSendDirty(mContext: Context, toAddress: String, fromAddress: String, amount: Long, memo: String, index: Int): String = runBlocking{
+				if(coins[index].synchronizer != null){
 			val toAddress = coins[index].synchronizer?.getAddress()!!; //address delete later
 			var text: String = "haha";
 			val fromIndex = coins[index].getAccountIndex(fromAddress);
@@ -381,6 +394,9 @@ class KtJavaComLayer (){
     		text = "The flow has thrown an exception: $e";
 			}
 			text;
+				}else{
+					"error: Not initialized";
+				}
 	}
 
 		//helper methods

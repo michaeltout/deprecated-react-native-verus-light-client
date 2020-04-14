@@ -443,8 +443,8 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		use this method to load, all the data into the coin object. If you call this method Nothing
 		is started yet. It only loads the data into the relevant objects.
 	*/
-	public void createWallet ( String coinId, String accountHash, String coinProtocol, int birthday, String host, int port,
-		String seed, String seedInUft8, int numberOfAccounts, Promise promise ) {
+	public void createWallet ( String coinId, String coinProtocol, String accountHash, String host, int port,
+	 	int numberOfAccounts, String seed, int birthday, Promise promise ) {
 		try{
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
@@ -472,7 +472,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 	this funciton initializes the initializer. THis actually start stuff up, and does nto only load data.
 	*/
 	@ReactMethod
-	public void addWallet(String coinId, String accountHash, String coinProtocol, int birthday,Promise promise){
+	public void openWallet(String coinId, String coinProto, String accountHash, int birthday,Promise promise){
 		try{
 		int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
 		String path = coinId + "_" + accountHash + "_" + coinProtocol;
@@ -491,7 +491,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 
 		@ReactMethod //initialzes the client, this happens automatically too when a fucntion using the
 		//client is called. However it is in here too.
-		public void initClient (String coinId, String accountHash, String coinProtocol, Promise promise){
+		public void initClient (String coinId, String coinProto, String accountHash, Promise promise){
 		try{
 			Activity mActivity = getCurrentActivity();
 			Context mContext = mActivity.getApplicationContext();
@@ -508,7 +508,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 
 	/* starts the syncronizer, used for interacting with the blockchain */
 		@ReactMethod
-		public void startSync( String coinId, String accountHash, String coinProtocol,Promise promise ) {
+		public void startSync( String coinId, String coinProto, String accountHash, Promise promise ) {
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
 		VerusLightClientModule.context = mContext;
@@ -596,7 +596,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 //this gets the index number of the object corresponding with this account,
 //coin, and protocol. In kotlin there is an array with coin objects, that are almost
 //data objects holding all the relevent information to use multpile coins, crisscross
-	private int getIndex(String coinId, String accountHash, String coinProto){
+	private int getIndex(String coinId, String coinProto, String accountHash){
 		String name = coinId + "_" + accountHash + "_" + coinProto;
 		if(coinToIndex.containsKey(name)){
 			return coinToIndex.get(name);
