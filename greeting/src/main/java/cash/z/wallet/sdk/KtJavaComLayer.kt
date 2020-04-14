@@ -116,7 +116,7 @@ class KtJavaComLayer (){
 	//starts the sycronizer
 	fun syncronizerstart(mContext: Context, index: Int): String {
 		if(coins[index].initializer != null){
-			coins[index].synchronizer = Synchronizer(mContext, coins[index].initializer?);
+			coins[index].synchronizer = Synchronizer(mContext, coins[index].initializer!!);
 			try{
 				GlobalScope.launch { //has to happen here, becuase java does not have coroutines
 						coins[index].synchronizer?.start(this);
