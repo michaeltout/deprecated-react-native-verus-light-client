@@ -455,7 +455,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		//int port = 9067;
 		//String seed = "urban kind wise collect social marble riot primary craft lucky head cause syrup odor artist decorate rhythm phone style benefit portion bus truck top";
 		//String seedInUft8 = "dXJiYW4ga2luZCB3aXNlIGNvbGxlY3Qgc29jaWFsIG1hcmJsZSByaW90IHByaW1hcnkgY3JhZnQgbHVja3kgaGVhZCBjYXVzZSBzeXJ1cCBvZG9yIGFydGlzdCBkZWNvcmF0ZSByaHl0aG0gcGhvbmUgc3R5bGUgYmVuZWZpdCBwb3J0aW9uIGJ1cyB0cnVjayB0b3A=";
-		byte[] seedToByteArray = seedInUft8.getBytes(StandardCharsets.UTF_8); //chance to real seed
+		byte[] seedToByteArray = seed.getBytes(StandardCharsets.UTF_8); //chance to real seed
 		int birthdayInt = birthday;
 		String birthdayString = turnIntIntoBirthdayString(birthday);
 		//int numberOfAccounts = 1;
