@@ -79,12 +79,12 @@ class KtJavaComLayer (){
 
 //adds a coin object, the object that enables multicoin functionality.
 	fun addCoin(icoinId: String, iProtocol: String, iAccountHash: String, mContext: Context, seedInByteArray: ByteArray,
-		host: String, port: Int, seed: String, seedInUft8: String, birthdayString: String, birthdayInt: Int, numberOfAccounts: Int): Int{
+		host: String, port: Int, seed: String, birthdayString: String, birthdayInt: Int, numberOfAccounts: Int): Int{
 		var indexNumber: Int = 0;
 		if(coins != null){
 			indexNumber = coins.size;
 		}
-		val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, seedInByteArray, port, host, seed, seedInUft8, birthdayString, birthdayInt, numberOfAccounts);
+		val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, seedInByteArray, port, host, seed, "", birthdayString, birthdayInt, numberOfAccounts);
 		coins.add(newCoins);
 		return coins.size -1;
 	}

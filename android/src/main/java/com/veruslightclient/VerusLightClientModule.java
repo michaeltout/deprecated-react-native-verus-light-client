@@ -455,12 +455,12 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		//int port = 9067;
 		//String seed = "urban kind wise collect social marble riot primary craft lucky head cause syrup odor artist decorate rhythm phone style benefit portion bus truck top";
 		//String seedInUft8 = "dXJiYW4ga2luZCB3aXNlIGNvbGxlY3Qgc29jaWFsIG1hcmJsZSByaW90IHByaW1hcnkgY3JhZnQgbHVja3kgaGVhZCBjYXVzZSBzeXJ1cCBvZG9yIGFydGlzdCBkZWNvcmF0ZSByaHl0aG0gcGhvbmUgc3R5bGUgYmVuZWZpdCBwb3J0aW9uIGJ1cyB0cnVjayB0b3A=";
-		byte[] seedToByteArray = seedInUft8.getBytes(StandardCharsets.UTF_8); //chance to real seed
+		byte[] seedToByteArray = seed.getBytes(StandardCharsets.UTF_8); //chance to real seed
 		int birthdayInt = birthday;
 		String birthdayString = turnIntIntoBirthdayString(birthday);
 		//int numberOfAccounts = 1;
 
-		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, seedInUft8, birthdayString, birthdayInt, numberOfAccounts);
+		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, birthdayString, birthdayInt, numberOfAccounts);
 		coinToIndex.put(path, indexNumber);
 		promise.resolve("true");
 	}catch (IllegalViewOperationException e) {
@@ -474,8 +474,8 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 	@ReactMethod
 	public void openWallet(String coinId, String coinProto, String accountHash, int birthday,Promise promise){
 		try{
-		int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
-		String path = coinId + "_" + accountHash + "_" + coinProtocol;
+		int index = getIndex(coinId, accountHash, coinProto); //index number to link correct object to the function
+		String path = coinId + "_" + accountHash + "_" + coinProto;
 
 		String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.Initer(VerusLightClientModule.context, path, index);
 		promise.resolve(response);
@@ -497,7 +497,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			Context mContext = mActivity.getApplicationContext();
 			VerusLightClientModule.context = mContext;
 
-			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
+			int index = getIndex(coinId, accountHash, coinProto); //index number to link correct object to the function
 
 			String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.InitClient(VerusLightClientModule.context, index);
 			promise.resolve(response);
@@ -514,9 +514,9 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		VerusLightClientModule.context = mContext;
 		String output = "";
 
-		int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
+		int index = getIndex(coinId, accountHash, coinProto); //index number to link correct object to the function
 		if(index == -1){
-			output = "Error: " + coinId +"_" + accountHash + "_" + coinProtocol + " not initialized";
+			output = "Error: " + coinId +"_" + accountHash + "_" + coinProto + " not initialized";
 		}
 		output = cash.z.wallet.sdk.KtJavaComLayer.Companion.syncronizerstart(VerusLightClientModule.context, index).toString();
 		promise.resolve(output);
