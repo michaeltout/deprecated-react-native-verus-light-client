@@ -15,8 +15,8 @@ class VerusLightClient : NSObject {
     let MainWallet: WalletFolder = WalletFolder()
     
     @objc
-    func createWallet(_ coinId: String, coinProto: String, address: String, port: Int, accountHash: String, numAddresses: Int, seed: String, birthday: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
-        MainWallet.createWallet(coinId: coinId, coinProto: coinProto, address: address, port: port, accountHash: accountHash, numAddresses: numAddresses, seed: seed, spendParams: Bundle.main.url(forResource: "sapling-spend", withExtension: ".params")!, outputParams: Bundle.main.url(forResource: "sapling-output", withExtension: ".params")!, birthday: birthday)
+    func createWallet(_ coinId: String, coinProto: String, accountHash: String, address: String, port: Int, numAddresses: Int, seed: String, birthday: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        MainWallet.createWallet(coinId: coinId, coinProto: coinProto, accountHash: accountHash, address: address, port: port, numAddresses: numAddresses, seed: seed, spendParams: Bundle.main.url(forResource: "sapling-spend", withExtension: ".params")!, outputParams: Bundle.main.url(forResource: "sapling-output", withExtension: ".params")!, birthday: birthday)
         
         resolve(true)
     }

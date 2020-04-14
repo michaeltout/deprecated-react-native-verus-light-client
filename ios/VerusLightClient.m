@@ -55,9 +55,9 @@ RCT_EXTERN_METHOD(
 RCT_EXTERN_METHOD(
                   createWallet: (NSString *)coinId
                   coinProto: (NSString *)coinProto
+                  accountHash: (NSString *)accountHash
                   address: (NSString *)address
                   port: (NSInteger *)port
-                  accountHash: (NSString *)accountHash
                   numAddresses: (NSInteger *)numAddresses
                   seed: (NSString *)seed
                   birthday: (NSInteger *)birthday
