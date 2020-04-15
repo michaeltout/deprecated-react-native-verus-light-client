@@ -215,6 +215,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				result = this.getBalance("true", "", index);
 			}
 			int character = result.indexOf(',');
+			if(character != -1){
 			String totalBalance = result.substring(0, character - 1);
 			String confirmedBalance = result.substring(character + 1, result.length());
 			JSONObject balance = new JSONObject();
@@ -225,6 +226,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			}catch(JSONException e ){
 				error = e.toString();
 			}
+		}
 					break;
 			case "getprivatebalance":
 			/*
@@ -644,6 +646,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		if(cutter.length() > 0){
 			int index = 0;
 			int indexOne = cutter.indexOf(',', index);
+			if(indexOne != -1){
 			count = count + 1;
 			index = indexOne + 1;
 			int indexTwo = cutter.indexOf(',', index);
@@ -664,6 +667,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			}
 			cutString(pass, store, count);
 		}
+	}
 		return;
 	}
 
