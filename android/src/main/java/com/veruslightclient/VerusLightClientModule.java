@@ -67,7 +67,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 	/*the request method is the main way to interact with the kotlin*/
 
 	@ReactMethod
-	public void request (int id, String method, ReadableArray params, String vJRPC, Promise promise){
+	public void request (int id, String method, ReadableArray params, Promise promise){
 		try{
 		JSONObject response = new JSONObject();
 		String result = "";
@@ -271,7 +271,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		response.put("id", id);
 		//response.put("result", result);
 		response.put("error", error);
-		response.put("JsonRPC", vJRPC);
+		response.put("JsonRPC", "2.0");
 		/*id, result, error, version*/
 		} catch (JSONException e) {
 		//smt
