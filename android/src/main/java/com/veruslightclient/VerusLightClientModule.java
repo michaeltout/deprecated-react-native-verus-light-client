@@ -207,9 +207,9 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				}
 
 			case "z_getbalance":
-			if(params.size() > 2){
+			if(params.size() > 3){
 				result = this.getBalance(params.getString(3), "", index);
-			}else if (params.size() > 3) {
+			}else if (params.size() > 4) {
 				result = this.getBalance(params.getString(3), params.getString(4), index);
 			}else{
 				result = this.getBalance("true", "", index);
@@ -231,21 +231,29 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			param 4: includePending: boolstring* (optional),
 			param 5: address: String (optional)
 			*/
-				if(params.size() > 2){
+				if(params.size() > 3){
 					result = this.getBalance(params.getString(3), "", index);
-				}else if (params.size() > 3) {
+				}else if (params.size() > 4) {
 					result = this.getBalance(params.getString(3), params.getString(4), index);
 				}else{
 					result = this.getBalance("true", "", index);
 				}
 				int indexOfComma = result.indexOf(',');
-				String totalBalance2 = result.substring(0, indexOfComma - 1);
-				String confirmedBalance2 = result.substring(indexOfComma + 1, result.length());
 				JSONObject balance2 = new JSONObject();
+				String totalBalance2;
+				String confirmedBalance2;
+				String errorResponse;
 				try{
+				if(indexOfComma != -1){
+					totalBalance2 = result.substring(0, indexOfComma - 1);
+					confirmedBalance2 = result.substring(indexOfComma + 1, result.length());
 					balance2.put("total:", totalBalance2);
 					balance2.put("confirmed:", confirmedBalance2);
 					response.put("result", balance2);
+				}else{
+					errorResponse = "error: invalid balanced recieved";
+					response.put("result", errorResponse);
+				}
 				}catch(JSONException e ){
 					error = e.toString();
 				}
