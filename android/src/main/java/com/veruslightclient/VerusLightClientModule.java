@@ -477,9 +477,6 @@ try {
 
 		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, birthdayString, birthdayInt, numberOfAccounts);
 		coinToIndex.put(path, indexNumber);
-		if(checkError(output) == true){
-			promise.reject(output);
-		}
 		promise.resolve("true");
 	}catch (IllegalViewOperationException e) {
 			promise.reject(E_LAYOUT_ERROR, e);
@@ -496,8 +493,8 @@ try {
 		String path = coinId + "_" + accountHash + "_" + coinProto;
 
 		String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.Initer(VerusLightClientModule.context, path, index);
-		if(checkError(output) == true){
-			promise.reject(output);
+		if(checkError(response) == true){
+			promise.reject(response);
 		}
 		promise.resolve(response);
 	}catch (IllegalViewOperationException e) {
@@ -518,11 +515,11 @@ try {
 			Context mContext = mActivity.getApplicationContext();
 			VerusLightClientModule.context = mContext;
 
-			int index = int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
+			int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 
 			String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.InitClient(VerusLightClientModule.context, index);
-			if(checkError(output) == true){
-				promise.reject(output);
+			if(checkError(response) == true){
+				promise.reject(response);
 			}
 			promise.resolve(response);
 		}catch (IllegalViewOperationException e) {
@@ -538,7 +535,7 @@ try {
 		VerusLightClientModule.context = mContext;
 		String output = "";
 
-		int index = int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
+		int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 		if(index == -1){
 			output = "Error: " + coinId + "_" + accountHash + "_" + coinProto + " not initialized";
 		}
@@ -666,9 +663,9 @@ try {
 		return data;
 	}
 
-	Bool checkError(String error){
-		if(result.length() > 5){
-			String test = result.substring(0, 6);
+	Boolean checkError(String error){
+		if(error.length() > 5){
+			String test = error.substring(0, 6);
 			if(test.equals("error:")){
 				return true;
 			}
