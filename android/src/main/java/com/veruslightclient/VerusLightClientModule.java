@@ -286,8 +286,6 @@ try {
 		}
 
 		response.put("id", id);
-		//response.put("result", result);
-		response.put("error", error);
 		response.put("JsonRPC", "2.0");
 		/*id, result, error, version*/
 		} catch (JSONException e) {
