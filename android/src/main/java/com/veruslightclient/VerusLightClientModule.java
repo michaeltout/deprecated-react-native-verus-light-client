@@ -276,7 +276,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				errorOBJ.put("code" , "-32603");
 				error = result.substring(7, result.length());
 				errorOBJ.put("message", "parameters are wrong");
-				errorOBJ.put("Data", error);
+				errorOBJ.put("data", error);
 				response.put("result", null );
 				response.put("result", "error");
 				result = "error";
