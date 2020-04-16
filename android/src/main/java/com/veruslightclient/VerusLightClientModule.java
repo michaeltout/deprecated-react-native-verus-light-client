@@ -291,7 +291,7 @@ try {
 		} catch (JSONException e) {
 		//smt
 		}
-		promise.resolve(response);
+		promise.resolve(response.toString());
 	}catch (IllegalViewOperationException e) {
 		promise.reject(E_LAYOUT_ERROR, e);
 	}
