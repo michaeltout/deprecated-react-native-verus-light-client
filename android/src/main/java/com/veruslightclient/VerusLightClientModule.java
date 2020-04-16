@@ -291,7 +291,7 @@ try {
 		} catch (JSONException e) {
 		//smt
 		}
-		promise.resolve(response.toString());
+		promise.resolve(response);
 	}catch (IllegalViewOperationException e) {
 		promise.reject(E_LAYOUT_ERROR, e);
 	}
@@ -489,7 +489,7 @@ try {
 	@ReactMethod
 	public void openWallet(String coinId, String coinProto, String accountHash, Promise promise){
 		try{
-		int index = getIndex(coinId, accountHash, coinProto); //index number to link correct object to the function
+		int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 		String path = coinId + "_" + accountHash + "_" + coinProto;
 
 		String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.Initer(VerusLightClientModule.context, path, index);
@@ -512,7 +512,7 @@ try {
 			Context mContext = mActivity.getApplicationContext();
 			VerusLightClientModule.context = mContext;
 
-			int index = getIndex(coinId, accountHash, coinProto); //index number to link correct object to the function
+			int index = int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 
 			String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.InitClient(VerusLightClientModule.context, index);
 			promise.resolve(response);
@@ -529,7 +529,7 @@ try {
 		VerusLightClientModule.context = mContext;
 		String output = "";
 
-		int index = getIndex(coinId, accountHash, coinProto); //index number to link correct object to the function
+		int index = int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 		if(index == -1){
 			output = "Error: " + coinId +"_" + accountHash + "_" + coinProto + " not initialized";
 		}
