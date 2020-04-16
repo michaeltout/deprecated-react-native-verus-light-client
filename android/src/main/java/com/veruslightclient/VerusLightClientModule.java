@@ -291,7 +291,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		response.put("jsonrpc", "2.0");
 		/*id, result, error, version*/
 		} catch (JSONException e) {
-		//smt
+			promise.reject(E_LAYOUT_ERROR, e);
 		}
 		promise.resolve(response.toString());
 	}catch (IllegalViewOperationException e) {
