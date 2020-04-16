@@ -67,7 +67,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 	/*the request method is the main way to interact with the kotlin*/
 
 	@ReactMethod
-	public void request (int id, String method, ReadableArray params, String vJRPC, Promise promise){
+	public void request (int id, String method, ReadableArray params, Promise promise){
 		try{
 		JSONObject response = new JSONObject();
 		String result = "";
@@ -207,14 +207,15 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				}
 
 			case "z_getbalance":
-			if(params.size() > 2){
+			if(params.size() > 3){
 				result = this.getBalance(params.getString(3), "", index);
-			}else if (params.size() > 3) {
+			}else if (params.size() > 4) {
 				result = this.getBalance(params.getString(3), params.getString(4), index);
 			}else{
 				result = this.getBalance("true", "", index);
 			}
 			int character = result.indexOf(',');
+			if(character != -1){
 			String totalBalance = result.substring(0, character - 1);
 			String confirmedBalance = result.substring(character + 1, result.length());
 			JSONObject balance = new JSONObject();
@@ -225,27 +226,36 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			}catch(JSONException e ){
 				error = e.toString();
 			}
+		}
 					break;
 			case "getprivatebalance":
 			/*
 			param 4: includePending: boolstring* (optional),
 			param 5: address: String (optional)
 			*/
-				if(params.size() > 2){
+				if(params.size() > 3){
 					result = this.getBalance(params.getString(3), "", index);
-				}else if (params.size() > 3) {
+				}else if (params.size() > 4) {
 					result = this.getBalance(params.getString(3), params.getString(4), index);
 				}else{
 					result = this.getBalance("true", "", index);
 				}
 				int indexOfComma = result.indexOf(',');
-				String totalBalance2 = result.substring(0, indexOfComma - 1);
-				String confirmedBalance2 = result.substring(indexOfComma + 1, result.length());
 				JSONObject balance2 = new JSONObject();
+				String totalBalance2;
+				String confirmedBalance2;
+				String errorResponse;
 				try{
+				if(indexOfComma != -1){
+					totalBalance2 = result.substring(0, indexOfComma - 1);
+					confirmedBalance2 = result.substring(indexOfComma + 1, result.length());
 					balance2.put("total:", totalBalance2);
 					balance2.put("confirmed:", confirmedBalance2);
 					response.put("result", balance2);
+				}else{
+					errorResponse = "error: invalid balanced recieved";
+					response.put("result", errorResponse);
+				}
 				}catch(JSONException e ){
 					error = e.toString();
 				}
@@ -271,7 +281,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		response.put("id", id);
 		//response.put("result", result);
 		response.put("error", error);
-		response.put("JsonRPC", vJRPC);
+		response.put("JsonRPC", "2.0");
 		/*id, result, error, version*/
 		} catch (JSONException e) {
 		//smt
@@ -636,6 +646,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		if(cutter.length() > 0){
 			int index = 0;
 			int indexOne = cutter.indexOf(',', index);
+			if(indexOne != -1){
 			count = count + 1;
 			index = indexOne + 1;
 			int indexTwo = cutter.indexOf(',', index);
@@ -656,6 +667,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			}
 			cutString(pass, store, count);
 		}
+	}
 		return;
 	}
 

@@ -65,7 +65,9 @@ class KtJavaComLayer (){
 
 		//initialzes the client, this will create a new one
 		fun InitClient(mContext: Context, index: Int): String = runBlocking{
-
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 			try{
 			withContext(IO){
 				coins[index].putInitClient(mContext);
@@ -75,6 +77,7 @@ class KtJavaComLayer (){
 				val error = e.toString();
 				"error: $error";
 			}
+		}
 	}
 
 //adds a coin object, the object that enables multicoin functionality.
@@ -96,6 +99,9 @@ class KtJavaComLayer (){
 
 	//initializes syncronizer for the first time
 	fun Initer(mContext: Context, path: String, index: Int): String{
+		if(index == -1){
+			return	"error: not initialized coin usage";
+		}else{
 		try{
 		val checkPath = Initializer.dataDbPath(mContext, path);
 		val file = File(checkPath);
@@ -111,10 +117,14 @@ class KtJavaComLayer (){
 	}
 		return "true";
 	}
+	}
 
 
 	//starts the sycronizer
 	fun syncronizerstart(mContext: Context, index: Int): String {
+		if(index == -1){
+				return "error: not initialized coin usage";
+		}else{
 		if(coins[index].initializer != null){
 			coins[index].synchronizer = Synchronizer(mContext, coins[index].initializer!!);
 			try{
@@ -129,6 +139,7 @@ class KtJavaComLayer (){
 		}else{
 			return "error: initialize the wallet first";
 		}
+	}
 	}
 
 
@@ -146,6 +157,9 @@ class KtJavaComLayer (){
 
 	//deletes the initializer
 	fun interDelete(index: Int): String = runBlocking{
+		if(index == -1){
+				"error: not initialized coin usage";
+		}else{
 		try{
 			coins[index].initializer?.clear();
 			coins[index].initializer = null;
@@ -155,14 +169,19 @@ class KtJavaComLayer (){
 			"error: $error";
 		}
 	}
+	}
 
 	//functions for the module
 		fun returnClient(index: Int): String?{
+			if(index == -1){
+				return	"error: not initialized coin usage";
+			}else{
 			if(lightwalletService != null){
 				return lightwalletService?.toString();
 			 }else{
 				 return "not initialzed yet";
 			 }
+		 }
 		}
 
 		//the dirty functions are composed of multiple kotlin functions to achieve
@@ -171,27 +190,46 @@ class KtJavaComLayer (){
 
 		//returns BlockHeigt
 		fun getBlockHeightDirty(mContext: Context, index: Int): String = runBlocking{
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 					initLightWalletService(mContext, index);
 					getBlockHeight(index);
 					BlockHeigt;
+				}
 		}
 
 		//returns blockrage
 		fun getBlockRangeDirty(mContext: Context, rangeStart: Int, rangeStop: Int, index: Int): String? = runBlocking{
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 				val range = IntRange(rangeStart, rangeStop);
 				initLightWalletService(mContext, index);
 				getBlockRage(range, index);
+			}
 		}
 
 		//returns block infomarion
 		fun getBlockDirty(mContext: Context, blockNumber: Int, index: Int): String? = runBlocking{
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 			val range = IntRange(blockNumber, blockNumber);
 			initLightWalletService(mContext, index);
 			getBlockRage(range, index);
 		}
+		}
 
 		//return address
-		fun getAddressDirty(index: Int): Array<String> = runBlocking{
+		fun getAddressDirty(index: Int): Array<out String?> = runBlocking{
+			if(index == -1){
+				val errorArray = ArrayList<String>();
+				errorArray.add("error: not initialized coin usage");
+				var array = arrayOfNulls<String>(errorArray.size);
+				errorArray.toArray(array);
+
+			}else{
 				//val stonks =
 			 coins[index].getAddress();
 				//stonks[0];
@@ -205,14 +243,26 @@ class KtJavaComLayer (){
 				}
 			answere;*/
 		}
+		}
 
 		//return privatekey
 		fun getPrivateKeyDirty(seed: ByteArray, index: Int): String = runBlocking{
+			if(index == -1){
+				"error: not initialized coin usage"
+			}else{
 			 coins[index].getPrivKey();
+		 }
 		}
 
 		//return list of transactions
 		fun getListOfTransactionDirty(mContext: Context, info: String, index: Int): Array<String?> = runBlocking{
+			if(index == -1){
+				val errorArray = ArrayList<String>();
+				errorArray.add("error: not initialized coin usage");
+				var array = arrayOfNulls<String>(errorArray.size);
+				errorArray.toArray(array);
+				array;
+			}else{
 			//[ "pending" OR "cleared" OR "received" OR "sent" OR "all"]
 			var stonks: String = "";
 			var arraylist = ArrayList<String>();
@@ -282,9 +332,13 @@ class KtJavaComLayer (){
 		arraylist.toArray(array);
 		array;
 	}
+	}
 
 		//get sync status
 		fun getSyncStatusDirty(index: Int): String = runBlocking{
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 				if(coins[index].synchronizer != null){
 				var stonks: String = "";
 				coins[index].synchronizer?.status?.collect(
@@ -297,18 +351,26 @@ class KtJavaComLayer (){
 				}else{
 					"error: Not initialized";
 				}
+			}
 		}
 
 		//gets the syncronizer progress on downloading the blockchain
 		fun getSyncProgressDirty(index: Int): String = runBlocking{
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 			if( coins[index].synchronizer != null){
 				coins[index].synchronizer?.progress.toString()!!;
 			}else{
 				"error: Not initialized"
 			}
 		}
+		}
 
-		fun getIdentityDirty(context: Context, index: Int, identity: String): Identities{
+		fun getIdentityDirty(context: Context, index: Int, identity: String): Identities?{
+			if(index == -1){
+					return null;
+			}else{
 			coins[index].putInitClient(context);
 			lateinit var rawIdentity: Service.IdentityInfo;
 			try {
@@ -321,8 +383,12 @@ class KtJavaComLayer (){
 			//identity.updateIdentityInfo(rawIdentity!!);
 			return identity;
 		}
+		}
 
-		fun getIdentityInfoDirty(context: Context, index: Int, identity: String): Identities{
+		fun getIdentityInfoDirty(context: Context, index: Int, identity: String): Identities?{
+			if(index == -1){
+					return null;
+			}else{
 				coins[index].putInitClient(context);
 				lateinit var rawIdentityInfo: Service.IdentityInfo;
 				try {
@@ -334,9 +400,13 @@ class KtJavaComLayer (){
 				identity.setIdentity(rawIdentityInfo?.getIdentity()!!);
 				identity.updateIdentityInfo(rawIdentityInfo!!);
 				return identity;
+			}
 		}
 
 		fun verifyMessageDirty(context: Context, index: Int,signer: String, signature: String, message: String, checklast: Boolean): Boolean?{
+			if(index == -1){
+				return null;
+			}else{
 			coins[index].putInitClient(context);
 			var response: Boolean? = null;
 				try {
@@ -345,10 +415,14 @@ class KtJavaComLayer (){
 
 				}
 				return response;
+			}
 		}
 
 		//gets the wallet balance of all the addresses
 		fun getWalletBalanceDirty( includePending: Boolean, address: String, index: Int): String = runBlocking{
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 			val numberOfAccounts = coins[index].getNumberOfAccounts();
 			var totalBalance: Long = 0;
 			var availableBalance: Long = 0;
@@ -380,9 +454,13 @@ class KtJavaComLayer (){
 				"error: Not initialized";
 			}
 		}
+		}
 
 		//sends a transactions
 		fun putSendDirty(mContext: Context, toAddress: String, fromAddress: String, amount: Long, memo: String, index: Int): String = runBlocking{
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 				if(coins[index].synchronizer != null){
 			val toAddress = coins[index].synchronizer?.getAddress()!!; //address delete later
 			var text: String = "haha";
@@ -397,45 +475,77 @@ class KtJavaComLayer (){
 				}else{
 					"error: Not initialized";
 				}
+			}
 	}
 
 		//helper methods
 		private fun initLightWalletService(mContext: Context, index: Int){
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 			coins[index].putInitClient(mContext);
+		}
 		}
 
 		//sets the BlockHeigt
 		private fun getBlockHeight(index: Int){
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 				BlockHeigt = coins[index].client?.getLatestBlockHeight().toString() ?: "null error";
+			}
 		}
 
 		//gets blockrange
 		private fun getBlockRage(range: IntRange, index: Int): String?{
+			if(index == -1){
+				return "error: not initialized coin usage";
+			}else{
 				return coins[index].client?.getBlockRange(range).toString();
+			}
 		}
 
 		//gets spendingKeys
 		private fun getSpendingKeys(seed: ByteArray, index: Int): String?{
+			if(index == -1){
+				return "error: not initialized coin usage";
+			}else{
 			 return coins[index].getSpendingKeys();
+		 }
 		}
 
 		//watchout this one is in string
 		private fun getViewingKeys(index: Int): String?{
+			if(index == -1){
+				return "error: not initialized coin usage";
+			}else{
 			return coins[index].getViewingKeys();
+		}
 		}
 
 		//gets the list of address
 		private fun getAddress(index: Int): Array<String>{
+			if(index == -1){
+				val errorArray = ArrayList<String>();
+				errorArray.add("error: not initialized coin usage");
+				var array = arrayOfNulls<String?>(errorArray.size);
+				return errorArray.toArray(array);
+			}else{
 			return coins[index].getAddress();
+		}
 		}
 
 		//helper with blockheight, might delete
 		private fun returnBlockHeigt(index: Int): String?{
+			if(index == -1){
+				return "error: not initialized coin usage";
+			}else{
 			if(::BlockHeigt.isInitialized){
 			return BlockHeigt;
 		}else{
 			return "Late Init not done";
 		}
+	}
 		}
 		//companion object
 	}
