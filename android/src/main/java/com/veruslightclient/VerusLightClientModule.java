@@ -477,6 +477,9 @@ try {
 
 		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, birthdayString, birthdayInt, numberOfAccounts);
 		coinToIndex.put(path, indexNumber);
+		if(checkError(output) == true){
+			promise.reject(output);
+		}
 		promise.resolve("true");
 	}catch (IllegalViewOperationException e) {
 			promise.reject(E_LAYOUT_ERROR, e);
@@ -493,6 +496,9 @@ try {
 		String path = coinId + "_" + accountHash + "_" + coinProto;
 
 		String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.Initer(VerusLightClientModule.context, path, index);
+		if(checkError(output) == true){
+			promise.reject(output);
+		}
 		promise.resolve(response);
 	}catch (IllegalViewOperationException e) {
 		promise.reject(E_LAYOUT_ERROR, e);
@@ -515,6 +521,9 @@ try {
 			int index = int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 
 			String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.InitClient(VerusLightClientModule.context, index);
+			if(checkError(output) == true){
+				promise.reject(output);
+			}
 			promise.resolve(response);
 		}catch (IllegalViewOperationException e) {
       promise.reject(E_LAYOUT_ERROR, e);
@@ -531,9 +540,12 @@ try {
 
 		int index = int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 		if(index == -1){
-			output = "Error: " + coinId +"_" + accountHash + "_" + coinProto + " not initialized";
+			output = "Error: " + coinId + "_" + accountHash + "_" + coinProto + " not initialized";
 		}
 		output = cash.z.wallet.sdk.KtJavaComLayer.Companion.syncronizerstart(VerusLightClientModule.context, index).toString();
+		if(checkError(output) == true){
+			promise.reject(output);
+		}
 		promise.resolve(output);
 	}
 
@@ -543,6 +555,9 @@ try {
 		try{
 			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
 			String output = cash.z.wallet.sdk.KtJavaComLayer.Companion.syncronizerStop(index);
+			if(checkError(output) == true){
+				promise.reject(output);
+			}
 			promise.resolve(output);
 		}catch (IllegalViewOperationException e) {
 			promise.reject(E_LAYOUT_ERROR, e);
@@ -560,6 +575,9 @@ try {
 		//vars (coinId: String, coinProtocol: String, accountHash: String)
 			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
 			String output = cash.z.wallet.sdk.KtJavaComLayer.Companion.syncronizerStop(index);
+			if(checkError(output) == true){
+				promise.reject(output);
+			}
 			promise.resolve(output);
 		}catch (IllegalViewOperationException e) {
       promise.reject(E_LAYOUT_ERROR, e);
@@ -575,6 +593,9 @@ try {
 		try{
 			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
 			String output = cash.z.wallet.sdk.KtJavaComLayer.Companion.interDelete(index);
+			if(checkError(output) == true){
+				promise.reject(output);
+			}
 			promise.resolve(output);
 		}catch (IllegalViewOperationException e) {
       promise.reject(E_LAYOUT_ERROR, e);
@@ -643,6 +664,16 @@ try {
 								 + Character.digit(s.charAt(i+1), 16));
 		}
 		return data;
+	}
+
+	Bool checkError(String error){
+		if(result.length() > 5){
+			String test = result.substring(0, 6);
+			if(test.equals("error:")){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	//function that is used to cut a string into all components
