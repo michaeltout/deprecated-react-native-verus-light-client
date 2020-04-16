@@ -482,7 +482,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 	this funciton initializes the initializer. THis actually start stuff up, and does nto only load data.
 	*/
 	@ReactMethod
-	public void openWallet(String coinId, String coinProto, String accountHash, int birthday,Promise promise){
+	public void openWallet(String coinId, String coinProto, String accountHash, Promise promise){
 		try{
 		int index = getIndex(coinId, accountHash, coinProto); //index number to link correct object to the function
 		String path = coinId + "_" + accountHash + "_" + coinProto;
