@@ -267,7 +267,8 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		if(error.equals("")){
 			error = "null";
 		}
-		try {
+
+try {
 
 		if(result.length() > 5){
 			String test = result.substring(0, 6);
@@ -277,9 +278,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				error = result.substring(7, result.length());
 				errorOBJ.put("message", "parameters are wrong");
 				errorOBJ.put("data", error);
-				response.put("result", null );
-				response.put("result", "error");
-				result = "error";
+				response.put("result", JSONObject.NULL );
 				response.put("error", errorOBJ);
 			}else{
 				response.put("error", error);
@@ -288,10 +287,11 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 
 		response.put("id", id);
 		//response.put("result", result);
-		response.put("jsonrpc", "2.0");
+		response.put("error", error);
+		response.put("JsonRPC", "2.0");
 		/*id, result, error, version*/
 		} catch (JSONException e) {
-			promise.reject(E_LAYOUT_ERROR, e);
+		//smt
 		}
 		promise.resolve(response.toString());
 	}catch (IllegalViewOperationException e) {
@@ -489,7 +489,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 	this funciton initializes the initializer. THis actually start stuff up, and does nto only load data.
 	*/
 	@ReactMethod
-	public void openWallet(String coinId, String coinProto, String accountHash, Promise promise){
+	public void openWallet(String coinId, String coinProto, String accountHash, int birthday,Promise promise){
 		try{
 		int index = getIndex(coinId, accountHash, coinProto); //index number to link correct object to the function
 		String path = coinId + "_" + accountHash + "_" + coinProto;
@@ -653,7 +653,6 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		if(cutter.length() > 0){
 			int index = 0;
 			int indexOne = cutter.indexOf(',', index);
-			if(indexOne != -1){
 			count = count + 1;
 			index = indexOne + 1;
 			int indexTwo = cutter.indexOf(',', index);
@@ -674,7 +673,6 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			}
 			cutString(pass, store, count);
 		}
-	}
 		return;
 	}
 
