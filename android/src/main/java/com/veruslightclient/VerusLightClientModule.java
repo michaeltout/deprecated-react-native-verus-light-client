@@ -268,16 +268,23 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			error = "null";
 		}
 
+try {
+
 		if(result.length() > 5){
 			String test = result.substring(0, 6);
 			if(test.equals("error:")){
+				JSONObject errorOBJ = new JSONObject();
+				errorOBJ.put("code" , "-32603");
 				error = result.substring(7, result.length());
-				error = "-32603	Internal: " + error;
-				result = "null";
+				errorOBJ.put("message", "parameters are wrong");
+				errorOBJ.put("data", error);
+				response.put("result", JSONObject.NULL );
+				response.put("error", errorOBJ);
+			}else{
+				response.put("error", error);
 			}
 		}
 
-		try {
 		response.put("id", id);
 		//response.put("result", result);
 		response.put("error", error);
@@ -646,7 +653,6 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		if(cutter.length() > 0){
 			int index = 0;
 			int indexOne = cutter.indexOf(',', index);
-			if(indexOne != -1){
 			count = count + 1;
 			index = indexOne + 1;
 			int indexTwo = cutter.indexOf(',', index);
@@ -667,7 +673,6 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			}
 			cutString(pass, store, count);
 		}
-	}
 		return;
 	}
 
