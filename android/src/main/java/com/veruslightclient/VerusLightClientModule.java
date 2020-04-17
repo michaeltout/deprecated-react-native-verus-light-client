@@ -292,7 +292,7 @@ try {
 		response.put("JsonRPC", "2.0");
 		/*id, result, error, version*/
 		} catch (JSONException e) {
-			promise.reject("mister big dick was right");
+			promise.reject(error);
 		}
 		promise.resolve(response.toString());
 	}catch (IllegalViewOperationException e) {
