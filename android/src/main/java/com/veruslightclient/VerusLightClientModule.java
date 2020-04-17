@@ -270,6 +270,9 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 
 try {
 
+		if(error != null){
+			promise.reject(error);
+		}else{
 		if(result.length() > 5){
 			String test = result.substring(0, 6);
 			if(test.equals("error:")){
@@ -284,12 +287,12 @@ try {
 				response.put("error", error);
 			}
 		}
-
+}
 		response.put("id", id);
 		response.put("JsonRPC", "2.0");
 		/*id, result, error, version*/
 		} catch (JSONException e) {
-		//smt
+			promise.reject("mister big dick was right");
 		}
 		promise.resolve(response.toString());
 	}catch (IllegalViewOperationException e) {
