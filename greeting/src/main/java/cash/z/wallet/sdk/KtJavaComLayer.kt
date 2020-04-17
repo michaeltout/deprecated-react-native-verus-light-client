@@ -105,6 +105,7 @@ class KtJavaComLayer (){
 		try{
 		val checkPath = Initializer.dataDbPath(mContext, path);
 		val file = File(checkPath);
+
 		coins[index].initializer = Initializer(mContext, path); //path
 		if(file.exists() == true){
 			coins[index].putInitOpen();
@@ -326,7 +327,7 @@ class KtJavaComLayer (){
 				);
 			}
 			}else{
-				"error: Not initialized";
+				"error: syncronizer has not been started";
 			}
 		var array = arrayOfNulls<String>(arraylist.size);
 		arraylist.toArray(array);
@@ -349,7 +350,7 @@ class KtJavaComLayer (){
 					);
 					stonks;
 				}else{
-					"error: Not initialized";
+					"error: syncronizer has not been started";
 				}
 			}
 		}
@@ -451,7 +452,7 @@ class KtJavaComLayer (){
 			val tB = totalBalance.toString();
 			"total: " + tB + ", confirmed: " + aB + "";
 			}else{
-				"error: Not initialized";
+				"error: syncronizer has not been started";
 			}
 		}
 		}
@@ -473,7 +474,7 @@ class KtJavaComLayer (){
 			}
 			text;
 				}else{
-					"error: Not initialized";
+					"error: syncronizer has not been started";
 				}
 			}
 	}
