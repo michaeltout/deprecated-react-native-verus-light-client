@@ -265,7 +265,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		}
 
 		if(error.equals("")){
-			error = "null";
+			error = null;
 		}
 
 try {
