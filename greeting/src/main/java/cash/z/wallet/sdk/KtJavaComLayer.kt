@@ -450,7 +450,8 @@ class KtJavaComLayer (){
 			}
 			val aB = availableBalance.toString();
 			val tB = totalBalance.toString();
-			"total: " + tB + ", confirmed: " + aB + "";
+			val total =  tB + ", " + aB + "";
+			total;
 			}else{
 				"error: syncronizer has not been started";
 			}
