@@ -224,7 +224,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				balance.put("confirmed:", confirmedBalance);
 				response.put("result", balance);
 			}catch(JSONException e ){
-				error = e.toString();
+
 			}
 		}
 					break;
@@ -241,17 +241,17 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 					result = this.getBalance("true", "", index);
 				}
 				int indexOfComma = result.indexOf(',');
-				JSONObject balance2 = new JSONObject();
-				String totalBalance2;
-				String confirmedBalance2;
+				JSONObject balanceStonks = new JSONObject();
+				String totalBalanceStonks;
+				String confirmedBalanceStonks;
 				String errorResponse;
 				try{
 				if(indexOfComma != -1){
-					totalBalance2 = result.substring(0, indexOfComma - 1);
-					confirmedBalance2 = result.substring(indexOfComma + 1, result.length());
-					balance2.put("total:", totalBalance2);
-					balance2.put("confirmed:", confirmedBalance2);
-					response.put("result", balance2);
+					totalBalanceStonks = result.substring(0, indexOfComma - 1);
+					confirmedBalanceStonks = result.substring(indexOfComma + 1, result.length());
+					balanceStonks.put("total:", totalBalanceStonks);
+					balanceStonks.put("confirmed:", confirmedBalanceStonks);
+					response.put("result", balanceStonks);
 				}else{
 					errorResponse = "error: invalid balanced recieved";
 					response.put("result", errorResponse);
@@ -265,14 +265,18 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 		}
 
 		if(error.equals("")){
-			error = "null";
+			error = null;
 		}
 
 try {
 
+		if(error != ""){
+
+		}else{
 		if(result.length() > 5){
 			String test = result.substring(0, 6);
 			if(test.equals("error:")){
+
 				JSONObject errorOBJ = new JSONObject();
 				errorOBJ.put("code" , "-32603");
 				error = result.substring(7, result.length());
@@ -284,12 +288,12 @@ try {
 				response.put("error", error);
 			}
 		}
-
+}
 		response.put("id", id);
-		response.put("JsonRPC", "2.0");
+		response.put("jsonrpc", "2.0");
 		/*id, result, error, version*/
 		} catch (JSONException e) {
-		//smt
+
 		}
 		promise.resolve(response.toString());
 	}catch (IllegalViewOperationException e) {
