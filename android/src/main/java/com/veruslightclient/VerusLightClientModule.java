@@ -217,15 +217,15 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			int character = result.indexOf(',');
 			if(character != -1){
 			String totalBalanceStr = result.substring(0, character - 1);
-			Double totalBalanceDbl =  Double.parseDouble(totalBalanceDbl);
+			Double totalBalanceDbl =  Double.parseDouble(totalBalanceStr);
 
 			String confirmedBalanceStr = result.substring(character + 1, result.length());
 			Double privateBalanceDbl =  Double.parseDouble(confirmedBalanceStr);
 
 			JSONObject balance = new JSONObject();
 			try{
-				balance.put("total:", totalBalance);
-				balance.put("confirmed:", confirmedBalance);
+				balance.put("total:", totalBalanceDbl);
+				balance.put("confirmed:", confirmedBalanceDbl);
 				response.put("result", balance);
 			}catch(JSONException e ){
 
