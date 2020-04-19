@@ -242,15 +242,21 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				}
 				int indexOfComma = result.indexOf(',');
 				JSONObject balanceStonks = new JSONObject();
-				String totalBalanceStonks;
-				String confirmedBalanceStonks;
+				String totalBalanceStonksStr;
+				Double totalBalanceStonksDbl;
+
+				String confirmedBalanceStonksStr;
+				Double confirmedBalancDbl;
+
 				String errorResponse;
 				try{
 				if(indexOfComma != -1){
-					totalBalanceStonks = result.substring(0, indexOfComma - 1);
-					confirmedBalanceStonks = result.substring(indexOfComma + 1, result.length());
-					balanceStonks.put("total:", totalBalanceStonks);
-					balanceStonks.put("confirmed:", confirmedBalanceStonks);
+					totalBalanceStonksStr = result.substring(0, indexOfComma - 1);
+					totalBalanceStonksDbl = Double.parseDouble(totalBalanceStonksStr);
+					confirmedBalanceStonksStr = result.substring(indexOfComma + 1, result.length());
+					confirmedBalancDbl = Double.parseDouble(confirmedBalanceStonksStr);
+					balanceStonks.put("total:", totalBalanceStonksDbl);
+					balanceStonks.put("confirmed:", confirmedBalancDbl);
 					response.put("result", balanceStonks);
 				}else{
 					errorResponse = "error: invalid balanced recieved";
