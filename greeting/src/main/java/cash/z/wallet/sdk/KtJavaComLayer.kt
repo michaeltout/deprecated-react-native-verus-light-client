@@ -277,7 +277,7 @@ class KtJavaComLayer (){
 //here we can add all values together in
 //"address": "2ei2joffd2", "amount": 15.160704, "category": "sent", "status": "confirmed", time: "341431", "txid": "3242edc2c2", "height": "312312"
 							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-							", catagory, pending, status, unconfirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height, -1"
+							", category, pending, status, unconfirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height, -1"
 							arraylist.add(info)
 						}
 					}
@@ -289,7 +289,7 @@ class KtJavaComLayer (){
 						var meme = x.toList()
 						for(p in 0 until meme.size){
 							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-							", catagory, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+							", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
 							//here we can add all values together in
 							//one big string
 							arraylist.add(info)
@@ -304,7 +304,7 @@ class KtJavaComLayer (){
 						var meme = x.toList();
 						for(p in 0 until meme.size){
 							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-							", catagory, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+							", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
 							//here we can add all values together in
 							//one big string
 							arraylist.add(info)
@@ -318,7 +318,7 @@ class KtJavaComLayer (){
 					var meme = x.toList();
 					for(p in 0 until meme.size){
 						val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-						", catagory, sent, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+						", category, sent, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
 						//here we can add all values together in
 						//one big string
 						arraylist.add(info)
