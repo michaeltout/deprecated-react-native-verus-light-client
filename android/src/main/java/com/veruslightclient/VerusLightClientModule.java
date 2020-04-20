@@ -220,7 +220,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			Double totalBalanceDbl =  Double.parseDouble(totalBalanceStr);
 
 			String confirmedBalanceStr = result.substring(character + 1, result.length());
-			Double privateBalanceDbl =  Double.parseDouble(confirmedBalanceStr);
+			Double confirmedBalanceDbl =  Double.parseDouble(confirmedBalanceStr);
 
 			JSONObject balance = new JSONObject();
 			try{
