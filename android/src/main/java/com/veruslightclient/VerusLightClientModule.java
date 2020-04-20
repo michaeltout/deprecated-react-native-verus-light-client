@@ -142,7 +142,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 					error = e.toString();
 				}
 				break;
-			case "listtransaction":
+			case "listprivatetransactions":
 			/*
 			param 4: "pending" OR "cleared" OR "received" OR "sent" OR "all"
 			*/
