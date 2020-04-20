@@ -224,8 +224,8 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 
 			JSONObject balance = new JSONObject();
 			try{
-				balance.put("total:", totalBalanceDbl);
-				balance.put("confirmed:", confirmedBalanceDbl);
+				balance.put("total", totalBalanceDbl);
+				balance.put("confirmed", confirmedBalanceDbl);
 				response.put("result", balance);
 			}catch(JSONException e ){
 
