@@ -259,8 +259,8 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 					totalBalanceStonksDbl = Double.parseDouble(totalBalanceStonksStr);
 					confirmedBalanceStonksStr = result.substring(indexOfComma + 1, result.length());
 					confirmedBalancDbl = Double.parseDouble(confirmedBalanceStonksStr);
-					balanceStonks.put("total:", totalBalanceStonksDbl);
-					balanceStonks.put("confirmed:", confirmedBalancDbl);
+					balanceStonks.put("total", totalBalanceStonksDbl);
+					balanceStonks.put("confirmed", confirmedBalancDbl);
 					response.put("result", balanceStonks);
 				}else{
 					errorResponse = "error: invalid balanced recieved";
