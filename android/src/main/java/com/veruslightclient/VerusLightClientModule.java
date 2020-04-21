@@ -84,7 +84,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			try{
 				response.put("result", result);
 			}catch(JSONException e ){
-				error = e.toString();
+				result = e.toString();
 			}
 				break;
 
@@ -112,7 +112,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				}
 				response.put("result", array);
 			}catch(JSONException e ){
-				error = e.toString();
+				result = e.toString();
 			}
 				break;
 
@@ -124,7 +124,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				try{
 					response.put("result", id2);
 				}catch(JSONException e ){
-					error = e.toString();
+					result = e.toString();
 				}
 				break;
 			case "getidentitieswithinfo":
@@ -132,14 +132,14 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				try{
 					response.put("result", objJSON);
 				}catch(JSONException e ){
-					error = e.toString();
+					result = e.toString();
 				}
 				break;
 			case "verifymessage":
 				try{
 					response.put("result", this.verifyMessage(index, params.getString(3), params.getString(4), params.getString(5), params.getString(6)));
 				}catch(JSONException e ){
-					error = e.toString();
+					result = e.toString();
 				}
 				break;
 			case "listprivatetransactions":
@@ -188,7 +188,6 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			try{
 				JSONArray array = new JSONArray();
 				for(int x = 0; x < composite.length; x++){
-					//sort the string TODO
 					JSONObject returned = new JSONObject();
 					cutString(composite[x], returned, 0);
 				}
@@ -197,7 +196,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				}
 				response.put("result", array);
 			}catch(JSONException e ){
-				error = e.toString();
+				result = e.toString();
 			}
 				break;
 			case "send":
@@ -211,7 +210,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				try{
 					response.put("result", result);
 				}catch(JSONException e ){
-					error = e.toString();
+					result = e.toString();
 				}
 				break;
 			case "getinfo":
@@ -234,7 +233,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 
 					response.put("result", info);
 				}catch(JSONException e ){
-					error = e.toString();
+					result = e.toString();
 				}
 			}else{
 				result = blockCountStr;
@@ -301,22 +300,16 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 					response.put("result", errorResponse);
 				}
 				}catch(JSONException e ){
-					error = e.toString();
+					result = e.toString();
 				}
 			break;
 			default:
 			error = "-32601	Method not found	The method does not exist / is not available";
 		}
 
-		if(error.equals("")){
-			error = null;
-		}
 
 try {
 
-		if(error != ""){
-
-		}else{
 		if(result.length() > 5){
 			String test = result.substring(0, 6);
 			if(test.equals("error:")){
@@ -324,7 +317,7 @@ try {
 				JSONObject errorOBJ = new JSONObject();
 				errorOBJ.put("code" , "-32603");
 				error = result.substring(7, result.length());
-				errorOBJ.put("message", "parameters are wrong");
+				errorOBJ.put("message", "Invalid Paramester");
 				errorOBJ.put("data", error);
 				response.put("result", JSONObject.NULL );
 				response.put("error", errorOBJ);
@@ -332,7 +325,10 @@ try {
 				response.put("error", error);
 			}
 		}
-}
+
+		if(!response.has("result")){
+			response.put("result", result);
+		}
 		response.put("id", id);
 		response.put("jsonrpc", "2.0");
 		/*id, result, error, version*/
