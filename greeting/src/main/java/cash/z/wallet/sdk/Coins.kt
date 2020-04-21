@@ -94,6 +94,11 @@ class Coins (
 
      private var syncroProgress: Int = -3;
 
+     var arraylistPending = ArrayList<String>();
+     var arraylistReceived = ArrayList<String>();
+     var arraylistCleared = ArrayList<String>();
+     var arraylistSend = ArrayList<String>();
+
     init{ //all the vars are passed into vars
       var name: String = "$ticker _$accountHash _$protocol";
       path = Initializer.dataDbPath(context, name);
@@ -212,6 +217,71 @@ class Coins (
           }
         }catch(e: Exception){
 
+      }
+    }
+
+    public fun monitorWalletChanges() = {
+      GlobalScope.launch {
+        synchronizer?.receivedTransactions!!.collect(
+          {
+            x ->
+            var meme = x.toList();
+            for(p in 0 until meme.size){
+              val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
+              ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+              //here we can add all values together in
+              //one big string
+              arraylistReceived.add(info)
+            }
+          }
+          );
+      }
+
+      GlobalScope.launch {
+        synchronizer?.sentTransactions!!.collect({
+					x ->
+					var meme = x.toList();
+					for(p in 0 until meme.size){
+						val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
+						", category, send, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+						//here we can add all values together in
+						//one big string
+						arraylistSend.add(info)
+					}
+				}
+				);
+      }
+
+      GlobalScope.launch {
+        synchronizer?.pendingTransactions!!.collect(
+					{
+						x ->
+						var meme = x.toList();
+						for(p in 0 until meme.size){
+//here we can add all values together in
+//"address": "2ei2joffd2", "amount": 15.160704, "category": "sent", "status": "confirmed", time: "341431", "txid": "3242edc2c2", "height": "312312"
+							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
+							", category, pending, status, unconfirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height, -1"
+							arraylistPending.add(info)
+						}
+					}
+					);
+      }
+
+
+      GlobalScope.launch {
+        synchronizer?.clearedTransactions!!.collect({
+        x ->
+        var meme = x.toList()
+        for(p in 0 until meme.size){
+          val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
+          ", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+          //here we can add all values together in
+          //one big string
+          arraylistCleared.add(info)
+        }
+      }
+      );
       }
     }
 

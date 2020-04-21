@@ -147,10 +147,24 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			param 4: "pending" OR "cleared" OR "received" OR "sent" OR "all"
 			*/
 			//pending not done yet.
-			String [] memes;
-
+			String [] composite;
+			if(params.size() < 4){
+				String[] one = this.getListOfTransaction("recieved", index);
+				String[] two = this.getListOfTransaction("pending", index);
+				String[] three = this.getListOfTransaction("send", index);
+				composite = new String[one.length + two.length + three.length];
+				for(int x = 0; x < one.length; x++){
+					composite[x] = one[x];
+				}
+				for(int x = 0; x < two.length; x++){
+					composite[one.length + x] = two[x];
+				}
+				for(int x = 0; x < three.length; x++){
+					composite[one.length + two.length + x] = three[x];
+				}
+			}else{
 			if(params.getString(3) != "all" || params.getString(3) != ""){
-				memes = this.getListOfTransaction(params.getString(3), index);
+				composite = this.getListOfTransaction(params.getString(3), index);
 			}else{
 					//String[] four = this.getListOfTransaction("cleared", index);
 					//memes = new String[localMeme.length];
@@ -158,27 +172,28 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 					String[] one = this.getListOfTransaction("recieved", index);
 					String[] two = this.getListOfTransaction("pending", index);
 					String[] three = this.getListOfTransaction("send", index);
-					memes = new String[one.length + two.length + three.length];
+					composite = new String[one.length + two.length + three.length];
 					for(int x = 0; x < one.length; x++){
-						memes[x] = one[x];
+						composite[x] = one[x];
 					}
 					for(int x = 0; x < two.length; x++){
-						memes[one.length + x] = two[x];
+						composite[one.length + x] = two[x];
 					}
 					for(int x = 0; x < three.length; x++){
-						memes[one.length + two.length + x] = three[x];
+						composite[one.length + two.length + x] = three[x];
 					}
 					//String[] quartet = ArrayUtils.addAll(trice, four);
 			}
+		}
 			try{
 				JSONArray array = new JSONArray();
-				for(int x = 0; x < memes.length; x++){
+				for(int x = 0; x < composite.length; x++){
 					//sort the string TODO
 					JSONObject returned = new JSONObject();
-					cutString(memes[x], returned, 0);
+					cutString(composite[x], returned, 0);
 				}
-				for(int x = 0; x < memes.length; x++){
-					array.put(memes[x]);
+				for(int x = 0; x < composite.length; x++){
+					array.put(composite[x]);
 				}
 				response.put("result", array);
 			}catch(JSONException e ){

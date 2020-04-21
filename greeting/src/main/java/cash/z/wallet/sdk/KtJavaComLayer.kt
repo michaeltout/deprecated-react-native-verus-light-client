@@ -129,6 +129,7 @@ class KtJavaComLayer (){
 		if(coins[index].initializer != null){
 			coins[index].synchronizer = Synchronizer(mContext, coins[index].initializer!!);
 			coins[index].monitorChanges();
+				coins[index].monitorWalletChanges()
 			try{
 				GlobalScope.launch { //has to happen here, becuase java does not have coroutines
 					coins[index].synchronizer?.start(this);
@@ -270,62 +271,16 @@ class KtJavaComLayer (){
 			var arraylist = ArrayList<String>();
 			if(coins[index].synchronizer != null){
 			if(info.equals("pending")){
-				coins[index].synchronizer?.pendingTransactions!!.collect(
-					{
-						x ->
-						var meme = x.toList();
-						for(p in 0 until meme.size){
-//here we can add all values together in
-//"address": "2ei2joffd2", "amount": 15.160704, "category": "sent", "status": "confirmed", time: "341431", "txid": "3242edc2c2", "height": "312312"
-							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-							", category, pending, status, unconfirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height, -1"
-							arraylist.add(info)
-						}
-					}
-					);
-				}
-			if(info.equals("cleared")){
-						coins[index].synchronizer?.clearedTransactions!!.collect({
-						x ->
-						var meme = x.toList()
-						for(p in 0 until meme.size){
-							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-							", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
-							//here we can add all values together in
-							//one big string
-							arraylist.add(info)
-						}
-					}
-					);
+				arraylist = coins[index].arraylistPending;
 			}
-			if(info.equals("received")){
-				coins[index].synchronizer?.receivedTransactions!!.collect(
-					{
-						x ->
-						var meme = x.toList();
-						for(p in 0 until meme.size){
-							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-							", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
-							//here we can add all values together in
-							//one big string
-							arraylist.add(info)
-						}
-					}
-					);
+			else if(info.equals("cleared")){
+				arraylist = coins[index].arraylistCleared;
 			}
-			if(info.equals("sent")){
-				coins[index].synchronizer?.sentTransactions!!.collect({
-					x ->
-					var meme = x.toList();
-					for(p in 0 until meme.size){
-						val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-						", category, sent, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
-						//here we can add all values together in
-						//one big string
-						arraylist.add(info)
-					}
-				}
-				);
+			else if(info.equals("received")){
+				arraylist = coins[index].arraylistReceived;
+			}
+			else if(info.equals("send")){
+				arraylist = coins[index].arraylistSend;
 			}
 			}else{
 				"error: syncronizer has not been started";
