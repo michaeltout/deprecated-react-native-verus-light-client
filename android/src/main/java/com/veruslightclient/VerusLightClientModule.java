@@ -198,14 +198,33 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				}catch(JSONException e ){
 					error = e.toString();
 				}
+				break;
 			case "getinfo":
-				result = this.getSyncStatus(index);
+			String status;
+			Integer progress;
+			Integer blockcount;
+			String blockCountStr;
+
+				status = this.getSyncStatus(index);
+				progress = this.getSyncprogress(index);
+				blockCountStr = this.getBlockCount(index);
+				if(blockCountStr != "error: not initialized coin usage"){
+				blockcount = Integer.parseInt(blockCountStr);
+
 				try{
-					response.put("result", result);
+					JSONObject info = new JSONObject();
+					info.put("status", status);
+					info.put("percent", progress);
+					info.put("blocks", blockcount);
+
+					response.put("result", info);
 				}catch(JSONException e ){
 					error = e.toString();
 				}
-
+			}else{
+				result = blockCountStr;
+			}
+				break;
 			case "z_getbalance":
 			if(params.size() > 3){
 				result = this.getBalance(params.getString(3), "", index);
@@ -458,7 +477,7 @@ try {
 			return cash.z.wallet.sdk.KtJavaComLayer.Companion.getSyncStatusDirty(index);
 	}
 //gets the progress the syncronizer has made in downloading the relevant blocks
-	private String getSyncprogress(int index){
+	private Integer getSyncprogress(int index){
 		return cash.z.wallet.sdk.KtJavaComLayer.Companion.getSyncProgressDirty(index);
 	}
 
@@ -690,17 +709,20 @@ try {
 	//function that is used to cut a string into all components
 	//seperated by comma's and add them together to form a key value pair.
 	void cutString(String cutter, JSONObject store, int count){
-		if(cutter.length() > 0){
-			int index = 0;
+		int index = 0;
+		if(cutter.indexOf(',', index) != -1){
 			int indexOne = cutter.indexOf(',', index);
 			count = count + 1;
 			index = indexOne + 1;
 			int indexTwo = cutter.indexOf(',', index);
+			if(indexTwo == -1){
+				indexTwo = cutter.length() -1 ;
+			}
 			count = count + 1;
 			index = indexTwo + 1;
 			String one = cutter.substring(0, indexOne - 1);
-			String two = cutter.substring(indexOne + 2, indexTwo - 1);
-			String pass = cutter.substring(indexTwo + 2, cutter.length());
+			String two = cutter.substring(indexOne + 1, indexTwo - 1);
+			String pass = cutter.substring(indexTwo + 1, cutter.length());
 			try{
 				if(count == 4 || count == 14){
 					int integer = Integer.parseInt(two);

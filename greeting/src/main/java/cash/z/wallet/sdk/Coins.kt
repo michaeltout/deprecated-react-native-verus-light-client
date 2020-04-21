@@ -90,6 +90,10 @@ class Coins (
 
      private lateinit var identities: ArrayList<Identities>;
 
+     private var syncroStatus: String = "";
+
+     private var syncroProgress: Int = -3;
+
     init{ //all the vars are passed into vars
       var name: String = "$ticker _$accountHash _$protocol";
       path = Initializer.dataDbPath(context, name);
@@ -180,6 +184,35 @@ class Coins (
         }
       }
       return -1;
+    }
+
+     private fun onStatus(status: Synchronizer.Status) {
+        syncroStatus = "$status";
+     }
+
+     private fun onProgress(i: Int){
+       syncroProgress = i;
+     }
+
+     public fun getStatus(): String{
+       return syncroStatus;
+     }
+
+     public fun getProgress(): Int{
+       return syncroProgress;
+     }
+
+    public fun monitorChanges() = runBlocking {
+      try{
+      GlobalScope.launch { //has to happen here, becuase java does not have coroutines
+          synchronizer?.status!!.collect({ x -> syncroStatus = "$x" });
+        }
+        GlobalScope.launch { //has to happen here, becuase java does not have coroutines
+            synchronizer?.progress!!.collect({x -> syncroProgress = x });
+          }
+        }catch(e: Exception){
+
+      }
     }
 
 }

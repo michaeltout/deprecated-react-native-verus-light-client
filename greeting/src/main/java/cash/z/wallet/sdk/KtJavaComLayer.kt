@@ -128,9 +128,10 @@ class KtJavaComLayer (){
 		}else{
 		if(coins[index].initializer != null){
 			coins[index].synchronizer = Synchronizer(mContext, coins[index].initializer!!);
+			coins[index].monitorChanges();
 			try{
 				GlobalScope.launch { //has to happen here, becuase java does not have coroutines
-						coins[index].synchronizer?.start(this);
+					coins[index].synchronizer?.start(this);
 				}
 				return "true";
 			}catch(e: Exception){
@@ -341,29 +342,25 @@ class KtJavaComLayer (){
 					"error: not initialized coin usage";
 			}else{
 				if(coins[index].synchronizer != null){
-				var stonks: String = "";
-				coins[index].synchronizer?.status?.collect(
-					{
-						x ->
-						stonks = x.name;
-					}
-					);
-					stonks;
+				var status: String = "";
+					status = coins[index].getStatus()!!; //.collectWith	{	x -> status = x.name };
+					status;
 				}else{
-					"error: syncronizer has not been started";
+					"error: Not initialized";
 				}
 			}
 		}
 
 		//gets the syncronizer progress on downloading the blockchain
-		fun getSyncProgressDirty(index: Int): String = runBlocking{
+		fun getSyncProgressDirty(index: Int): Int = runBlocking{
 			if(index == -1){
-					"error: not initialized coin usage";
+				-1;
 			}else{
 			if( coins[index].synchronizer != null){
-				coins[index].synchronizer?.progress.toString()!!;
+				var progress = coins[index].getProgress()!!;
+				progress;
 			}else{
-				"error: Not initialized"
+				-2;
 			}
 		}
 		}
