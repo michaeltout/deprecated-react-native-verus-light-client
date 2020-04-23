@@ -464,6 +464,10 @@ try {
 
 	//lists all transactions assosiated with your private key
 	private String[] getListOfTransaction(String info, int index){
+		Activity mActivity = getCurrentActivity();
+		Context mContext = mActivity.getApplicationContext();
+		VerusLightClientModule.context = mContext;
+
 			return cash.z.wallet.sdk.KtJavaComLayer.Companion.getListOfTransactionDirty(VerusLightClientModule.context, info, index);
 	}
 
@@ -480,6 +484,10 @@ try {
 
 	//sends a message
 	private String putSend(String toAddress, String fromAddress, Long amount, String memo, int index){
+		Activity mActivity = getCurrentActivity();
+		Context mContext = mActivity.getApplicationContext();
+		VerusLightClientModule.context = mContext;
+
 			return cash.z.wallet.sdk.KtJavaComLayer.Companion.putSendDirty(VerusLightClientModule.context, toAddress, fromAddress, amount, memo, index);
 	}
 
