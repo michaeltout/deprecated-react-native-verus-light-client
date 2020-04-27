@@ -84,16 +84,20 @@ class KtJavaComLayer (){
 		fun addCoin(icoinId: String, iProtocol: String, iAccountHash: String, mContext: Context, seedInByteArray: ByteArray,
 			host: String, port: Int, seed: String, birthdayString: String, birthdayInt: Int, numberOfAccounts: Int): Int{
 
+			//it starts at 0
 			var indexNumber: Int = 0;
 
+			//checks the size of the array, so you know where to put the new coin object
 			if(coins != null){
 				indexNumber = coins.size;
 			}
-
+			//create a coin object, it stores the information, and enables multiple coins
 			val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, seedInByteArray, port, host, seed, "", birthdayString, birthdayInt, numberOfAccounts);
 
+			//add the object to the array
 			coins.add(newCoins);
 
+			//return the index number to java
 			return coins.size -1;
 		}
 
@@ -104,21 +108,23 @@ class KtJavaComLayer (){
 
 		//initializes syncronizer for the first time
 		fun Initer(mContext: Context, path: String, index: Int): String{
-
+			//checks if the accounthash coin, coinprotocol exists
 			if(index == -1){
 				return	"error: not initialized coin usage";
 			}else{
 
 					try{
-
+						//looks up the path
 						val checkPath = Initializer.dataDbPath(mContext, path);
+						//check if there exists a database
 						val file = File(checkPath);
-
+						//initialize its initializer object
 						coins[index].initializer = Initializer(mContext, path); //path
-
+						//if the file exists open it
 						if(file.exists() == true){
 							coins[index].putInitOpen();
 						}else{
+							//else create it
 							coins[index].putInitNew();
 						}
 
@@ -599,4 +605,4 @@ class KtJavaComLayer (){
 //companion object
 	}
 	//class
-} 
+}

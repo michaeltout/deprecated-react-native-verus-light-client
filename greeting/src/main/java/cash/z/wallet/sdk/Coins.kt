@@ -243,7 +243,6 @@ class Coins (
 
             for(p in 0 until meme.size){
               val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-              ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
 
               //here we can add all values together in
               //one big string
@@ -262,7 +261,7 @@ class Coins (
 
           for(p in 0 until meme.size){
 						val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-						", category, send, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+						", category, send, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()", memo," + meme[p]!!.memo.toString()
 						//here we can add all values together in
 						//one big string
 
@@ -283,7 +282,7 @@ class Coins (
               //here we can add all values together in
               //"address": "2ei2joffd2", "amount": 15.160704, "category": "sent", "status": "confirmed", time: "341431", "txid": "3242edc2c2", "height": "312312"
 							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-							", category, pending, status, unconfirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height, -1"
+							", category, pending, status, unconfirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height, -1, memo," + meme[p]!!.memo.toString()
 
               arraylistPending.add(info)
 						}
@@ -300,7 +299,7 @@ class Coins (
 
         for(p in 0 until meme.size){
           val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-          ", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+          ", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()", memo," + meme[p]!!.memo.toString()
 
           //here we can add all values together in
           //one big string
