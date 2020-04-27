@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+//sdk classes
 import cash.z.wallet.sdk.Initializer;
 import cash.z.wallet.sdk.Initializer.WalletBirthday;
 import cash.z.wallet.sdk.DemoConfig;
@@ -83,6 +84,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				result = this.getBlockCount(index);
 			try{
 				response.put("result", result);
+
 			}catch(JSONException e ){
 				result = e.toString();
 			}
@@ -107,9 +109,11 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			try{
 				String[] test = this.getAddress(index);
 				JSONArray array = new JSONArray();
+
 				for(int x = 0; x < test.length; x++){
 					array.put(test[x]);
 				}
+
 				response.put("result", array);
 			}catch(JSONException e ){
 				result = e.toString();
@@ -117,31 +121,42 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				break;
 
 			case "getprivatekey":
+
 				result = this.getPrivateKey(index);
 				break;
 			case "getidentities":
+
 				JSONObject id2 = this.getId(index, params.getString(3));
 				try{
 					response.put("result", id2);
+
 				}catch(JSONException e ){
 					result = e.toString();
 				}
 				break;
+
 			case "getidentitieswithinfo":
+
 				JSONObject objJSON = this.getIdwithInfo(index, params.getString(3));
+
 				try{
 					response.put("result", objJSON);
+
 				}catch(JSONException e ){
 					result = e.toString();
 				}
 				break;
 			case "verifymessage":
+
 				try{
+
 					response.put("result", this.verifyMessage(index, params.getString(3), params.getString(4), params.getString(5), params.getString(6)));
+
 				}catch(JSONException e ){
 					result = e.toString();
 				}
 				break;
+
 			case "listprivatetransactions":
 			/*
 			param 4: "pending" OR "cleared" OR "received" OR "sent" OR "all"
@@ -149,22 +164,30 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			//pending not done yet.
 			String [] composite;
 			if(params.size() < 4){
+
 				String[] one = this.getListOfTransaction("recieved", index);
 				String[] two = this.getListOfTransaction("pending", index);
 				String[] three = this.getListOfTransaction("send", index);
+
 				composite = new String[one.length + two.length + three.length];
+
 				for(int x = 0; x < one.length; x++){
 					composite[x] = one[x];
 				}
+
 				for(int x = 0; x < two.length; x++){
 					composite[one.length + x] = two[x];
 				}
+
 				for(int x = 0; x < three.length; x++){
 					composite[one.length + two.length + x] = three[x];
 				}
+
 			}else{
 			if(params.getString(3) != "all" || params.getString(3) != ""){
+
 				composite = this.getListOfTransaction(params.getString(3), index);
+
 			}else{
 					//String[] four = this.getListOfTransaction("cleared", index);
 					//memes = new String[localMeme.length];
@@ -172,28 +195,36 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 					String[] one = this.getListOfTransaction("recieved", index);
 					String[] two = this.getListOfTransaction("pending", index);
 					String[] three = this.getListOfTransaction("send", index);
+
 					composite = new String[one.length + two.length + three.length];
+
 					for(int x = 0; x < one.length; x++){
 						composite[x] = one[x];
 					}
+
 					for(int x = 0; x < two.length; x++){
 						composite[one.length + x] = two[x];
 					}
+
 					for(int x = 0; x < three.length; x++){
 						composite[one.length + two.length + x] = three[x];
 					}
-					//String[] quartet = ArrayUtils.addAll(trice, four);
+
 			}
 		}
 			try{
+
 				JSONArray array = new JSONArray();
+
 				for(int x = 0; x < composite.length; x++){
 					JSONObject returned = new JSONObject();
 					cutString(composite[x], returned, 0);
 				}
+
 				for(int x = 0; x < composite.length; x++){
 					array.put(composite[x]);
 				}
+
 				response.put("result", array);
 			}catch(JSONException e ){
 				result = e.toString();
@@ -207,13 +238,17 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			param 7: memo
 			*/
 				result = this.putSend(params.getString(3), params.getString(4), Long.parseLong(params.getString(5)), params.getString(6), index);
+
 				try{
 					response.put("result", result);
 				}catch(JSONException e ){
 					result = e.toString();
 				}
+
 				break;
+
 			case "getinfo":
+
 			String status;
 			Integer progress;
 			Integer blockcount;
@@ -222,10 +257,12 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				status = this.getSyncStatus(index);
 				progress = this.getSyncprogress(index);
 				blockCountStr = this.getBlockCount(index);
+
 				if(blockCountStr != "error: not initialized coin usage"){
-				blockcount = Integer.parseInt(blockCountStr);
+					blockcount = Integer.parseInt(blockCountStr);
 
 				try{
+
 					JSONObject info = new JSONObject();
 					info.put("status", status);
 					info.put("percent", progress);
@@ -235,11 +272,16 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				}catch(JSONException e ){
 					result = e.toString();
 				}
+
 			}else{
+
 				result = blockCountStr;
+
 			}
 				break;
+
 			case "z_getbalance":
+
 			if(params.size() > 3){
 				result = this.getBalance(params.getString(3), "", index);
 			}else if (params.size() > 4) {
@@ -247,8 +289,11 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			}else{
 				result = this.getBalance("true", "", index);
 			}
+
 			int character = result.indexOf(',');
+
 			if(character != -1){
+
 			String totalBalanceStr = result.substring(0, character - 1);
 			Double totalBalanceDbl =  Double.parseDouble(totalBalanceStr);
 
@@ -256,10 +301,13 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			Double confirmedBalanceDbl =  Double.parseDouble(confirmedBalanceStr);
 
 			JSONObject balance = new JSONObject();
+
 			try{
+
 				balance.put("total", totalBalanceDbl);
 				balance.put("confirmed", confirmedBalanceDbl);
 				response.put("result", balance);
+
 			}catch(JSONException e ){
 
 			}
@@ -277,6 +325,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				}else{
 					result = this.getBalance("true", "", index);
 				}
+
 				int indexOfComma = result.indexOf(',');
 				JSONObject balanceStonks = new JSONObject();
 				String totalBalanceStonksStr;
@@ -288,13 +337,16 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				String errorResponse;
 				try{
 				if(indexOfComma != -1){
+
 					totalBalanceStonksStr = result.substring(0, indexOfComma - 1);
 					totalBalanceStonksDbl = Double.parseDouble(totalBalanceStonksStr);
 					confirmedBalanceStonksStr = result.substring(indexOfComma + 1, result.length());
 					confirmedBalancDbl = Double.parseDouble(confirmedBalanceStonksStr);
+
 					balanceStonks.put("total", totalBalanceStonksDbl);
 					balanceStonks.put("confirmed", confirmedBalancDbl);
 					response.put("result", balanceStonks);
+
 				}else{
 					errorResponse = "error: invalid balanced recieved";
 					response.put("result", errorResponse);
@@ -312,15 +364,18 @@ try {
 
 		if(result.length() > 5){
 			String test = result.substring(0, 6);
+
 			if(test.equals("error:")){
 
 				JSONObject errorOBJ = new JSONObject();
 				errorOBJ.put("code" , "-32603");
 				error = result.substring(7, result.length());
+
 				errorOBJ.put("message", "Invalid Paramester");
 				errorOBJ.put("data", error);
 				response.put("result", JSONObject.NULL );
 				response.put("error", errorOBJ);
+
 			}else{
 				response.put("error", error);
 			}
@@ -360,6 +415,7 @@ try {
 		JSONObject identityInfo = new JSONObject();
 		JSONObject identityObj = new JSONObject();
 		try{
+
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
 		VerusLightClientModule.context = mContext;
@@ -368,10 +424,13 @@ try {
 		identityObj.put("name", id.getName());
 
 		JSONObject contentMap = new JSONObject();
+
 		for (String key : id.getContentMap().keySet()) {
 				contentMap.put(key, id.getContentMap().get(key));
 		}
+
 		JSONObject primaryAddresses = new JSONObject();
+
 		primaryAddresses.put("primaryaddresses", id.getAddresses());
 		identityObj.put("primaryaddresses", primaryAddresses);
 		identityObj.put("contentmap", contentMap);
@@ -385,6 +444,7 @@ try {
 
 		//now the info part
 		Identities info = cash.z.wallet.sdk.KtJavaComLayer.Companion.getIdentityInfoDirty(mContext, index, identity);
+
 		identityInfo.put("status", info.getStatus());
 		identityInfo.put("canSignFor", info.getCanSignFor().toString());
 		identityInfo.put("canSpendFor", info.getCanSpendFor().toString());
@@ -402,6 +462,7 @@ try {
 	private JSONObject getId(int index, String identity){
 		JSONObject identityObj = new JSONObject();
 		try{
+
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
 		VerusLightClientModule.context = mContext;
@@ -410,10 +471,13 @@ try {
 		identityObj.put("name", id.getName());
 
 		JSONObject contentMap = new JSONObject();
+
 		for (String key : id.getContentMap().keySet()) {
         contentMap.put(key, id.getContentMap().get(key));
     }
+
 		JSONObject primaryAddresses = new JSONObject();
+
 		primaryAddresses.put("primaryaddresses", id.getAddresses());
 		identityObj.put("primaryaddresses", primaryAddresses);
 		identityObj.put("contentmap", contentMap);
@@ -424,6 +488,7 @@ try {
 		identityObj.put("flags", id.getFlags());
 		identityObj.put("version", id.getVersion());
 		identityObj.put("parent", id.getParent());
+
 	}catch(JSONException e){
 		//F
 	}
@@ -432,18 +497,23 @@ try {
 
 	//gets a block range, this is basicaly blockinfo on 2 blocks
 	private String getBlockRange(String startRange, String stopRange, int index){
+
 		int startRangeInt = Integer.parseInt(startRange);
 		int stopRangeInt = Integer.parseInt(stopRange);
+
 		return cash.z.wallet.sdk.KtJavaComLayer.Companion.getBlockRangeDirty(VerusLightClientModule.context, startRangeInt, stopRangeInt, index);
 	}
 
 	//gets blockinfo, header, hash, input output etc
 	private String getBlockInfo(String blockNumber, int index){
+
 		int blockNumberInt = Integer.parseInt(blockNumber);
+
 		return cash.z.wallet.sdk.KtJavaComLayer.Companion.getBlockDirty(VerusLightClientModule.context, blockNumberInt, index);
 	}
 
 	private String verifyMessage(int index, String signer, String signature, String message, String checklast){
+
 		Boolean check = Boolean.parseBoolean(checklast);
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
@@ -464,6 +534,7 @@ try {
 
 	//lists all transactions assosiated with your private key
 	private String[] getListOfTransaction(String info, int index){
+
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
 		VerusLightClientModule.context = mContext;
@@ -473,12 +544,15 @@ try {
 
 	//gets the balance of the syncronized wallet
 	private String getBalance(String includePendingStr, String address, int index){
+
 		boolean includePending;
+
 		if(includePendingStr.equals("")){
 			includePending = true;
 		}else{
 			includePending = Boolean.parseBoolean(includePendingStr);
 		}
+
 		return  cash.z.wallet.sdk.KtJavaComLayer.Companion.getWalletBalanceDirty(includePending, address, index);
 	}
 
@@ -541,14 +615,18 @@ try {
 	@ReactMethod
 	public void openWallet(String coinId, String coinProto, String accountHash, Promise promise){
 		try{
+
 		int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 		String path = coinId + "_" + accountHash + "_" + coinProto;
 
 		String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.Initer(VerusLightClientModule.context, path, index);
+
 		if(checkError(response) == true){
 			promise.reject(response);
 		}
+
 		promise.resolve(response);
+
 	}catch (IllegalViewOperationException e) {
 		promise.reject(E_LAYOUT_ERROR, e);
 	}
@@ -585,16 +663,21 @@ try {
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
 		VerusLightClientModule.context = mContext;
+
 		String output = "";
 
 		int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
+
 		if(index == -1){
 			output = "Error: " + coinId + "_" + accountHash + "_" + coinProto + " not initialized";
 		}
+
 		output = cash.z.wallet.sdk.KtJavaComLayer.Companion.syncronizerstart(VerusLightClientModule.context, index).toString();
+
 		if(checkError(output) == true){
 			promise.reject(output);
 		}
+
 		promise.resolve(output);
 	}
 
@@ -604,10 +687,13 @@ try {
 		try{
 			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
 			String output = cash.z.wallet.sdk.KtJavaComLayer.Companion.syncronizerStop(index);
+
 			if(checkError(output) == true){
 				promise.reject(output);
 			}
+
 			promise.resolve(output);
+
 		}catch (IllegalViewOperationException e) {
 			promise.reject(E_LAYOUT_ERROR, e);
 		}
@@ -620,13 +706,15 @@ try {
 	*/
 	@ReactMethod
 		public void closeWallet(String coinId, String coinProtocol, String accountHash,Promise promise){
-		try{
-		//vars (coinId: String, coinProtocol: String, accountHash: String)
+			try{
+				//vars (coinId: String, coinProtocol: String, accountHash: String)
 			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
 			String output = cash.z.wallet.sdk.KtJavaComLayer.Companion.syncronizerStop(index);
+
 			if(checkError(output) == true){
 				promise.reject(output);
 			}
+
 			promise.resolve(output);
 		}catch (IllegalViewOperationException e) {
       promise.reject(E_LAYOUT_ERROR, e);
@@ -642,10 +730,13 @@ try {
 		try{
 			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
 			String output = cash.z.wallet.sdk.KtJavaComLayer.Companion.interDelete(index);
+
 			if(checkError(output) == true){
 				promise.reject(output);
 			}
+
 			promise.resolve(output);
+
 		}catch (IllegalViewOperationException e) {
       promise.reject(E_LAYOUT_ERROR, e);
     }
@@ -664,18 +755,23 @@ try {
 		String stringofBirthdayCopy = "";
 		int lengthOfBirthday = stringifiedBirthday.length();
 		int lengthmodulo3 = lengthOfBirthday%3;
+
 		if(lengthmodulo3 != 0){
 			String subString = stringifiedBirthday.substring( 0, lengthmodulo3);
 			stringofBirthdayCopy = subString + "_";
 		}
+
 		for (int i = 0; i < lengthOfBirthday/3; i++) {
 			String subString = stringifiedBirthday.substring(lengthmodulo3 + (i * 3), lengthmodulo3 + (i * 3) + 3);
+
 			if(i != (lengthOfBirthday/3) - 1){
 				stringofBirthdayCopy = stringofBirthdayCopy + subString + "_";
 			}else{
 				stringofBirthdayCopy = stringofBirthdayCopy + subString;
 			}
+
 		}
+
 		return stringofBirthdayCopy;
 	}
 //this gets the index number of the object corresponding with this account,
@@ -683,11 +779,13 @@ try {
 //data objects holding all the relevent information to use multpile coins, crisscross
 	private int getIndex(String coinId, String coinProto, String accountHash){
 		String name = coinId + "_" + accountHash + "_" + coinProto;
+
 		if(coinToIndex.containsKey(name)){
 			return coinToIndex.get(name);
 		}else{
 			return -1;
 		}
+
 	}
 
 	/*Test methds*/
@@ -697,7 +795,9 @@ try {
 		try{
 			String alias = "Dank memes";
 			String path = cash.z.wallet.sdk.KtJavaComLayer.Companion.getPath(VerusLightClientModule.context, alias);
+
 			promise.resolve(path);
+
 		}catch (IllegalViewOperationException e) {
 			promise.reject(E_LAYOUT_ERROR, e);
 		}
@@ -708,19 +808,24 @@ try {
 	public static byte[] hexStringToByteArray(String s) {
 		int len = s.length();
 		byte[] data = new byte[len / 2];
+
 		for (int i = 0; i < len; i += 2) {
 			data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
 								 + Character.digit(s.charAt(i+1), 16));
 		}
+
 		return data;
 	}
 
 	Boolean checkError(String error){
 		if(error.length() > 5){
+
 			String test = error.substring(0, 6);
+
 			if(test.equals("error:")){
 				return true;
 			}
+
 		}
 		return false;
 	}
@@ -731,20 +836,27 @@ try {
 		int index = 0;
 		if(cutter.indexOf(',', index) != -1){
 			int indexOne = cutter.indexOf(',', index);
+
 			count = count + 1;
 			index = indexOne + 1;
+
 			int indexTwo = cutter.indexOf(',', index);
+
 			if(indexTwo == -1){
 				indexTwo = cutter.length() -1 ;
 			}
+
 			count = count + 1;
 			index = indexTwo + 1;
+
 			String one = cutter.substring(0, indexOne - 1);
 			String two = cutter.substring(indexOne + 1, indexTwo - 1);
 			String pass = cutter.substring(indexTwo + 1, cutter.length());
+
 			try{
 				if(count == 4 || count == 14){
 					int integer = Integer.parseInt(two);
+
 					store.put(one, integer);
 				}else{
 					store.put(one, two);
