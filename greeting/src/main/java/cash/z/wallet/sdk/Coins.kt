@@ -243,6 +243,7 @@ class Coins (
 
             for(p in 0 until meme.size){
               val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
+              ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo," + meme[p]!!.memo.toString()
 
               //here we can add all values together in
               //one big string
@@ -261,7 +262,7 @@ class Coins (
 
           for(p in 0 until meme.size){
 						val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-						", category, send, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()", memo," + meme[p]!!.memo.toString()
+						", category, send, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo," + meme[p]!!.memo.toString()
 						//here we can add all values together in
 						//one big string
 
@@ -299,7 +300,7 @@ class Coins (
 
         for(p in 0 until meme.size){
           val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-          ", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()", memo," + meme[p]!!.memo.toString()
+          ", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo," + meme[p]!!.memo.toString()
 
           //here we can add all values together in
           //one big string
