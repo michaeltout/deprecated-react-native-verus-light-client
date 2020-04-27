@@ -101,10 +101,12 @@ class Coins (
 
     init{ //all the vars are passed into vars
       var name: String = "$ticker _$accountHash _$protocol";
+
       path = Initializer.dataDbPath(context, name);
       host = iHost;
       port = iPort;
       seed = iSeed;
+
       birthdayInt = iBirthdayInt;
       birthdayString = iBirthdayString;
       seedInUft8 = iSeedInUft8;
@@ -112,12 +114,15 @@ class Coins (
       numberOfAccounts = iNumberOfAccounts;
       seedInByteArray = iSeedInByteArray;
       birthdayString = birthdayInt.toString();
+
       val file = File("zcash/saplingtree/$birthdayString.json");
+
       if(file.exists() == true){
         birthdayWallet = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(context, birthdayInt);
       }else{
         birthdayWallet = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(context);
       }
+
     }
     /*Funcitons that allow access to the infroamtion in this object*/
     //gets index number
@@ -127,10 +132,15 @@ class Coins (
     //gets the client and initializes one
     public fun putInitClient(mContext: Context): String{
     try{
+
       client = LightWalletGrpcService(mContext, host, port);
+
     }catch(e: Exception){
+
       return e.toString();
+
     }
+
       return "true";
     }
     //gets the addresses
@@ -173,12 +183,15 @@ class Coins (
 
     public fun setIdentity(iIdentity: Identities): Int{
       var indexNumber: Int = 0;
+
       if(::identities.isInitialized){
         indexNumber = identities.size;
       }
+
       identities.add(iIdentity);
+
       return identities.size -1;
-      }
+    }
 
 
     //gets the index corresponding to the address
@@ -225,12 +238,16 @@ class Coins (
         synchronizer?.receivedTransactions!!.collect(
           {
             x ->
+
             var meme = x.toList();
+
             for(p in 0 until meme.size){
               val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
               ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+
               //here we can add all values together in
               //one big string
+
               arraylistReceived.add(info)
             }
           }
@@ -240,13 +257,16 @@ class Coins (
       GlobalScope.launch {
         synchronizer?.sentTransactions!!.collect({
 					x ->
-					var meme = x.toList();
-					for(p in 0 until meme.size){
+
+          var meme = x.toList();
+
+          for(p in 0 until meme.size){
 						val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
 						", category, send, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
 						//here we can add all values together in
 						//one big string
-						arraylistSend.add(info)
+
+            arraylistSend.add(info)
 					}
 				}
 				);
@@ -256,13 +276,16 @@ class Coins (
         synchronizer?.pendingTransactions!!.collect(
 					{
 						x ->
-						var meme = x.toList();
-						for(p in 0 until meme.size){
-//here we can add all values together in
-//"address": "2ei2joffd2", "amount": 15.160704, "category": "sent", "status": "confirmed", time: "341431", "txid": "3242edc2c2", "height": "312312"
+
+            var meme = x.toList();
+
+            for(p in 0 until meme.size){
+              //here we can add all values together in
+              //"address": "2ei2joffd2", "amount": 15.160704, "category": "sent", "status": "confirmed", time: "341431", "txid": "3242edc2c2", "height": "312312"
 							val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
 							", category, pending, status, unconfirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height, -1"
-							arraylistPending.add(info)
+
+              arraylistPending.add(info)
 						}
 					}
 					);
@@ -272,17 +295,20 @@ class Coins (
       GlobalScope.launch {
         synchronizer?.clearedTransactions!!.collect({
         x ->
+
         var meme = x.toList()
+
         for(p in 0 until meme.size){
           val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
           ", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
+
           //here we can add all values together in
           //one big string
+
           arraylistCleared.add(info)
         }
-      }
-      );
-      }
+      });
     }
+  }
 
 }
