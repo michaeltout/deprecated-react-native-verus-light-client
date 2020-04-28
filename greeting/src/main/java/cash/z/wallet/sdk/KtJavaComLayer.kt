@@ -381,7 +381,7 @@ class KtJavaComLayer (){
 					try {
 						rawIdentity = coins[index].client?.getIdentities(identity)!!;
 					}catch(ex:Exception) {
-
+						return null;
 					}
 
 				val identity = Identities();

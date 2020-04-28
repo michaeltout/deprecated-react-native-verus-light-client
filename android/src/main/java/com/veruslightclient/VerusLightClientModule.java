@@ -127,23 +127,32 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			case "getidentities":
 
 				JSONObject id2 = this.getId(index, params.getString(3));
+
+				if( id2 == null){
+						result = "error: name not found";
+				}else{
 				try{
 					response.put("result", id2);
 
 				}catch(JSONException e ){
 					result = e.toString();
 				}
+			}
 				break;
 
 			case "getidentitieswithinfo":
 
 				JSONObject objJSON = this.getIdwithInfo(index, params.getString(3));
 
-				try{
-					response.put("result", objJSON);
+				if( objJSON == null){
+						result = "error: name not found";
+				}else{
+					try{
+						response.put("result", objJSON);
 
-				}catch(JSONException e ){
-					result = e.toString();
+					}catch(JSONException e ){
+						result = e.toString();
+					}
 				}
 				break;
 			case "verifymessage":
@@ -421,6 +430,11 @@ try {
 		VerusLightClientModule.context = mContext;
 
 		Identities id = cash.z.wallet.sdk.KtJavaComLayer.Companion.getIdentityDirty(mContext, index, identity);
+
+		if(id == null){
+				return null;
+		}
+
 		identityObj.put("name", id.getName());
 
 		JSONObject contentMap = new JSONObject();
@@ -468,6 +482,11 @@ try {
 		VerusLightClientModule.context = mContext;
 
 		Identities id = cash.z.wallet.sdk.KtJavaComLayer.Companion.getIdentityDirty(mContext, index, identity);
+
+		if(id == null){
+				return null;
+		}
+
 		identityObj.put("name", id.getName());
 
 		JSONObject contentMap = new JSONObject();
