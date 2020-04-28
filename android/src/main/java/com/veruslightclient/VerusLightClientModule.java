@@ -727,7 +727,7 @@ try {
 		public void closeWallet(String coinId, String coinProtocol, String accountHash,Promise promise){
 			try{
 				//vars (coinId: String, coinProtocol: String, accountHash: String)
-			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
+			int index = getIndex(coinId, coinProtocol, accountHash); //index number to link correct object to the function
 			String output = cash.z.wallet.sdk.KtJavaComLayer.Companion.syncronizerStop(index);
 
 			if(checkError(output) == true){
@@ -747,7 +747,7 @@ try {
 	@ReactMethod
 	public void deleteWallet(String coinId, String coinProtocol, String accountHash,Promise promise){
 		try{
-			int index = getIndex(coinId, accountHash, coinProtocol); //index number to link correct object to the function
+			int index = getIndex(coinId, coinProtocol, accountHash); //index number to link correct object to the function
 			String output = cash.z.wallet.sdk.KtJavaComLayer.Companion.interDelete(index);
 
 			if(checkError(output) == true){
