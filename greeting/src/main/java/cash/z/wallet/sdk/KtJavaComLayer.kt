@@ -173,17 +173,21 @@ class KtJavaComLayer (){
 
 		/*stop functions*/
 		fun syncronizerStop(index: Int): String = runBlocking{
-			try{
+			if(index == -1){
+					"error: not initialized coin usage";
+			}else{
 
-					coins[index].synchronizer?.stop();
-					coins[index].synchronizer = null;
+				try{
+						coins[index].synchronizer?.stop();
+						coins[index].synchronizer = null;
 
-				 "true";
-			}	 catch (e: Exception) {
+					 "true";
+				}	 catch (e: Exception) {
 
-					val error = e.toString();
+						val error = e.toString();
 
-					"error: $error";
+						"error: $error";
+				}
 			}
 		}
 
@@ -402,7 +406,7 @@ class KtJavaComLayer (){
 					try {
 						 rawIdentityInfo = coins[index].client?.getIdentities(identity)!!;
 					}catch(ex:Exception) {
-
+						return null;
 					}
 
 					val identity = Identities();

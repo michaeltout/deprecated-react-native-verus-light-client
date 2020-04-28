@@ -170,9 +170,9 @@ class SdkSynchronizer internal constructor(
      * will throw an exception if the synchronizer was never previously started.
      */
     override fun stop() {
-        coroutineScope.launch {
+        GlobalScope.launch {
             processor.stop()
-            coroutineScope.cancel()
+            //coroutineScope.cancel()
             _balances.cancel()
             _status.cancel()
         }
