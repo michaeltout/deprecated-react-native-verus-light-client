@@ -445,8 +445,16 @@ try {
 
 		JSONObject primaryAddresses = new JSONObject();
 
-		primaryAddresses.put("primaryaddresses", id.getAddresses());
-		identityObj.put("primaryaddresses", primaryAddresses);
+		//primaryAddresses.put("primaryaddresses", id.getAddresses());
+		String[] array = id.getAddresses();
+
+		JSONArray jsonArray = new JSONArray();
+
+		for(int x = 0; x < array.length; x++){
+			jsonArray.put(array[x]);
+		}
+
+		identityObj.put("primaryaddresses", jsonArray);
 		identityObj.put("contentmap", contentMap);
 		identityObj.put("minimumSignatures", id.getMinimumSignatures());
 		identityObj.put("privateAddress", id.getPrivateAddress());
@@ -494,11 +502,15 @@ try {
 		for (String key : id.getContentMap().keySet()) {
         contentMap.put(key, id.getContentMap().get(key));
     }
+		String[] array = id.getAddresses();
 
-		JSONObject primaryAddresses = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
 
-		primaryAddresses.put("primaryaddresses", id.getAddresses());
-		identityObj.put("primaryaddresses", primaryAddresses);
+		for(int x = 0; x < array.length; x++){
+			jsonArray.put(array[x]);
+		}
+
+		identityObj.put("primaryaddresses", jsonArray);
 		identityObj.put("contentmap", contentMap);
 		identityObj.put("minimumSignatures", id.getMinimumSignatures());
 		identityObj.put("privateAddress", id.getPrivateAddress());
