@@ -28,7 +28,7 @@ func listZTransactions(wallet: CoinWallet, params: [String], id: Int?, completio
         case "pending",
              "all":
             transactions = transactions + synchronizer.pendingTransactions.map {
-                return CompactTransaction(address: $0.toAddress, amount: Int64($0.value).fromSats(), dbType: "pending", time: $0.createTime, txid: $0.transactionEntity.transactionId.toHexStringTxId(), height: $0.minedHeight, localAddrs: addressList).toJson()
+                return CompactTransaction(address: $0.toAddress, amount: Int64($0.value).fromSats(), dbType: "pending", time: $0.createTime, txid: $0.transactionEntity.transactionId.toHexStringTxId(), height: $0.minedHeight, memo: $0.memo?.base64EncodedString(), localAddrs: addressList).toJson()
             }
             
             if type == "all" {
@@ -36,7 +36,7 @@ func listZTransactions(wallet: CoinWallet, params: [String], id: Int?, completio
             }
         case "cleared":
             transactions = transactions + synchronizer.clearedTransactions.map {
-              return CompactTransaction(address: $0.toAddress, amount: Int64($0.value).fromSats(), dbType: "cleared", time: $0.blockTimeInSeconds, txid: $0.transactionEntity.transactionId.toHexStringTxId(), height: $0.minedHeight, localAddrs: addressList).toJson()
+                return CompactTransaction(address: $0.toAddress, amount: Int64($0.value).fromSats(), dbType: "cleared", time: $0.blockTimeInSeconds, txid: $0.transactionEntity.transactionId.toHexStringTxId(), height: $0.minedHeight, memo: $0.memo?.base64EncodedString(), localAddrs: addressList).toJson()
             }
             
             if type == "all" {
@@ -44,7 +44,7 @@ func listZTransactions(wallet: CoinWallet, params: [String], id: Int?, completio
             }
         case "received":
             transactions = transactions + synchronizer.receivedTransactions.map {
-              return CompactTransaction(address: $0.toAddress, amount: Int64($0.value).fromSats(), dbType: "received", time: $0.blockTimeInSeconds, txid: $0.transactionEntity.transactionId.toHexStringTxId(), height: $0.minedHeight, localAddrs: addressList).toJson()
+              return CompactTransaction(address: $0.toAddress, amount: Int64($0.value).fromSats(), dbType: "received", time: $0.blockTimeInSeconds, txid: $0.transactionEntity.transactionId.toHexStringTxId(), height: $0.minedHeight, memo: $0.memo?.base64EncodedString(), localAddrs: addressList).toJson()
             }
             
             if type == "all" {
@@ -52,7 +52,7 @@ func listZTransactions(wallet: CoinWallet, params: [String], id: Int?, completio
             }
         case "sent":
             transactions = transactions + synchronizer.sentTransactions.map {
-              return CompactTransaction(address: $0.toAddress, amount: Int64($0.value).fromSats(), dbType: "sent", time: $0.blockTimeInSeconds, txid: $0.transactionEntity.transactionId.toHexStringTxId(), height: $0.minedHeight, localAddrs: addressList).toJson()
+              return CompactTransaction(address: $0.toAddress, amount: Int64($0.value).fromSats(), dbType: "sent", time: $0.blockTimeInSeconds, txid: $0.transactionEntity.transactionId.toHexStringTxId(), height: $0.minedHeight, memo: $0.memo?.base64EncodedString(), localAddrs: addressList).toJson()
             }
         default:
             return completion(id, nil, RequestError.badRequestParams(desc: "Invalid params, for listprivatetransactions, " + type + " is not a valid transaction list type."))

@@ -18,8 +18,9 @@ class CompactTransaction {
   var time: TimeInterval?
   var txid: String
   var height: Int
+  var memo: String?
   
-  init(address: String?, amount: Double, dbType: String, time: TimeInterval?, txid: String, height: Int, localAddrs: [String]) {
+    init(address: String?, amount: Double, dbType: String, time: TimeInterval?, txid: String, height: Int, memo: String?, localAddrs: [String]) {
     self.address = address
     self.amount = amount
     self.category = "unknown"
@@ -27,6 +28,7 @@ class CompactTransaction {
     self.height = height
     self.txid = txid
     self.time = time
+    self.memo = memo
     
     switch dbType {
     case "received":
@@ -66,6 +68,7 @@ class CompactTransaction {
       "time": self.time,
       "txid": self.txid,
       "height": self.height,
+      "memo": self.memo
     ]
   }
 }

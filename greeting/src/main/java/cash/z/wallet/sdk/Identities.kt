@@ -40,8 +40,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.Main
 
-import java.util.*
-
 class Identities(){
 
   private var name: String = "";
@@ -72,14 +70,8 @@ class Identities(){
     return contentMap;
   }
 
-  public fun getAddresses(): Array<String?>{
-
-      var arrayList = ArrayList(primaryAddresses);
-
-      var array = arrayOfNulls<String>(arrayList.size);
-      arrayList.toArray(array);
-
-    return array;
+  public fun getAddresses(): List<String>?{
+    return primaryAddresses;
   }
 
   public fun getMinimumSignatures(): Int{

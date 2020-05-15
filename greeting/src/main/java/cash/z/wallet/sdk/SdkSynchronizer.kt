@@ -65,7 +65,7 @@ class SdkSynchronizer internal constructor(
     override val pendingTransactions = manager.getAll()
     override val sentTransactions = ledger.sentTransactions
     override val receivedTransactions = ledger.receivedTransactions
-
+    override var errors: String? = null
 
     //
     // Status
@@ -222,7 +222,7 @@ class SdkSynchronizer internal constructor(
 
     private fun onCriticalError(unused: CoroutineContext, error: Throwable) {
         twig("********")
-        twig("********  ERROR: $error")
+        this.errors = "error: $error"
         if (error.cause != null) twig("******** caused by ${error.cause}")
         if (error.cause?.cause != null) twig("******** caused by ${error.cause?.cause}")
         twig("********")
@@ -232,6 +232,7 @@ class SdkSynchronizer internal constructor(
 
     private fun onFailedSend(error: Throwable): Boolean {
         twig("ERROR while submitting transaction: $error")
+        errors = "error: $error"
         return onSubmissionErrorHandler?.invoke(error)?.also {
             if (it) twig("submission error handler signaled that we should try again!")
         } == true
@@ -239,6 +240,7 @@ class SdkSynchronizer internal constructor(
 
     private fun onProcessorError(error: Throwable): Boolean {
         twig("ERROR while processing data: $error")
+        this.errors = "error: $error"
         if (onProcessorErrorHandler == null) {
             twig(
                 "WARNING: falling back to the default behavior for processor errors. To add" +
@@ -257,6 +259,7 @@ class SdkSynchronizer internal constructor(
 
     private fun onChainError(errorHeight: Int, rewindHeight: Int) {
         twig("Chain error detected at height: $errorHeight. Rewinding to: $rewindHeight")
+        this.errors = "Chain error detected at height: $errorHeight."
         if (onChainErrorHandler == null) {
             twig(
                 "WARNING: a chain error occurred but no callback is registered to be notified of " +

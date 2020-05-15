@@ -28,7 +28,7 @@ class CoinWallet {
     init(coinId: String, coinProto: String, endpoint: [String: String], accountHash: String, seed: String, spendParams: URL, outputParams: URL, birthday: Int = 0, accounts: Int = 100) {
         self.seed = seed
         self.coinId = coinId
-        self.endpoint = LightWalletEndpoint(address: endpoint["address"]!, port: endpoint["port"]!, secure: true)
+        self.endpoint = LightWalletEndpoint(address: endpoint["address"]!, port: Int(endpoint["port"]!)!, secure: true)
         self.wallet = nil
         self.synchronizer = nil
         self.service = nil

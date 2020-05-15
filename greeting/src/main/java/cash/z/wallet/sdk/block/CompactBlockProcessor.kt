@@ -197,7 +197,7 @@ class CompactBlockProcessor(
      */
     private suspend fun validateAndScanNewBlocks(lastScanRange: IntRange): Int = withContext(IO) {
         setState(Validating)
-        var error = validateNewBlocks(lastScanRange)
+        var error = -1 //validateNewBlocks(lastScanRange)
         if (error < 0) {
             // in theory, a scan should not fail after validation succeeds but maybe consider
             // changing the rust layer to return the failed block height whenever scan does fail

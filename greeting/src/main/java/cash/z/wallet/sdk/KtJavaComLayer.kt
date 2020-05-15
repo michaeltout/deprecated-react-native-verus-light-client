@@ -349,6 +349,9 @@ class KtJavaComLayer (){
 						var status: String = "";
 
 						status = coins[index].getStatus()!!; //.collectWith	{	x -> status = x.name };
+						if(coins[index].synchronizer?.errors != null){
+							status = coins[index].synchronizer?.errors!!
+						}
 						status;
 
 					}else{

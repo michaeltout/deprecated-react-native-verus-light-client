@@ -173,7 +173,7 @@ class Coins (
     }
     //opens a new initialzer
     public fun putInitOpen(){
-        initializer?.open( birthdayWallet)
+        initializer?.open(birthdayWallet)
         getAddress();
     }
     //gets the number of accounts
@@ -223,10 +223,14 @@ class Coins (
     public fun monitorChanges() = runBlocking {
       try{
       GlobalScope.launch { //has to happen here, becuase java does not have coroutines
-          synchronizer?.status!!.collect({ x -> syncroStatus = "$x" });
+          synchronizer?.status!!.collect({ x ->
+            syncroStatus = "$x"
+            });
         }
         GlobalScope.launch { //has to happen here, becuase java does not have coroutines
-            synchronizer?.progress!!.collect({x -> syncroProgress = x });
+            synchronizer?.progress!!.collect({x ->
+              syncroProgress = x
+              })
           }
         }catch(e: Exception){
 
