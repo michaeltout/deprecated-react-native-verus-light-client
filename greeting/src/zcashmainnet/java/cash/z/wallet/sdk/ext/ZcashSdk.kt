@@ -17,12 +17,12 @@ object ZcashSdk : ZcashSdkCommon() {
     /**
      * The default port to use for connecting to lightwalletd instances.
      */
-    override val DEFAULT_LIGHTWALLETD_PORT = 443
+    override val DEFAULT_LIGHTWALLETD_PORT = 9077
 
     /**
      * The default host to use for lightwalletd.
      */
-    override val DEFAULT_LIGHTWALLETD_HOST = "lightd-main.zecwallet.co"
+    override val DEFAULT_LIGHTWALLETD_HOST = "light.virtualsoundnw.com"
 
     override val DEFAULT_DB_NAME_PREFIX = "ZcashSdk_mainnet"
 
