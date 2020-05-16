@@ -94,6 +94,7 @@ interface Synchronizer {
      */
     val receivedTransactions: Flow<PagedList<ConfirmedTransaction>>
 
+    var errors: String?
 
     //
     // Operations
