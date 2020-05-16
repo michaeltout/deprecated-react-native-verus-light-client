@@ -328,7 +328,7 @@ class KtJavaComLayer (){
 					}
 
 					}else{
-						"error: syncronizer has not been started";
+						arraylist.add("error: syncronizer has not been started");
 					}
 
 				var array = arrayOfNulls<String>(arraylist.size);
@@ -509,6 +509,7 @@ class KtJavaComLayer (){
 						try{
 
 							txFlow = coins[index].synchronizer?.sendToAddress(coins[index].getPrivKey(), amount, toAddress, memo, fromIndex);
+
 							text = "pending"
 
 						} catch (e: Exception) {
