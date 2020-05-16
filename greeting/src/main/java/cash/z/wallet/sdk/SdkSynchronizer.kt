@@ -65,7 +65,7 @@ class SdkSynchronizer internal constructor(
     override val pendingTransactions = manager.getAll()
     override val sentTransactions = ledger.sentTransactions
     override val receivedTransactions = ledger.receivedTransactions
-    override var errors: String? = null
+
 
     //
     // Status
@@ -219,28 +219,22 @@ class SdkSynchronizer internal constructor(
         processor.start()
         twig("Synchronizer onReady complete. Processor start has exited!")
     }
-
     private fun onCriticalError(unused: CoroutineContext, error: Throwable) {
         twig("********")
-        this.errors = "error: $error"
+        twig("********  ERROR: $error")
         if (error.cause != null) twig("******** caused by ${error.cause}")
         if (error.cause?.cause != null) twig("******** caused by ${error.cause?.cause}")
         twig("********")
-
         onCriticalErrorHandler?.invoke(error)
     }
-
     private fun onFailedSend(error: Throwable): Boolean {
         twig("ERROR while submitting transaction: $error")
-        errors = "error: $error"
         return onSubmissionErrorHandler?.invoke(error)?.also {
             if (it) twig("submission error handler signaled that we should try again!")
         } == true
     }
-
     private fun onProcessorError(error: Throwable): Boolean {
         twig("ERROR while processing data: $error")
-        this.errors = "error: $error"
         if (onProcessorErrorHandler == null) {
             twig(
                 "WARNING: falling back to the default behavior for processor errors. To add" +
@@ -256,10 +250,8 @@ class SdkSynchronizer internal constructor(
             )
         } == true
     }
-
     private fun onChainError(errorHeight: Int, rewindHeight: Int) {
         twig("Chain error detected at height: $errorHeight. Rewinding to: $rewindHeight")
-        this.errors = "Chain error detected at height: $errorHeight."
         if (onChainErrorHandler == null) {
             twig(
                 "WARNING: a chain error occurred but no callback is registered to be notified of " +
@@ -269,11 +261,9 @@ class SdkSynchronizer internal constructor(
         }
         onChainErrorHandler?.invoke(errorHeight, rewindHeight)
     }
-
     private suspend fun onScanComplete(scannedRange: IntRange) {
         // TODO: optimize to skip logic here if there are no new transactions with a block height
         //       within the given range
-
         // TRICKY:
         // Keep an eye on this section because there is a potential for concurrent DB
         // modification. A change in transactions means a change in balance. Calculating the
@@ -296,7 +286,6 @@ class SdkSynchronizer internal constructor(
             refreshTransactions()
         }
     }
-
     private suspend fun refreshPendingTransactions() {
         // TODO: this would be the place to clear out any stale pending transactions. Remove filter
         //  logic and then delete any pending transaction with sufficient confirmations (all in one
@@ -315,16 +304,11 @@ class SdkSynchronizer internal constructor(
                 }
             }
     }
-
-
     //
     // Send / Receive
     //
-
     override suspend fun cancelSpend(transaction: PendingTransaction) = manager.cancel(transaction)
-
     override suspend fun getAddress(accountId: Int): String = processor.getAddress(accountId)
-
     override fun sendToAddress(
         spendingKey: String,
         zatoshi: Long,
@@ -346,12 +330,9 @@ class SdkSynchronizer internal constructor(
         twig("Monitoring pending transaction (id: ${it.id}) for updates...")
         manager.monitorById(it.id)
     }.distinctUntilChanged()
-
     override suspend fun isValidShieldedAddr(address: String) = manager.isValidShieldedAddress(address)
-
     override suspend fun isValidTransparentAddr(address: String) =
         manager.isValidTransparentAddress(address)
-
     override suspend fun validateAddress(address: String): Synchronizer.AddressType {
         return try {
             if (isValidShieldedAddr(address)) Shielded else Transparent
@@ -368,7 +349,6 @@ class SdkSynchronizer internal constructor(
         }
     }
 }
-
 /**
  * A convenience constructor that accepts the information most likely to change and uses defaults
  * for everything else. This is useful for demos, sample apps or PoC's. Anything more complex
@@ -410,7 +390,6 @@ fun Synchronizer(
     }
     return Synchronizer(appContext, initializer)
 }
-
 /**
  * Constructor function to use in most cases. This is a convenience function for when a wallet has
  * already created an initializer. Meaning, the basic flow is to call either [Initializer.new] or
@@ -435,7 +414,6 @@ fun Synchronizer(
     }
     return Synchronizer(appContext, initializer.rustBackend, initializer.host, initializer.port)
 }
-
 /**
  * Constructor function for building a Synchronizer in the most flexible way possible. This allows
  * a wallet maker to customize any subcomponent of the Synchronzer.

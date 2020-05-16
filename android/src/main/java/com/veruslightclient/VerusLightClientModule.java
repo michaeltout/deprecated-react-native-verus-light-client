@@ -267,15 +267,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				progress = this.getSyncprogress(index);
 				blockCountStr = this.getBlockCount(index);
 
-				if(status.length() > 5){
-
-					String test = status.substring(0, 6);
-					if( test.equals("error:") ){
-							result = status;
-							break;
-					}
-				}
-				if(!blockCountStr.equals("error: not initialized coin usage")){
+				if(blockCountStr != "error: not initialized coin usage"){
 					blockcount = Integer.parseInt(blockCountStr);
 
 				try{
@@ -453,8 +445,16 @@ try {
 
 		JSONObject primaryAddresses = new JSONObject();
 
-		primaryAddresses.put("primaryaddresses", id.getAddresses());
-		identityObj.put("primaryaddresses", primaryAddresses);
+		//primaryAddresses.put("primaryaddresses", id.getAddresses());
+		String[] array = id.getAddresses();
+
+		JSONArray jsonArray = new JSONArray();
+
+		for(int x = 0; x < array.length; x++){
+			jsonArray.put(array[x]);
+		}
+
+		identityObj.put("primaryaddresses", jsonArray);
 		identityObj.put("contentmap", contentMap);
 		identityObj.put("minimumSignatures", id.getMinimumSignatures());
 		identityObj.put("privateAddress", id.getPrivateAddress());
@@ -502,11 +502,15 @@ try {
 		for (String key : id.getContentMap().keySet()) {
         contentMap.put(key, id.getContentMap().get(key));
     }
+		String[] array = id.getAddresses();
 
-		JSONObject primaryAddresses = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
 
-		primaryAddresses.put("primaryaddresses", id.getAddresses());
-		identityObj.put("primaryaddresses", primaryAddresses);
+		for(int x = 0; x < array.length; x++){
+			jsonArray.put(array[x]);
+		}
+
+		identityObj.put("primaryaddresses", jsonArray);
 		identityObj.put("contentmap", contentMap);
 		identityObj.put("minimumSignatures", id.getMinimumSignatures());
 		identityObj.put("privateAddress", id.getPrivateAddress());
