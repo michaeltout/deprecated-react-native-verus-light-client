@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
  * initiated by this wallet. Currently, the data necessary to support expired transactions is there
  * but it is not being leveraged.
  */
-
 @Database(
     entities = [
         PendingTransactionEntity::class
@@ -23,7 +22,6 @@ import kotlinx.coroutines.flow.Flow
     version = 1,
     exportSchema = true
 )
-
 abstract class PendingTransactionDb : RoomDatabase() {
     abstract fun pendingTransactionDao(): PendingTransactionDao
 }
@@ -59,3 +57,5 @@ interface PendingTransactionDao {
     @Query("SELECT * FROM pending_transactions WHERE id = :id")
     fun monitorById(id: Long): Flow<PendingTransactionEntity>
 }
+
+

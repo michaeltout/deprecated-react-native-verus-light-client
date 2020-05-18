@@ -117,6 +117,7 @@ class PersistentTransactionManager(
                 tx.toAddress,
                 tx.memo,
                 tx.accountIndex
+
             )
             twig("successfully encoded transaction for ${tx.memo}!!")
             tx = tx.copy(raw = encodedTx.raw, rawTransactionId = encodedTx.txId)
@@ -241,4 +242,3 @@ class PersistentTransactionManager(
         const val ERROR_SUBMITTING = 3000
     }
 }
-

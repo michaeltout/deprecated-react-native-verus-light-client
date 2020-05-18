@@ -40,6 +40,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.Main
+import androidx.paging.PagedList
 
 import java.util.*
 import java.io.File
@@ -295,7 +296,7 @@ class KtJavaComLayer (){
 
 			//return list of transactions
 			fun getListOfTransactionDirty(mContext: Context, info: String, index: Int): Array<String?> = runBlocking{
-				if(index == -1){
+				/*if(index == -1){
 					val errorArray = ArrayList<String>();
 
 					errorArray.add("error: not initialized coin usage");
@@ -320,7 +321,11 @@ class KtJavaComLayer (){
 					}
 
 					else if(info.equals("received")){
-						arraylist = coins[index].arraylistReceived;
+						if(coins[index].isFact != false){
+							arraylist = coins[index].arraylistReceived;
+						}else{
+							arraylist.add("small peen")
+						}
 					}
 
 					else if(info.equals("send")){
@@ -335,8 +340,35 @@ class KtJavaComLayer (){
 
 				arraylist.toArray(array);
 				array;
+			}*/
+			if(	coins[index].synchronizer?.receivedTransactions != null){
+				coins[index].synchronizer?.receivedTransactions!!.collect { onTransactionsUpdated(it) }
+			}else{
+				memes.add("wtf is happening");
 			}
+			var array = arrayOfNulls<String>(memes.size)
+			memes.toArray(array);
+			array;
 		}
+
+		lateinit var memes:ArrayList<String?>;
+
+		fun onTransactionsUpdated(transactions: PagedList<ConfirmedTransaction>):ArrayList<String?> {
+
+			var meme = transactions.toList();
+
+			for(p in 0 until meme.size){
+				val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
+				", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo," + meme[p]!!.memo.toString()
+
+				//here we can add all values together in
+				//one big string
+
+				this.memes.add(info)
+
+		}
+		return memes
+	}
 
 			//get sync status
 			fun getSyncStatusDirty(index: Int): String = runBlocking{
@@ -456,8 +488,8 @@ class KtJavaComLayer (){
 
 							if(includePending == false){
 
-							totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(x)!!.totalZatoshi;
-							availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(x)!!.availableZatoshi;
+							totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.totalZatoshi;
+							availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.availableZatoshi;
 
 						}else{
 
@@ -471,8 +503,8 @@ class KtJavaComLayer (){
 
 					if(includePending == false){
 
-						totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(index)!!.totalZatoshi;
-						availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(index)!!.availableZatoshi;
+						totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.totalZatoshi;
+						availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.availableZatoshi;
 
 					}else{
 

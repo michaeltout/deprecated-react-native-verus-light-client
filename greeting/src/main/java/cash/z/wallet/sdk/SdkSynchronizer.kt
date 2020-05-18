@@ -197,28 +197,31 @@ class SdkSynchronizer internal constructor(
     }
 
     private fun CoroutineScope.onReady() = launch(CoroutineExceptionHandler(::onCriticalError)) {
-        twig("Synchronizer (${this@SdkSynchronizer}) Ready. Starting processor!")
-        processor.onProcessorErrorListener = ::onProcessorError
-        processor.onChainErrorListener = ::onChainError
-        processor.state.onEach {
-            when (it) {
-                is Scanned -> {
-                    // do a bit of housekeeping and then report synced status
-                    onScanComplete(it.scannedRange)
-                    SYNCED
-                }
-                is Stopped -> STOPPED
-                is Disconnected -> DISCONNECTED
-                is Downloading, Initialized -> DOWNLOADING
-                is Validating -> VALIDATING
-                is Scanning -> SCANNING
-            }.let { synchronizerStatus ->
-                _status.send(synchronizerStatus)
-            }
-        }.launchIn(this)
-        processor.start()
-        twig("Synchronizer onReady complete. Processor start has exited!")
-    }
+          twig("Synchronizer (${this@SdkSynchronizer}) Ready. Starting processor!")
+          processor.onProcessorErrorListener = ::onProcessorError
+          processor.onChainErrorListener = ::onChainError
+          processor.state.onEach {
+              when (it) {
+                  is Scanned -> {
+                      // do a bit of housekeeping and then report synced status
+                      onScanComplete(it.scannedRange)
+                      SYNCED
+                  }
+                  is Stopped -> STOPPED
+                  is Disconnected -> DISCONNECTED
+                  is Downloading, Initialized -> DOWNLOADING
+                  is Validating -> VALIDATING
+                  is Scanning -> SCANNING
+                  is Enhancing -> ENHANCING
+              }.let { synchronizerStatus ->
+                  //  ignore enhancing status for now
+                  // TODO: clean this up and handle enhancing gracefully
+                  if (synchronizerStatus != ENHANCING) _status.send(synchronizerStatus)
+              }
+          }.launchIn(this)
+          processor.start()
+          twig("Synchronizer onReady complete. Processor start has exited!")
+      }
 
     private fun onCriticalError(unused: CoroutineContext, error: Throwable) {
         twig("********")

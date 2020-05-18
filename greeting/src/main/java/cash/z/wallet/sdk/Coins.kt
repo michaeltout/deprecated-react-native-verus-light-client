@@ -94,6 +94,8 @@ class Coins (
 
      private var syncroProgress: Int = -3;
 
+     var isFact = false;
+
      var arraylistPending = ArrayList<String>();
      var arraylistReceived = ArrayList<String>();
      var arraylistCleared = ArrayList<String>();
@@ -239,9 +241,12 @@ class Coins (
 
     public fun monitorWalletChanges() = {
       GlobalScope.launch {
+
         synchronizer?.receivedTransactions!!.collect(
           {
             x ->
+
+            isFact = true;
 
             var meme = x.toList();
 
