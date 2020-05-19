@@ -296,7 +296,7 @@ class KtJavaComLayer (){
 
 			//return list of transactions
 			fun getListOfTransactionDirty(mContext: Context, info: String, index: Int): Array<String?> = runBlocking{
-				/*if(index == -1){
+				if(index == -1){
 					val errorArray = ArrayList<String>();
 
 					errorArray.add("error: not initialized coin usage");
@@ -340,15 +340,7 @@ class KtJavaComLayer (){
 
 				arraylist.toArray(array);
 				array;
-			}*/
-			if(	coins[index].synchronizer?.receivedTransactions != null){
-				coins[index].synchronizer?.receivedTransactions!!.collect { onTransactionsUpdated(it) }
-			}else{
-				memes.add("wtf is happening");
 			}
-			var array = arrayOfNulls<String>(memes.size)
-			memes.toArray(array);
-			array;
 		}
 
 		lateinit var memes:ArrayList<String?>;

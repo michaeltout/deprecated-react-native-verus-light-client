@@ -239,7 +239,7 @@ class Coins (
       }
     }
 
-    public fun monitorWalletChanges() = {
+    public fun monitorWalletChanges() {
       GlobalScope.launch {
 
         synchronizer?.receivedTransactions!!.collect(
