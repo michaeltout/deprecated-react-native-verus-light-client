@@ -648,7 +648,7 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
 
         create_to_address(
             &db_data,
-            BranchId::Blossom,
+            BranchId::Sapling,
             prover,
             (account, &extsk),
             &to,
