@@ -40,7 +40,6 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.Main
-import androidx.paging.PagedList
 
 import java.util.*
 import java.io.File
@@ -83,7 +82,7 @@ class KtJavaComLayer (){
 
 	//adds a coin object, the object that enables multicoin functionality.
 		fun addCoin(icoinId: String, iProtocol: String, iAccountHash: String, mContext: Context, seedInByteArray: ByteArray,
-			host: String, port: Int, seed: String, birthdayString: String, birthdayInt: Int, numberOfAccounts: Int): Int{
+			host: String, port: Int, seed: String, birthdayString: String, birthdayInt: Int, sapling: String, numberOfAccounts: Int): Int{
 
 			//it starts at 0
 			var indexNumber: Int = 0;
@@ -93,7 +92,7 @@ class KtJavaComLayer (){
 				indexNumber = coins.size;
 			}
 			//create a coin object, it stores the information, and enables multiple coins
-			val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, seedInByteArray, port, host, seed, "", birthdayString, birthdayInt, numberOfAccounts);
+			val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, seedInByteArray, port, host, seed, "", birthdayString, birthdayInt, sapling, numberOfAccounts);
 
 			//add the object to the array
 			coins.add(newCoins);
@@ -321,11 +320,7 @@ class KtJavaComLayer (){
 					}
 
 					else if(info.equals("received")){
-						if(coins[index].isFact != false){
-							arraylist = coins[index].arraylistReceived;
-						}else{
-							arraylist.add("small peen")
-						}
+						arraylist = coins[index].arraylistReceived;
 					}
 
 					else if(info.equals("send")){
@@ -343,25 +338,6 @@ class KtJavaComLayer (){
 			}
 		}
 
-		lateinit var memes:ArrayList<String?>;
-
-		fun onTransactionsUpdated(transactions: PagedList<ConfirmedTransaction>):ArrayList<String?> {
-
-			var meme = transactions.toList();
-
-			for(p in 0 until meme.size){
-				val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
-				", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo," + meme[p]!!.memo.toString()
-
-				//here we can add all values together in
-				//one big string
-
-				this.memes.add(info)
-
-		}
-		return memes
-	}
-
 			//get sync status
 			fun getSyncStatusDirty(index: Int): String = runBlocking{
 				if(index == -1){
@@ -373,9 +349,6 @@ class KtJavaComLayer (){
 						var status: String = "";
 
 						status = coins[index].getStatus()!!; //.collectWith	{	x -> status = x.name };
-						if(coins[index].synchronizer?.errors != null){
-							status = coins[index].synchronizer?.errors!!
-						}
 						status;
 
 					}else{
@@ -480,8 +453,8 @@ class KtJavaComLayer (){
 
 							if(includePending == false){
 
-							totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.totalZatoshi;
-							availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.availableZatoshi;
+							totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(x)!!.totalZatoshi;
+							availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(x)!!.availableZatoshi;
 
 						}else{
 
@@ -495,8 +468,8 @@ class KtJavaComLayer (){
 
 					if(includePending == false){
 
-						totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.totalZatoshi;
-						availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.availableZatoshi;
+						totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(index)!!.totalZatoshi;
+						availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(index)!!.availableZatoshi;
 
 					}else{
 
@@ -532,7 +505,7 @@ class KtJavaComLayer (){
 
 						try{
 
-							txFlow = coins[index].synchronizer?.sendToAddress(coins[index].getPrivKey(), amount, toAddress, memo, fromIndex);
+							txFlow = coins[index].synchronizer?.sendToAddress(coins[index].getPrivKey(), amount, toAddress, coins[index].getSapling(), memo, fromIndex);
 							text = "pending"
 
 						} catch (e: Exception) {

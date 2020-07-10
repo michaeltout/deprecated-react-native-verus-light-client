@@ -64,7 +64,7 @@ inline fun retrySimple(retries: Int = 2, sleepTime: Long = 20L, block: (Int) -> 
  * @param onErrorListener a callback that gets the first shot at processing any error and can veto
  * the retry behavior by returning false.
  * @param initialDelayMillis the initial delay before retrying.
- * @param maxDelayMillis the maximum delay between retries.
+ * @param maxDelayMillis the maximum delay between retrys.
  * @param block the logic to run once and then run again if it fails.
  */
 suspend inline fun retryWithBackoff(noinline onErrorListener: ((Throwable) -> Boolean)? = null, initialDelayMillis: Long = 1000L, maxDelayMillis: Long = MAX_BACKOFF_INTERVAL, block: () -> Unit) {
@@ -86,7 +86,7 @@ suspend inline fun retryWithBackoff(noinline onErrorListener: ((Throwable) -> Bo
                 duration = maxDelayMillis - Random.nextLong(1000L) // include jitter but don't exceed max delay
                 sequence /= 2
             }
-            twig("Failed due to $t caused by ${t.cause} backing off and retrying in ${duration}ms...")
+            twig("Failed due to $t backing off and retrying in ${duration}ms...")
             delay(duration)
         }
     }

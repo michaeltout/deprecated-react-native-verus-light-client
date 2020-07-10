@@ -267,15 +267,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 				progress = this.getSyncprogress(index);
 				blockCountStr = this.getBlockCount(index);
 
-				if(status.length() > 5){
-
-					String test = status.substring(0, 6);
-					if( test.equals("error:") ){
-							result = status;
-							break;
-					}
-				}
-				if(!blockCountStr.equals("error: not initialized coin usage")){
+				if(blockCountStr != "error: not initialized coin usage"){
 					blockcount = Integer.parseInt(blockCountStr);
 
 				try{
@@ -609,6 +601,35 @@ try {
 
 	/*
 		use this method to load, all the data into the coin object. If you call this method Nothing
+		is started yet. It only loads the data into the relevant objects. If you also want to controll the zcash protocol
+	*/
+	public void createWallet ( String coinId, String coinProtocol, String accountHash, String host, int port,
+		int numberOfAccounts, String seed, int birthday, String sapling, Promise promise ) {
+		try{
+		Activity mActivity = getCurrentActivity();
+		Context mContext = mActivity.getApplicationContext();
+		VerusLightClientModule.context = mContext;
+
+		String path = coinId + "_" + accountHash + "_" + coinProtocol;
+		//String host =  "lightwalletd.z.cash";
+		//int port = 9067;
+		//String seed = "urban kind wise collect social marble riot primary craft lucky head cause syrup odor artist decorate rhythm phone style benefit portion bus truck top";
+		//String seedInUft8 = "dXJiYW4ga2luZCB3aXNlIGNvbGxlY3Qgc29jaWFsIG1hcmJsZSByaW90IHByaW1hcnkgY3JhZnQgbHVja3kgaGVhZCBjYXVzZSBzeXJ1cCBvZG9yIGFydGlzdCBkZWNvcmF0ZSByaHl0aG0gcGhvbmUgc3R5bGUgYmVuZWZpdCBwb3J0aW9uIGJ1cyB0cnVjayB0b3A=";
+		byte[] seedToByteArray = seed.getBytes(StandardCharsets.UTF_8); //chance to real seed
+		int birthdayInt = birthday;
+		String birthdayString = turnIntIntoBirthdayString(birthday);
+		//int numberOfAccounts = 1;
+
+		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, birthdayString, birthdayInt, sapling, numberOfAccounts);
+		coinToIndex.put(path, indexNumber);
+		promise.resolve("true");
+	}catch (IllegalViewOperationException e) {
+			promise.reject(E_LAYOUT_ERROR, e);
+		}
+	}
+
+	/*
+		use this method to load, all the data into the coin object. If you call this method Nothing
 		is started yet. It only loads the data into the relevant objects.
 	*/
 	public void createWallet ( String coinId, String coinProtocol, String accountHash, String host, int port,
@@ -628,7 +649,7 @@ try {
 		String birthdayString = turnIntIntoBirthdayString(birthday);
 		//int numberOfAccounts = 1;
 
-		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, birthdayString, birthdayInt, numberOfAccounts);
+		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, birthdayString, birthdayInt, "sapling", numberOfAccounts);
 		coinToIndex.put(path, indexNumber);
 		promise.resolve("true");
 	}catch (IllegalViewOperationException e) {

@@ -603,6 +603,7 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
     extsk: JString<'_>,
     to: JString<'_>,
     value: jlong,
+    sapling: JString<'_>,
     memo: jbyteArray,
     spend_params: JString<'_>,
     output_params: JString<'_>,
@@ -621,6 +622,7 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
         if value.is_negative() {
             return Err(format_err!("Amount is negative"));
         }
+        let r_sapling = utils::java_string_to_rust(&env, sapling);
         let memo_bytes = env.convert_byte_array(memo).unwrap();
         let spend_params = utils::java_string_to_rust(&env, spend_params);
         let output_params = utils::java_string_to_rust(&env, output_params);
@@ -646,6 +648,7 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
 
         let prover = LocalTxProver::new(Path::new(&spend_params), Path::new(&output_params));
 
+        if r_sapling == "sapling"{
         create_to_address(
             &db_data,
             BranchId::Sapling,
@@ -656,6 +659,18 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
             memo,
         )
         .map_err(|e| format_err!("Error while creating transaction: {}", e))
+    }else{
+        create_to_address(
+            &db_data,
+            BranchId::Blossom,
+            prover,
+            (account, &extsk),
+            &to,
+            value,
+            memo,
+        )
+        .map_err(|e| format_err!("Error while creating transaction: {}", e))
+    }
     });
     unwrap_exc_or(&env, res, -1)
 }

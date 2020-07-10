@@ -108,6 +108,7 @@ class RustBackend : RustBackendWelding {
         extsk: String,
         to: String,
         value: Long,
+        sapling: String,
         memo: ByteArray?
     ): Long = createToAddress(
         pathDataDb,
@@ -115,6 +116,7 @@ class RustBackend : RustBackendWelding {
         extsk,
         to,
         value,
+        sapling,
         memo ?: ByteArray(0),
         "${pathParamsDir}/$SPEND_PARAM_FILE_NAME",
         "${pathParamsDir}/$OUTPUT_PARAM_FILE_NAME"
@@ -225,6 +227,7 @@ class RustBackend : RustBackendWelding {
             extsk: String,
             to: String,
             value: Long,
+            sapling: String,
             memo: ByteArray,
             spendParamsPath: String,
             outputParamsPath: String

@@ -105,7 +105,8 @@ class PersistentTransactionManager(
 
     override suspend fun encode(
         spendingKey: String,
-        pendingTx: PendingTransaction
+        pendingTx: PendingTransaction,
+        sapling: String
     ): PendingTransaction = withContext(Dispatchers.IO) {
         twig("managing the creation of a transaction")
         var tx = pendingTx as PendingTransactionEntity
@@ -115,9 +116,9 @@ class PersistentTransactionManager(
                 spendingKey,
                 tx.value,
                 tx.toAddress,
+                sapling,
                 tx.memo,
                 tx.accountIndex
-
             )
             twig("successfully encoded transaction for ${tx.memo}!!")
             tx = tx.copy(raw = encodedTx.raw, rawTransactionId = encodedTx.txId)

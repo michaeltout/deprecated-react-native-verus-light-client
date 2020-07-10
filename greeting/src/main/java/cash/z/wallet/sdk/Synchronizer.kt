@@ -94,7 +94,6 @@ interface Synchronizer {
      */
     val receivedTransactions: Flow<PagedList<ConfirmedTransaction>>
 
-    var errors: String?
 
     //
     // Operations
@@ -128,6 +127,7 @@ interface Synchronizer {
         spendingKey: String,
         zatoshi: Long,
         toAddress: String,
+        sapling: String,
         memo: String = "",
         fromAccountIndex: Int = 0
     ): Flow<PendingTransaction>
@@ -256,9 +256,7 @@ interface Synchronizer {
          * Indicates that this Synchronizer is fully up to date and ready for all wallet functions.
          * When set, a UI element may want to turn green. In this state, the balance can be trusted.
          */
-        SYNCED,
-
-        ENHANCING
+        SYNCED
     }
 
     /**

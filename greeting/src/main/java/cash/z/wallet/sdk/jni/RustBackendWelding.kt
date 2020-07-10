@@ -43,6 +43,7 @@ interface RustBackendWelding {
         extsk: String,
         to: String,
         value: Long,
+        sapling: String,
         memo: ByteArray? = byteArrayOf()
     ): Long
 

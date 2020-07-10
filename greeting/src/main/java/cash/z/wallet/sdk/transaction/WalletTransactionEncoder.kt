@@ -43,10 +43,11 @@ class WalletTransactionEncoder(
         spendingKey: String,
         zatoshi: Long,
         toAddress: String,
+        sapling: String,
         memo: ByteArray?,
         fromAccountIndex: Int
     ): EncodedTransaction = withContext(IO) {
-        val transactionId = createSpend(spendingKey, zatoshi, toAddress, memo)
+        val transactionId = createSpend(spendingKey, zatoshi, toAddress, sapling, memo)
         repository.findEncodedTransactionById(transactionId)
             ?: throw TransactionEncoderException.TransactionNotFoundException(transactionId)
     }
@@ -92,6 +93,7 @@ class WalletTransactionEncoder(
         spendingKey: String,
         zatoshi: Long,
         toAddress: String,
+        sapling: String,
         memo: ByteArray? = byteArrayOf(),
         fromAccountIndex: Int = 0
     ): Long = withContext(IO) {
@@ -105,6 +107,7 @@ class WalletTransactionEncoder(
                     spendingKey,
                     toAddress,
                     zatoshi,
+                    sapling,
                     memo
                 )
             } catch (t: Throwable) {

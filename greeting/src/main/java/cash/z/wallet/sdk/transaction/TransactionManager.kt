@@ -37,7 +37,7 @@ interface OutboundTransactionManager {
      *
      * @return the resulting pending transaction whose ID can be used to monitor for changes.
      */
-    suspend fun encode(spendingKey: String, pendingTx: PendingTransaction): PendingTransaction
+    suspend fun encode(spendingKey: String, pendingTx: PendingTransaction, sapling: String): PendingTransaction
 
     /**
      * Submits the transaction represented by [pendingTx] to lightwalletd to broadcast to the
@@ -54,7 +54,7 @@ interface OutboundTransactionManager {
      * Given a transaction and the height at which it was mined, update the transaction to indicate
      * that it was mined.
      *
-     * @param pendingTx the pending transaction that has been mined.
+     * @param pendingTx the pending transaction that has been mineed.
      * @param minedHeight the height at which the given transaction was mined, according to the data
      * that has been processed from the blockchain.
      */
@@ -67,7 +67,7 @@ interface OutboundTransactionManager {
      * @param id the id to monitor.
      *
      * @return a flow of pending transactions that are emitted anytime the transaction associated
-     * with the given id changes.
+     * withh the given id changes.
      */
     suspend fun monitorById(id: Long): Flow<PendingTransaction>
 

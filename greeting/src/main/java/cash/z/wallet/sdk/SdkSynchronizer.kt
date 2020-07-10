@@ -65,7 +65,7 @@ class SdkSynchronizer internal constructor(
     override val pendingTransactions = manager.getAll()
     override val sentTransactions = ledger.sentTransactions
     override val receivedTransactions = ledger.receivedTransactions
-    override var errors: String? = null
+
 
     //
     // Status
@@ -197,35 +197,32 @@ class SdkSynchronizer internal constructor(
     }
 
     private fun CoroutineScope.onReady() = launch(CoroutineExceptionHandler(::onCriticalError)) {
-          twig("Synchronizer (${this@SdkSynchronizer}) Ready. Starting processor!")
-          processor.onProcessorErrorListener = ::onProcessorError
-          processor.onChainErrorListener = ::onChainError
-          processor.state.onEach {
-              when (it) {
-                  is Scanned -> {
-                      // do a bit of housekeeping and then report synced status
-                      onScanComplete(it.scannedRange)
-                      SYNCED
-                  }
-                  is Stopped -> STOPPED
-                  is Disconnected -> DISCONNECTED
-                  is Downloading, Initialized -> DOWNLOADING
-                  is Validating -> VALIDATING
-                  is Scanning -> SCANNING
-                  is Enhancing -> ENHANCING
-              }.let { synchronizerStatus ->
-                  //  ignore enhancing status for now
-                  // TODO: clean this up and handle enhancing gracefully
-                  if (synchronizerStatus != ENHANCING) _status.send(synchronizerStatus)
-              }
-          }.launchIn(this)
-          processor.start()
-          twig("Synchronizer onReady complete. Processor start has exited!")
-      }
+        twig("Synchronizer (${this@SdkSynchronizer}) Ready. Starting processor!")
+        processor.onProcessorErrorListener = ::onProcessorError
+        processor.onChainErrorListener = ::onChainError
+        processor.state.onEach {
+            when (it) {
+                is Scanned -> {
+                    // do a bit of housekeeping and then report synced status
+                    onScanComplete(it.scannedRange)
+                    SYNCED
+                }
+                is Stopped -> STOPPED
+                is Disconnected -> DISCONNECTED
+                is Downloading, Initialized -> DOWNLOADING
+                is Validating -> VALIDATING
+                is Scanning -> SCANNING
+            }.let { synchronizerStatus ->
+                _status.send(synchronizerStatus)
+            }
+        }.launchIn(this)
+        processor.start()
+        twig("Synchronizer onReady complete. Processor start has exited!")
+    }
 
     private fun onCriticalError(unused: CoroutineContext, error: Throwable) {
         twig("********")
-        this.errors = "error: $error"
+        twig("********  ERROR: $error")
         if (error.cause != null) twig("******** caused by ${error.cause}")
         if (error.cause?.cause != null) twig("******** caused by ${error.cause?.cause}")
         twig("********")
@@ -235,7 +232,6 @@ class SdkSynchronizer internal constructor(
 
     private fun onFailedSend(error: Throwable): Boolean {
         twig("ERROR while submitting transaction: $error")
-        errors = "error: $error"
         return onSubmissionErrorHandler?.invoke(error)?.also {
             if (it) twig("submission error handler signaled that we should try again!")
         } == true
@@ -243,7 +239,6 @@ class SdkSynchronizer internal constructor(
 
     private fun onProcessorError(error: Throwable): Boolean {
         twig("ERROR while processing data: $error")
-        this.errors = "error: $error"
         if (onProcessorErrorHandler == null) {
             twig(
                 "WARNING: falling back to the default behavior for processor errors. To add" +
@@ -262,7 +257,6 @@ class SdkSynchronizer internal constructor(
 
     private fun onChainError(errorHeight: Int, rewindHeight: Int) {
         twig("Chain error detected at height: $errorHeight. Rewinding to: $rewindHeight")
-        this.errors = "Chain error detected at height: $errorHeight."
         if (onChainErrorHandler == null) {
             twig(
                 "WARNING: a chain error occurred but no callback is registered to be notified of " +
@@ -332,6 +326,7 @@ class SdkSynchronizer internal constructor(
         spendingKey: String,
         zatoshi: Long,
         toAddress: String,
+        sapling: String,
         memo: String,
         fromAccountIndex: Int
     ): Flow<PendingTransaction> = flow {
@@ -339,7 +334,7 @@ class SdkSynchronizer internal constructor(
         // Emit the placeholder transaction, then switch to monitoring the database
         manager.initSpend(zatoshi, toAddress, memo, fromAccountIndex).let { placeHolderTx ->
             emit(placeHolderTx)
-            manager.encode(spendingKey, placeHolderTx).let { encodedTx ->
+            manager.encode(spendingKey, placeHolderTx, sapling).let { encodedTx ->
                 if (!encodedTx.isFailedEncoding() && !encodedTx.isCancelled()) {
                     manager.submit(encodedTx)
                 }

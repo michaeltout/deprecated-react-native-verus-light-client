@@ -55,6 +55,7 @@ class Coins (
   iSeedInUft8: String,
   iBirthdayString: String,
   iBirthdayInt: Int,
+  iSapling: String,
   iNumberOfAccounts: Int
   ){
     //this coin-account syncronizer
@@ -92,9 +93,9 @@ class Coins (
 
      private var syncroStatus: String = "";
 
-     private var syncroProgress: Int = -3;
+     private var sapling: String = "";
 
-     var isFact = false;
+     private var syncroProgress: Int = -3;
 
      var arraylistPending = ArrayList<String>();
      var arraylistReceived = ArrayList<String>();
@@ -116,6 +117,7 @@ class Coins (
       numberOfAccounts = iNumberOfAccounts;
       seedInByteArray = iSeedInByteArray;
       birthdayString = birthdayInt.toString();
+      sapling = iSapling;
 
       val file = File("zcash/saplingtree/$birthdayString.json");
 
@@ -183,6 +185,12 @@ class Coins (
       return numberOfAccounts;
     }
 
+    //gets sapling
+    public fun getSapling(): String{
+      return sapling;
+    }
+
+
     public fun setIdentity(iIdentity: Identities): Int{
       var indexNumber: Int = 0;
 
@@ -225,28 +233,21 @@ class Coins (
     public fun monitorChanges() = runBlocking {
       try{
       GlobalScope.launch { //has to happen here, becuase java does not have coroutines
-          synchronizer?.status!!.collect({ x ->
-            syncroStatus = "$x"
-            });
+          synchronizer?.status!!.collect({ x -> syncroStatus = "$x" });
         }
         GlobalScope.launch { //has to happen here, becuase java does not have coroutines
-            synchronizer?.progress!!.collect({x ->
-              syncroProgress = x
-              })
+            synchronizer?.progress!!.collect({x -> syncroProgress = x });
           }
         }catch(e: Exception){
 
       }
     }
 
-    public fun monitorWalletChanges() {
+    public fun monitorWalletChanges() = {
       GlobalScope.launch {
-
         synchronizer?.receivedTransactions!!.collect(
           {
             x ->
-
-            isFact = true;
 
             var meme = x.toList();
 

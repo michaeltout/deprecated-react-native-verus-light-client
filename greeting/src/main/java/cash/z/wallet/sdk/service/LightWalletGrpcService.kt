@@ -24,13 +24,10 @@ import java.util.concurrent.TimeUnit
  * created for streaming requests, it will use a deadline that is after the given duration from now.
  */
 class LightWalletGrpcService private constructor(
-    private var channel: ManagedChannel,
+    private val channel: ManagedChannel,
     private val singleRequestTimeoutSec: Long = 10L,
     private val streamingRequestTimeoutSec: Long = 90L
 ) : LightWalletService {
-
-    //TODO: find a better way to do this, maybe change the constructor to keep the properties
-    lateinit var connectionInfo: ConnectionInfo
 
     /**
      * Construct an instance that corresponds to the given host and port.
@@ -47,20 +44,31 @@ class LightWalletGrpcService private constructor(
         host: String,
         port: Int = DEFAULT_LIGHTWALLETD_PORT,
         usePlaintext: Boolean = appContext.resources.getBoolean(R.bool.lightwalletd_allow_very_insecure_connections)
-    ) : this(createDefaultChannel(appContext, host, port, usePlaintext)) {
-        connectionInfo = ConnectionInfo(appContext.applicationContext, host, port, usePlaintext)
-    }
+    ) : this(createDefaultChannel(appContext, host, port, usePlaintext))
 
-    /* LightWalletService implementation */
+    /* LightWalletService implementation
+
+
+      rpc RegisterNameCommitment(RegisterNameCommitmentRequest) returns (RegisterNameCommitmentResponse) {}
+      rpc RegisterIdentity(RegisterIdentityRequest) returns (RegisterIdentityResponse) {}
+      rpc RevokeIdentity(RevokeIdentityRequest) returns (RevokeIdentityResponse) {}
+      rpc RecoverIdentity(RecoverIdentityRequest) returns (RecoverIdentityResponse) {}
+      rpc UpdateIdentity(UpdateIdentityRequest) returns (UpdateIdentityResponse) {}
+      --rpc GetIdentity(GetIdentityRequest) returns (GetIdentityResponse) {}
+      rpc VerifyMessage(VerifyMessageRequest) returns (VerifyMessageResponse) {}
+
+    */
 
     override fun getBlockRange(heightRange: IntRange): List<CompactFormats.CompactBlock> {
         channel.resetConnectBackoff()
         return channel.createStub(streamingRequestTimeoutSec).getBlockRange(heightRange.toBlockRange()).toList()
     }
 
+
+    //also has example on how to get specific attribures
     override fun getIdentities(addressOfIdentity: String): Service.IdentityInfo {
-        channel.resetConnectBackoff()
-        return channel.createStub(singleRequestTimeoutSec).getIdentity(addressOfIdentity.toIdentityRequest()).getIdentityinfo();
+      channel.resetConnectBackoff()
+      return channel.createStub(singleRequestTimeoutSec).getIdentity(addressOfIdentity.toIdentityRequest()).getIdentityinfo();
     }
 
     override fun verifyMessage(signer: String, signature: String, message: String, checklast: Boolean): Boolean{
@@ -80,24 +88,8 @@ class LightWalletGrpcService private constructor(
     }
 
     override fun shutdown() {
-        channel.shutdown()
+        channel.shutdownNow()
     }
-
-    override fun fetchTransaction(txId: ByteArray): Service.RawTransaction? {
-        channel.resetConnectBackoff()
-        return channel.createStub().getTransaction(Service.TxFilter.newBuilder().setHash(ByteString.copyFrom(txId)).build())
-    }
-
-    override fun reconnect() {
-        channel.shutdown()
-        channel = createDefaultChannel(
-            connectionInfo.appContext,
-            connectionInfo.host,
-            connectionInfo.port,
-            connectionInfo.usePlaintext
-        )
-    }
-
 
     //
     // Utilities
@@ -110,32 +102,26 @@ class LightWalletGrpcService private constructor(
 
     private inline fun Int.toBlockHeight(): Service.BlockID = Service.BlockID.newBuilder().setHeight(this.toLong()).build()
 
-    private inline fun IntRange.toBlockRange(): Service.BlockRange =
-        Service.BlockRange.newBuilder()
-            .setStart(first.toBlockHeight())
-            .setEnd(last.toBlockHeight())
-            .build()
-
     private inline fun String.toRevokeIdenity(): Service.RevokeIdentityRequest = Service.RevokeIdentityRequest.newBuilder().setIdentity(this).build()
 
     private inline fun Service.Identity.toUpdateIdentity(): Service.UpdateIdentityRequest = Service.UpdateIdentityRequest.newBuilder().setIdentity(this).build()
 
     private inline fun String.toNameReservation(salt: String, referralIdentity: String, parent: String, nameId: String): Service.NameReservation =
-        Service.NameReservation.newBuilder()
-            .setName(this)
-            .setSalt(salt)
-            .setReferral(referralIdentity)
-            .setParent(parent)
-            .setNameid(nameId)
-            .build()
+    Service.NameReservation.newBuilder()
+      .setName(this)
+      .setSalt(salt)
+      .setReferral(referralIdentity)
+      .setParent(parent)
+      .setNameid(nameId)
+      .build()
 
     private inline fun String.toVerifyMessage(signer: String, signature: String, checklast: Boolean): Service.VerifyMessageRequest =
-        Service.VerifyMessageRequest.newBuilder()
-            .setMessage(this)
-            .setSigner(signer)
-            .setSignature(signature)
-            .setChecklatest(checklast)
-            .build()
+      Service.VerifyMessageRequest.newBuilder()
+          .setMessage(this)
+          .setSigner(signer)
+          .setSignature(signature)
+          .setChecklatest(checklast)
+          .build()
 
     private inline fun String.toRegisterIdentity( identity :Service.Identity, feeoffer: Double, nameReservation: Service.NameReservation): Service.RegisterIdentityRequest =
         Service.RegisterIdentityRequest.newBuilder()
@@ -146,36 +132,42 @@ class LightWalletGrpcService private constructor(
             .build()
 
     private inline fun Service.Identity.toRecoverIdentity(): Service.RecoverIdentityRequest =
-        Service.RecoverIdentityRequest.newBuilder()
-            .setIdentity(this)
-            .build()
+      Service.RecoverIdentityRequest.newBuilder()
+        .setIdentity(this)
+        .build()
 
     private inline fun String.createProtoIdentity( contentmap: Map<String, String>,
-                                                   primaryaddresses: List<String>, minimumSignatures: Int, privateAddress: String, revocationAuthority: String, recoveryAuthority: String,
-                                                   flags: Int, version: Int, parent: String): Service.Identity =
+      primaryaddresses: List<String>, minimumSignatures: Int, privateAddress: String, revocationAuthority: String, recoveryAuthority: String,
+      flags: Int, version: Int, parent: String): Service.Identity =
         Service.Identity.newBuilder()
-            .setName(this)
-            .addAllPrimaryaddresses(primaryaddresses)
-            .setMinimumsignatures(minimumSignatures)
-            .setPrivateaddress(privateAddress)
-            .setRecoveryauthority(recoveryAuthority)
-            .setRevocationauthority(revocationAuthority)
-            .setFlags(flags)
-            .setVersion(version)
-            .setParent(parent)
-            .build()
+          .setName(this)
+          .addAllPrimaryaddresses(primaryaddresses)
+          .setMinimumsignatures(minimumSignatures)
+          .setPrivateaddress(privateAddress)
+          .setRecoveryauthority(recoveryAuthority)
+          .setRevocationauthority(revocationAuthority)
+          .setFlags(flags)
+          .setVersion(version)
+          .setParent(parent)
+          .build()
 
     private inline fun String.toRegisterNameRequest(controllingAddress: String, referralIdentity: String): Service.RegisterNameCommitmentRequest =
         Service.RegisterNameCommitmentRequest.newBuilder()
-            .setName(this)
-            .setControllingaddress(controllingAddress)
-            .setReferralidentity(referralIdentity)
+              .setName(this)
+              .setControllingaddress(controllingAddress)
+              .setReferralidentity(referralIdentity)
+              .build()
+
+    private inline fun IntRange.toBlockRange(): Service.BlockRange =
+        Service.BlockRange.newBuilder()
+            .setStart(first.toBlockHeight())
+            .setEnd(last.toBlockHeight())
             .build()
 
     private inline fun String.toIdentityRequest(): Service.GetIdentityRequest =
         Service.GetIdentityRequest.newBuilder()
-            .setIdentity(this)
-            .build()
+              .setIdentity(this)
+              .build()
 
     private fun Iterator<CompactFormats.CompactBlock>.toList(): List<CompactFormats.CompactBlock> =
         mutableListOf<CompactFormats.CompactBlock>().apply {
@@ -183,13 +175,6 @@ class LightWalletGrpcService private constructor(
                 this@apply += next()
             }
         }
-
-    inner class ConnectionInfo(
-        val appContext: Context,
-        val host: String,
-        val port: Int,
-        val usePlaintext: Boolean
-    )
 
     companion object {
         /**
@@ -203,7 +188,7 @@ class LightWalletGrpcService private constructor(
             port: Int,
             usePlaintext: Boolean
         ): ManagedChannel {
-            twig("Creating channel that will connect to $host:$port")
+            twig("Creating connection to $host:$port")
             return AndroidChannelBuilder
                 .forAddress(host, port)
                 .context(appContext)
