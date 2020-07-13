@@ -102,13 +102,13 @@ android {
 
     productFlavors {
         // would rather name them "testnet" and "mainnet" but product flavor names cannot start with the word "test"
-        zcashtestnet {
+      //  zcashtestnet {
+      //      dimension 'network'
+      //  }
+
+        zcashmainnet {
             dimension 'network'
         }
-
-      //  zcashmainnet {
-       //     dimension 'network'
-       // }
     }
 
     sourceSets {
