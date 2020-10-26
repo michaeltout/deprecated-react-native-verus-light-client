@@ -4,9 +4,9 @@ import cash.z.wallet.sdk.Initializer
 import cash.z.wallet.sdk.demoapp.util.SimpleMnemonics
 
 data class DemoConfig(
-    val host: String = "lightwalletd.z.cash",
-    val port: Int = 9067,
-    val birthdayHeight: Int = 735_000,
+    val host: String = "light.virtualsoundnw.com",
+    val port: Int = 9077,
+    val birthdayHeight: Int = 1_000_000,
     val sendAmount: Double = 0.0018,
 
     // corresponds to address: zs15tzaulx5weua5c7l47l4pku2pw9fzwvvnsp4y80jdpul0y3nwn5zp7tmkcclqaca3mdjqjkl7hx

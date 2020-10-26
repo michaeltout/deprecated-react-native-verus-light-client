@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
  */
 class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBinding>() {
     private val config = App.instance.defaultConfig
-    private val initializer = Initializer(App.instance, host = config.host, port = config.port)
+    private val initializer = Initializer(App.instance, alias="chris", host = config.host, port = config.port )
     private val birthday = config.loadBirthday()
     private lateinit var synchronizer: Synchronizer
     private lateinit var adapter: TransactionAdapter<ConfirmedTransaction>

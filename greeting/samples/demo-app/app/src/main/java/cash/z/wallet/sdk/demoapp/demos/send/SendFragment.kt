@@ -25,7 +25,7 @@ import cash.z.wallet.sdk.ext.*
  */
 class SendFragment : BaseDemoFragment<FragmentSendBinding>() {
     private val config = App.instance.defaultConfig
-    private val initializer = Initializer(App.instance, host = config.host, port = config.port)
+    private val initializer = Initializer(App.instance, alias="chris", host = config.host, port = config.port)
     private val birthday = config.loadBirthday()
 
     private lateinit var synchronizer: Synchronizer

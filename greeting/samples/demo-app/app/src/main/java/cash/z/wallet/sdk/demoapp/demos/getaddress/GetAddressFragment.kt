@@ -13,7 +13,7 @@ import cash.z.wallet.sdk.demoapp.databinding.FragmentGetAddressBinding
 class GetAddressFragment : BaseDemoFragment<FragmentGetAddressBinding>() {
 
     private var seed: ByteArray = App.instance.defaultConfig.seed
-    private val initializer: Initializer = Initializer(App.instance)
+    private val initializer: Initializer = Initializer(App.instance, "chris")
 
     private lateinit var address: String
 

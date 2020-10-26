@@ -14,7 +14,7 @@ import cash.z.wallet.sdk.demoapp.databinding.FragmentGetPrivateKeyBinding
  */
 class GetPrivateKeyFragment : BaseDemoFragment<FragmentGetPrivateKeyBinding>() {
     private var seed: ByteArray = App.instance.defaultConfig.seed
-    private val initializer: Initializer = Initializer(App.instance)
+    private val initializer: Initializer = Initializer(App.instance, "chris")
     private val birthday = App.instance.defaultConfig.newWalletBirthday()
     private lateinit var spendingKeys: Array<String>
     private lateinit var viewingKeys: Array<String>

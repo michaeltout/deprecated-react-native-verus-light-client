@@ -48,7 +48,7 @@ android {
 
 dependencies {
     // SDK
-    implementation project(path: ':sdk')
+      compile project (':sdk')
 //    implementation "cash.z.android.wallet:zcash-android-core:$sdk_version@aar"
 
     // sample mnemonic plugin
