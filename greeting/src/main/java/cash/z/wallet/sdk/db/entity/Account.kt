@@ -1,9 +1,7 @@
-package cash.z.wallet.sdk.entity
+package cash.z.wallet.sdk.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Ignore
 
 @Entity(
     tableName = "accounts",
@@ -17,4 +15,3 @@ data class Account(
 
     val address: String = ""
 )
-

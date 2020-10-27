@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cash.z.wallet.sdk.demoapp.R
-import cash.z.wallet.sdk.entity.ConfirmedTransaction
+import cash.z.wallet.sdk.db.entity.ConfirmedTransaction
 import cash.z.wallet.sdk.ext.convertZatoshiToZecString
 import cash.z.wallet.sdk.ext.twig
 import java.text.SimpleDateFormat

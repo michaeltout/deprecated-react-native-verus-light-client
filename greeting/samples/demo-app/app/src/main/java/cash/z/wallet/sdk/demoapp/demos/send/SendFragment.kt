@@ -12,7 +12,7 @@ import cash.z.wallet.sdk.demoapp.BaseDemoFragment
 import cash.z.wallet.sdk.demoapp.R
 import cash.z.wallet.sdk.demoapp.databinding.FragmentSendBinding
 import cash.z.wallet.sdk.demoapp.util.SampleStorageBridge
-import cash.z.wallet.sdk.entity.*
+import cash.z.wallet.sdk.db.entity.*
 import cash.z.wallet.sdk.ext.*
 
 /**

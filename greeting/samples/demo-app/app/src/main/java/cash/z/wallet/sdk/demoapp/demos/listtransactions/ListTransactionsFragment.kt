@@ -11,7 +11,7 @@ import cash.z.wallet.sdk.block.CompactBlockProcessor
 import cash.z.wallet.sdk.demoapp.App
 import cash.z.wallet.sdk.demoapp.BaseDemoFragment
 import cash.z.wallet.sdk.demoapp.databinding.FragmentListTransactionsBinding
-import cash.z.wallet.sdk.entity.ConfirmedTransaction
+import cash.z.wallet.sdk.db.entity.ConfirmedTransaction
 import cash.z.wallet.sdk.ext.collectWith
 import cash.z.wallet.sdk.ext.twig
 import kotlinx.coroutines.flow.collect

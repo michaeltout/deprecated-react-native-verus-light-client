@@ -477,6 +477,7 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_getSentMemoAsUtf
     let res = panic::catch_unwind(|| {
         let db_data = utils::java_string_to_rust(&env, db_data);
 
+
         let memo = match get_sent_memo_as_utf8(db_data, id_note) {
             Ok(memo) => memo.unwrap_or_default(),
             Err(e) => return Err(format_err!("Error while fetching memo: {}", e)),

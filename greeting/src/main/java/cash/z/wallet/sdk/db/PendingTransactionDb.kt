@@ -1,7 +1,7 @@
 package cash.z.wallet.sdk.db
 
 import androidx.room.*
-import cash.z.wallet.sdk.entity.PendingTransactionEntity
+import cash.z.wallet.sdk.db.entity.PendingTransactionEntity
 import kotlinx.coroutines.flow.Flow
 
 
@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
  * initiated by this wallet. Currently, the data necessary to support expired transactions is there
  * but it is not being leveraged.
  */
-
 @Database(
     entities = [
         PendingTransactionEntity::class
@@ -23,7 +22,6 @@ import kotlinx.coroutines.flow.Flow
     version = 1,
     exportSchema = true
 )
-
 abstract class PendingTransactionDb : RoomDatabase() {
     abstract fun pendingTransactionDao(): PendingTransactionDao
 }
@@ -45,7 +43,7 @@ interface PendingTransactionDao {
     suspend fun update(transaction: PendingTransactionEntity)
 
     @Delete
-    suspend fun delete(transaction: PendingTransactionEntity)
+    suspend fun delete(transaction: PendingTransactionEntity): Int
 
     @Query("UPDATE pending_transactions SET cancelled = 1 WHERE id = :id")
     suspend fun cancel(id: Long)
@@ -58,4 +56,29 @@ interface PendingTransactionDao {
 
     @Query("SELECT * FROM pending_transactions WHERE id = :id")
     fun monitorById(id: Long): Flow<PendingTransactionEntity>
+
+
+    //
+    // Update helper functions
+    //
+
+    @Query("UPDATE pending_transactions SET rawTransactionId = null WHERE id = :id")
+    suspend fun removeRawTransactionId(id: Long)
+
+    @Query("UPDATE pending_transactions SET minedHeight = :minedHeight WHERE id = :id")
+    suspend fun updateMinedHeight(id: Long, minedHeight: Int)
+
+    @Query("UPDATE pending_transactions SET raw = :raw, rawTransactionId = :rawTransactionId, expiryHeight = :expiryHeight WHERE id = :id")
+    suspend fun updateEncoding(id: Long, raw: ByteArray, rawTransactionId: ByteArray, expiryHeight: Int?)
+
+    @Query("UPDATE pending_transactions SET errorMessage = :errorMessage, errorCode = :errorCode WHERE id = :id")
+    suspend fun updateError(id: Long, errorMessage: String?, errorCode: Int?)
+
+    @Query("UPDATE pending_transactions SET encodeAttempts = :attempts WHERE id = :id")
+    suspend fun updateEncodeAttempts(id: Long, attempts: Int)
+
+    @Query("UPDATE pending_transactions SET submitAttempts = :attempts WHERE id = :id")
+    suspend fun updateSubmitAttempts(id: Long, attempts: Int)
 }
+
+

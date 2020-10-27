@@ -7,13 +7,12 @@ buildscript {
     ext.versions = [
         'architectureComponents': [
             'lifecycle': '2.2.0',
-            'room': '2.2.3',
-            'paging': '2.1.1'
+            'room': '2.2.5',
+            'paging': '2.1.2'
         ],
         'grpc':'1.25.0', // NOTE: cannot use a higher version because they use protobuf 3.10+ which is not compatible with 3.0+ so we'd have to implement changes in our protobuf files which breaks everything
-        'kotlin': '1.3.61',
-        'coroutines': '1.3.2',
-        'junitJupiter': '5.5.2'
+        'coroutines': '1.3.9',
+        'junitJupiter': '5.6.1'
     ]
     repositories {
         google()
@@ -21,25 +20,29 @@ buildscript {
         maven {
             url 'https://jitpack.io'
         }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "org.jetbrains.kotlin:kotlin-allopen:${versions.kotlin}"
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:1.4.10"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.1"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.27.0"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.31.0"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
-		classpath 'org.owasp:dependency-check-gradle:5.1.1'
+        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.13"
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.2'
-		classpath 'com.github.str4d:rust-android-gradle:68b4ecc053'
-
-
-       //'gradle.plugin.org.mozilla.rust-android-gradle:plugin:0.8.0'
+        classpath 'com.github.str4d:rust-android-gradle:68b4ecc053'
+        classpath 'org.owasp:dependency-check-gradle:6.0.0'
+        classpath "gradle.plugin.com.dorongold.plugins:task-tree:1.5"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
     }
 }
 
 apply from: 'custom-tasks.gradle'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -52,6 +55,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'org.mozilla.rust-android-gradle.rust-android'
 apply plugin: 'org.owasp.dependencycheck'
+apply plugin: "com.dorongold.task-tree"
 
 group = 'com.github.Diesmaster'
 version = '1.0.0-beta03'
@@ -107,6 +111,9 @@ android {
       //  }
 
         zcashmainnet {
+            dimension 'network'
+        }
+        zcashtestnet {
             dimension 'network'
         }
     }
@@ -216,7 +223,7 @@ dependencies {
     kapt "androidx.room:room-compiler:${versions.architectureComponents.room}"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
@@ -238,7 +245,7 @@ dependencies {
 
     // Tests
     testImplementation 'androidx.multidex:multidex:2.0.1'
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:1.4.10"
     testImplementation 'org.mockito:mockito-junit-jupiter:3.2.4'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation "org.junit.jupiter:junit-jupiter-api:${versions.junitJupiter}"

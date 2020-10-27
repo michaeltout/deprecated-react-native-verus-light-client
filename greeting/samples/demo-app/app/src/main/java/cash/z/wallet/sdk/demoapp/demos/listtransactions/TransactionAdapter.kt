@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import cash.z.wallet.sdk.demoapp.R
-import cash.z.wallet.sdk.entity.ConfirmedTransaction
+import cash.z.wallet.sdk.db.entity.ConfirmedTransaction
 
 /**
  * Simple adapter implementation that knows how to bind a recyclerview to ClearedTransactions.

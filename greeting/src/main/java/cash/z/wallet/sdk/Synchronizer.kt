@@ -3,7 +3,7 @@ package cash.z.wallet.sdk
 import androidx.paging.PagedList
 import cash.z.wallet.sdk.block.CompactBlockProcessor
 import cash.z.wallet.sdk.block.CompactBlockProcessor.WalletBalance
-import cash.z.wallet.sdk.entity.*
+import cash.z.wallet.sdk.db.entity.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 

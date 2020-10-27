@@ -3,7 +3,7 @@ package cash.z.wallet.sdk.sample.demoapp
 import androidx.test.platform.app.InstrumentationRegistry
 import cash.z.wallet.sdk.Initializer
 import cash.z.wallet.sdk.Synchronizer
-import cash.z.wallet.sdk.entity.isFailure
+import cash.z.wallet.sdk.db.entity.isFailure
 import cash.z.wallet.sdk.transaction.*
 import cash.z.wallet.sdk.ext.*
 import cash.z.wallet.sdk.jni.RustBackend
