@@ -453,8 +453,8 @@ class KtJavaComLayer (){
 
 							if(includePending == false){
 
-							totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(x)!!.totalZatoshi;
-							availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(x)!!.availableZatoshi;
+							totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.totalZatoshi;
+							availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.availableZatoshi;
 
 						}else{
 
@@ -468,8 +468,8 @@ class KtJavaComLayer (){
 
 					if(includePending == false){
 
-						totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(index)!!.totalZatoshi;
-						availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(index)!!.availableZatoshi;
+						totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.totalZatoshi;
+						availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.availableZatoshi;
 
 					}else{
 

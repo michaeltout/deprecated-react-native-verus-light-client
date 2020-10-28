@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import cash.z.wallet.sdk.db.CompactBlockDao
 import cash.z.wallet.sdk.db.CompactBlockDb
-import cash.z.wallet.sdk.entity.CompactBlockEntity
+import cash.z.wallet.sdk.db.entity.CompactBlockEntity
 import cash.z.wallet.sdk.ext.ZcashSdk.SAPLING_ACTIVATION_HEIGHT
 import cash.z.wallet.sdk.rpc.CompactFormats
 import kotlinx.coroutines.Dispatchers.IO
@@ -42,6 +42,10 @@ class CompactBlockDbStore(
     override suspend fun getLatestHeight(): Int = withContext(IO) {
         val lastBlock = Math.max(0, cacheDao.latestBlockHeight())
         if (lastBlock < SAPLING_ACTIVATION_HEIGHT) -1 else lastBlock
+    }
+
+    override suspend fun findCompactBlock(height: Int): CompactFormats.CompactBlock? {
+        return cacheDao.findCompactBlock(height)?.let { CompactFormats.CompactBlock.parseFrom(it) }
     }
 
     override suspend fun write(result: List<CompactFormats.CompactBlock>) = withContext(IO) {

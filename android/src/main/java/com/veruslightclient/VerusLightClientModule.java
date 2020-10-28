@@ -31,7 +31,7 @@ import cash.z.wallet.sdk.DemoConfig;
 import cash.z.wallet.sdk.Synchronizer;
 import cash.z.wallet.sdk.Synchronizer.Status.*;
 import cash.z.wallet.sdk.service.LightWalletService;
-//import cash.z.wallet.sdk.entity.isFailure;
+//import cash.z.wallet.sdk.db.entity.isFailure;
 import cash.z.wallet.sdk.transaction.*;
 import cash.z.wallet.sdk.ext.*;
 import cash.z.wallet.sdk.jni.RustBackend;

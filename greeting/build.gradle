@@ -71,6 +71,8 @@ android {
     compileSdkVersion 29
     useLibrary 'android.test.runner'
 
+    ndkVersion "21.1.6352462"
+
     defaultConfig {
         minSdkVersion buildConfig.minSdkVersion
         targetSdkVersion buildConfig.targetSdkVersion

@@ -8,6 +8,14 @@ import cash.z.wallet.sdk.rpc.Service
  * calls because async concerns are handled at a higher level.
  */
 interface LightWalletService {
+
+    /**
+     * Fetch the details of a known transaction.
+     *
+     * @return the full transaction info.
+     */
+    fun fetchTransaction(txId: ByteArray): Service.RawTransaction?
+
     /**
      * Return the given range of blocks.
      *
@@ -26,12 +34,49 @@ interface LightWalletService {
      */
     fun getLatestBlockHeight(): Int
 
-    /* Identity stuff*/
-
     //returns txid
     fun getIdentities(addressOfIdentity: String): Service.IdentityInfo
 
     fun verifyMessage(signer: String, signature: String, message: String, checklast: Boolean): Boolean
+
+    /**
+     * Return basic information about the server such as:
+     *
+     * ```
+     * {
+     *     "version": "0.2.1",
+     *     "vendor": "ECC LightWalletD",
+     *     "taddrSupport": true,
+     *     "chainName": "main",
+     *     "saplingActivationHeight": 419200,
+     *     "consensusBranchId": "2bb40e60",
+     *     "blockHeight": 861272
+     * }
+     * ```
+     *
+     * @return useful server details.
+     */
+    fun getServerInfo(): Service.LightdInfo
+
+    /**
+     * Gets all the transactions for a given t-address over the given range.  In practice, this is
+     * effectively the same as an RPC call to a node that's running an insight server. The data is
+     * indexed and responses are fairly quick.
+     *
+     * @return a list of transactions that correspond to the given address for the given range.
+     */
+    fun getTAddressTransactions(tAddress: String, blockHeightRange: IntRange): List<Service.RawTransaction>
+
+    /**
+     * Reconnect to the same or a different server. This is useful when the connection is
+     * unrecoverable. That might be time to switch to a mirror or just reconnect.
+     */
+    fun reconnect()
+
+    /**
+     * Cleanup any connections when the service is shutting down and not going to be used again.
+     */
+    fun shutdown()
 
     /**
      * Submit a raw transaction.
@@ -40,8 +85,4 @@ interface LightWalletService {
      */
     fun submitTransaction(spendTransaction: ByteArray): Service.SendResponse
 
-    /**
-     * Cleanup any connections when the service is shutting down and not going to be used again.
-     */
-    fun shutdown()
 }
