@@ -60,7 +60,7 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
         adapter = TransactionAdapter()
         lifecycleScope.launch {
             address = synchronizer.getAddress()
-            synchronizer.receivedTransactions.collect { onTransactionsUpdated(it) }
+            synchronizer.clearedTransactions.collect { onTransactionsUpdated(it) }
         }
         binding.recyclerTransactions.adapter = adapter
     }

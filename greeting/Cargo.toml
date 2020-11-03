@@ -24,27 +24,27 @@ tls-api = { version = "0.1", optional = true }
 tls-api-rustls = { version = "0.1", optional = true }
 
 [dependencies.ff]
-git = "https://github.com/str4d/librustzcash.git"
+git = "https://github.com/Diesmaster/librustzcash.git"
 branch = "decrypt_and_store_tx"
 
 [dependencies.pairing]
-git = "https://github.com/str4d/librustzcash.git"
+git = "https://github.com/Diesmaster/librustzcash.git"
 branch = "decrypt_and_store_tx"
 
 [dependencies.zcash_client_backend]
-git = "https://github.com/str4d/librustzcash.git"
+git = "https://github.com/Diesmaster/librustzcash.git"
 branch = "decrypt_and_store_tx"
 
 [dependencies.zcash_client_sqlite]
-git = "https://github.com/str4d/librustzcash.git"
+git = "https://github.com/Diesmaster/librustzcash.git"
 branch = "decrypt_and_store_tx"
 
 [dependencies.zcash_primitives]
-git = "https://github.com/str4d/librustzcash.git"
+git = "https://github.com/Diesmaster/librustzcash.git"
 branch = "decrypt_and_store_tx"
 
 [dependencies.zcash_proofs]
-git = "https://github.com/str4d/librustzcash.git"
+git = "https://github.com/Diesmaster/librustzcash.git"
 branch = "decrypt_and_store_tx"
 
 #[patch.'https://github.com/str4d/librustzcash.git']

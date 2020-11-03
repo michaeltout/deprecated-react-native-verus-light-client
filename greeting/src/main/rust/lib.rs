@@ -586,7 +586,7 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_decryptAndStoreT
         let db_data = utils::java_string_to_rust(&env, db_data);
         let tx_bytes = env.convert_byte_array(tx).unwrap();
         let tx = Transaction::read(&tx_bytes[..])?;
-        debug!("decrypt and store transaction runs");
+
         match decrypt_and_store_transaction(&db_data, &tx) {
             Ok(()) => Ok(JNI_TRUE),
             Err(e) => Err(format_err!("Error while decrypting transaction: {}", e)),
