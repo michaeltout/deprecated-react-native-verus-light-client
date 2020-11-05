@@ -31,7 +31,7 @@ buildscript {
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.1"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.31.0"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.13"
+        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.2'
         classpath 'com.github.str4d:rust-android-gradle:68b4ecc053'
         classpath 'org.owasp:dependency-check-gradle:6.0.0'
@@ -89,6 +89,7 @@ android {
             }
         }
     }
+
 
     buildTypes {
         debug {
@@ -202,9 +203,9 @@ cargo {
         zcashmainnetDebug {
 			defaultFeaturesAnd("mainnet")
         }
-        zcashmainnetRelease {
-            defaultFeaturesAnd("mainnet")
-        }
+        //zcashmainnetRelease {
+          //  defaultFeaturesAnd("mainnet")
+      //  }
     }
 }
 
