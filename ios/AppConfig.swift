@@ -18,13 +18,13 @@ struct AppConfig {
     static var address: String {
         "\(host):\(port)"
     }
-    
+
     /*static var processorConfig: CompactBlockProcessor.Configuration {
         var config = CompactBlockProcessor.Configuration(cacheDb: try! __cacheDbURL(), dataDb: try! __dataDbURL())
         config.walletBirthday = self.birthdayHeight
         return config
     }*/
-    
+
     static var endpoint: LightWalletEndpoint {
         return LightWalletEndpoint(address: self.host, port: self.port, secure: true)
     }

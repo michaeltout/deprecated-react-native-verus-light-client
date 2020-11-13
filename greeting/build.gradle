@@ -26,7 +26,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10.3"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
         classpath "org.jetbrains.kotlin:kotlin-allopen:1.4.10"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.1"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.31.0"
@@ -133,6 +133,21 @@ android {
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/LICENSE-notice.md'
     }
+    flavorDimensions 'network'
+
+ productFlavors {
+     // would rather name them "testnet" and "mainnet" but product flavor names cannot start with the word "test"
+   //  zcashtestnet {
+   //      dimension 'network'
+   //  }
+
+     zcashmainnet {
+         dimension 'network'
+     }
+     zcashtestnet {
+         dimension 'network'
+     }
+ }
 }
 
 allOpen {
