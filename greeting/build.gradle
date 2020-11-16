@@ -23,7 +23,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0-rc02'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-allopen:${versions.kotlin}"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.1"
@@ -98,18 +98,18 @@ android {
         }
     }
 
-    flavorDimensions 'network'
+   // flavorDimensions 'network'
 
-    productFlavors {
+    //productFlavors {
         // would rather name them "testnet" and "mainnet" but product flavor names cannot start with the word "test"
-        zcashtestnet {
-            dimension 'network'
-        }
+      //  zcashtestnet {
+        //    dimension 'network'
+        //}
 
       //  zcashmainnet {
        //     dimension 'network'
        // }
-    }
+    //}
 
     sourceSets {
         main {
