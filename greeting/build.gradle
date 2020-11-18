@@ -133,21 +133,7 @@ android {
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/LICENSE-notice.md'
     }
-    flavorDimensions 'network'
 
- productFlavors {
-     // would rather name them "testnet" and "mainnet" but product flavor names cannot start with the word "test"
-   //  zcashtestnet {
-   //      dimension 'network'
-   //  }
-
-     zcashmainnet {
-         dimension 'network'
-     }
-     zcashtestnet {
-         dimension 'network'
-     }
- }
 }
 
 allOpen {
