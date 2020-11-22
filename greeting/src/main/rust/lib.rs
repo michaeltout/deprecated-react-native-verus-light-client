@@ -45,16 +45,18 @@ use zcash_proofs::prover::LocalTxProver;
 
 use crate::utils::exception::unwrap_exc_or;
 
-#[cfg(feature = "mainnet")]
+//#[cfg(feature = "mainnet")]
+
 use zcash_client_backend::constants::mainnet::{
     COIN_TYPE, HRP_SAPLING_EXTENDED_FULL_VIEWING_KEY, HRP_SAPLING_EXTENDED_SPENDING_KEY,
     HRP_SAPLING_PAYMENT_ADDRESS,
 };
-#[cfg(not(feature = "mainnet"))]
-use zcash_client_backend::constants::testnet::{
-    COIN_TYPE, HRP_SAPLING_EXTENDED_FULL_VIEWING_KEY, HRP_SAPLING_EXTENDED_SPENDING_KEY,
-    HRP_SAPLING_PAYMENT_ADDRESS,
-};
+
+//#[cfg(not(feature = "mainnet"))]
+//use zcash_client_backend::constants::testnet::{
+//    COIN_TYPE, HRP_SAPLING_EXTENDED_FULL_VIEWING_KEY, HRP_SAPLING_EXTENDED_SPENDING_KEY,
+//    HRP_SAPLING_PAYMENT_ADDRESS,
+//};
 use zcash_client_backend::encoding::decode_extended_full_viewing_key;
 
 #[no_mangle]
@@ -477,7 +479,6 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_getSentMemoAsUtf
     let res = panic::catch_unwind(|| {
         let db_data = utils::java_string_to_rust(&env, db_data);
 
-
         let memo = match get_sent_memo_as_utf8(db_data, id_note) {
             Ok(memo) => memo.unwrap_or_default(),
             Err(e) => return Err(format_err!("Error while fetching memo: {}", e)),
@@ -604,7 +605,6 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
     extsk: JString<'_>,
     to: JString<'_>,
     value: jlong,
-    sapling: JString<'_>,
     memo: jbyteArray,
     spend_params: JString<'_>,
     output_params: JString<'_>,
@@ -623,7 +623,6 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
         if value.is_negative() {
             return Err(format_err!("Amount is negative"));
         }
-        let r_sapling = utils::java_string_to_rust(&env, sapling);
         let memo_bytes = env.convert_byte_array(memo).unwrap();
         let spend_params = utils::java_string_to_rust(&env, spend_params);
         let output_params = utils::java_string_to_rust(&env, output_params);
@@ -649,18 +648,6 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
 
         let prover = LocalTxProver::new(Path::new(&spend_params), Path::new(&output_params));
 
-        if r_sapling == "sapling"{
-        create_to_address(
-            &db_data,
-            BranchId::Sapling,
-            prover,
-            (account, &extsk),
-            &to,
-            value,
-            memo,
-        )
-        .map_err(|e| format_err!("Error while creating transaction: {}", e))
-    }else{
         create_to_address(
             &db_data,
             BranchId::Blossom,
@@ -671,7 +658,6 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_createToAddress(
             memo,
         )
         .map_err(|e| format_err!("Error while creating transaction: {}", e))
-    }
     });
     unwrap_exc_or(&env, res, -1)
 }
