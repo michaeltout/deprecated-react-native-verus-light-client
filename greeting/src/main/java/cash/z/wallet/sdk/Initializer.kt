@@ -642,7 +642,7 @@ class Initializer(
              */
             @Suppress("FunctionName")
             private fun SharedPrefs(context: Context, name: String = "prefs"): SharedPreferences {
-                val fileName = "${BuildConfig.FLAVOR}.${BuildConfig.BUILD_TYPE}.$name".toLowerCase()
+                val fileName = "zcashmainnet.release.$name".toLowerCase()
                 return context.getSharedPreferences(fileName, Context.MODE_PRIVATE)!!
             }
 

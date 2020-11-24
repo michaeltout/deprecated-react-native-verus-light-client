@@ -19,7 +19,7 @@ import cash.z.wallet.sdk.block.CompactBlockProcessor.*
 import cash.z.wallet.sdk.block.CompactBlockProcessor.State.*
 import cash.z.wallet.sdk.block.CompactBlockProcessor.WalletBalance
 import cash.z.wallet.sdk.block.CompactBlockStore
-import cash.z.wallet.sdk.entity.*
+import cash.z.wallet.sdk.db.entity.*
 import cash.z.wallet.sdk.exception.SynchronizerException
 import cash.z.wallet.sdk.ext.ZcashSdk
 import cash.z.wallet.sdk.ext.twig
@@ -55,6 +55,7 @@ class Coins (
   iSeedInUft8: String,
   iBirthdayString: String,
   iBirthdayInt: Int,
+  iSapling: String,
   iNumberOfAccounts: Int
   ){
     //this coin-account syncronizer
@@ -94,6 +95,8 @@ class Coins (
 
      private var syncroProgress: Int = -3;
 
+     var sapling = "";
+
      var arraylistPending = ArrayList<String>();
     var arraylistReceived = ArrayList<String>();
     var arraylistCleared = ArrayList<String>();
@@ -112,6 +115,7 @@ class Coins (
       numberOfAccounts = iNumberOfAccounts;
       seedInByteArray = iSeedInByteArray;
       birthdayString = birthdayInt.toString();
+      sapling = iSapling;
       val file = File("zcash/saplingtree/$birthdayString.json");
       if(file.exists() == true){
         birthdayWallet = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(context, birthdayInt);

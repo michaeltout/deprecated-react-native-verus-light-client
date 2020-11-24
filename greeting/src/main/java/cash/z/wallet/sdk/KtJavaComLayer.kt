@@ -20,7 +20,7 @@ import cash.z.wallet.sdk.block.CompactBlockProcessor.*
 import cash.z.wallet.sdk.block.CompactBlockProcessor.State.*
 import cash.z.wallet.sdk.block.CompactBlockProcessor.WalletBalance
 import cash.z.wallet.sdk.block.CompactBlockStore
-import cash.z.wallet.sdk.entity.*
+import cash.z.wallet.sdk.db.entity.*
 import cash.z.wallet.sdk.exception.SynchronizerException
 import cash.z.wallet.sdk.ext.ZcashSdk
 import cash.z.wallet.sdk.ext.twig
@@ -80,17 +80,26 @@ class KtJavaComLayer (){
 		}
 	}
 
-//adds a coin object, the object that enables multicoin functionality.
-	fun addCoin(icoinId: String, iProtocol: String, iAccountHash: String, mContext: Context, seedInByteArray: ByteArray,
-		host: String, port: Int, seed: String, birthdayString: String, birthdayInt: Int, numberOfAccounts: Int): Int{
-		var indexNumber: Int = 0;
-		if(coins != null){
-			indexNumber = coins.size;
-		}
-		val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, seedInByteArray, port, host, seed, "", birthdayString, birthdayInt, numberOfAccounts);
-		coins.add(newCoins);
-		return coins.size -1;
-	}
+	//adds a coin object, the object that enables multicoin functionality.
+			fun addCoin(icoinId: String, iProtocol: String, iAccountHash: String, mContext: Context, seedInByteArray: ByteArray,
+				host: String, port: Int, seed: String, birthdayString: String, birthdayInt: Int, sapling: String, numberOfAccounts: Int): Int{
+
+				//it starts at 0
+				var indexNumber: Int = 0;
+
+				//checks the size of the array, so you know where to put the new coin object
+				if(coins != null){
+					indexNumber = coins.size;
+				}
+				//create a coin object, it stores the information, and enables multiple coins
+				val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, seedInByteArray, port, host, seed, "", birthdayString, birthdayInt, sapling, numberOfAccounts);
+
+				//add the object to the array
+				coins.add(newCoins);
+
+				//return the index number to java
+				return coins.size -1;
+			}
 
 	//gets the path of something with name path
 	fun getPath(context: Context, path: String): String{
@@ -372,44 +381,59 @@ class KtJavaComLayer (){
 			}
 		}
 
-		//gets the wallet balance of all the addresses
 		fun getWalletBalanceDirty( includePending: Boolean, address: String, index: Int): String = runBlocking{
-			if(index == -1){
-					"error: not initialized coin usage";
-			}else{
-			val numberOfAccounts = coins[index].getNumberOfAccounts();
-			var totalBalance: Long = 0;
-			var availableBalance: Long = 0;
-			if(coins[index].synchronizer != null){
-			if(address == ""){
-				for(x in 0 until numberOfAccounts){
-					if(includePending == false){
-						totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(x)!!.totalZatoshi;
-						availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(x)!!.availableZatoshi;
+					if(index == -1){
+							"error: not initialized coin usage";
 					}else{
-						totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.totalZatoshi;
-							availableBalance = availableBalance  + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.availableZatoshi;
+
+					val numberOfAccounts = coins[index].getNumberOfAccounts();
+					var totalBalance: Long = 0;
+					var availableBalance: Long = 0;
+
+					if(coins[index].synchronizer != null){
+
+						if(address == ""){
+							for(x in 0 until numberOfAccounts){
+
+								if(includePending == false){
+
+								totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.totalZatoshi;
+								availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.availableZatoshi;
+
+							}else{
+
+								totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.totalZatoshi;
+									availableBalance = availableBalance  + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(x)!!.availableZatoshi;
+
+							}
+						}
+					}else{
+						val index: Int = coins[index].getAccountIndex(address);
+
+						if(includePending == false){
+
+							totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.totalZatoshi;
+							availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.availableZatoshi;
+
+						}else{
+
+							totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.totalZatoshi;
+								availableBalance = availableBalance  + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.availableZatoshi;
+
+						}
+					}
+
+					val aB = availableBalance.toString();
+					val tB = totalBalance.toString();
+					val total =  tB + " ," + aB;
+
+					total;
+
+					}else{
+						"error: syncronizer has not been started";
 					}
 				}
-			}else{
-				val index: Int = coins[index].getAccountIndex(address);
-				if(includePending == false){
-					totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(index)!!.totalZatoshi;
-					availableBalance = availableBalance + coins[index].synchronizer?.blockProcessor?.getBalanceConfirmed(index)!!.availableZatoshi;
-				}else{
-					totalBalance = totalBalance + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.totalZatoshi;
-						availableBalance = availableBalance  + coins[index].synchronizer?.blockProcessor?.getBalanceInfo(index)!!.availableZatoshi;
-				}
 			}
-			val aB = availableBalance.toString();
-			val tB = totalBalance.toString();
-			val total =  tB + "," + aB + "";
-			total;
-			}else{
-				"error: syncronizer has not been started";
-			}
-		}
-		}
 
 		//sends a transactions
 		fun putSendDirty(mContext: Context, toAddress: String, fromAddress: String, amount: Long, memo: String, index: Int): String = runBlocking{
@@ -421,7 +445,7 @@ class KtJavaComLayer (){
 			var text: String = "haha";
 			val fromIndex = coins[index].getAccountIndex(fromAddress);
 			try{
-				txFlow = coins[index].synchronizer?.sendToAddress(coins[index].getPrivKey(), amount, toAddress, memo, fromIndex);
+				txFlow = coins[index].synchronizer?.sendToAddress(coins[index].getPrivKey(), amount, toAddress, "", memo, fromIndex);
 				text = "pending"
 			} catch (e: Exception) {
     		text = "The flow has thrown an exception: $e";
