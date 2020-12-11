@@ -52,7 +52,7 @@ class KtJavaComLayer (){
 
 	/*you need a comunication layer for static-java to be able to call Kotlin*/
 	companion object { //everything needs a companion object so it can be called form a static enviroment
-	private  val coins = ArrayList<Coins>();
+	public  val coins = ArrayList<Coins>();
 	private lateinit var BlockHeigt: String; //holds the blockheigt as string
 	//tx flow is not nesccairy here, however having it here is benefical form possible
 	//future developement if you want anything to hook to this state change.

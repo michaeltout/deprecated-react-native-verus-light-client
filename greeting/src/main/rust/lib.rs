@@ -45,8 +45,10 @@ use zcash_proofs::prover::LocalTxProver;
 
 use crate::utils::exception::unwrap_exc_or;
 
-//#[cfg(feature = "mainnet")]
+#[cfg(feature = "mainnet")]
+use zcash_primitives::consensus::MainNetwork as Network;
 
+//#[cfg( feature = "mainnet")]
 use zcash_client_backend::constants::mainnet::{
     COIN_TYPE, HRP_SAPLING_EXTENDED_FULL_VIEWING_KEY, HRP_SAPLING_EXTENDED_SPENDING_KEY,
     HRP_SAPLING_PAYMENT_ADDRESS,
@@ -57,6 +59,7 @@ use zcash_client_backend::constants::mainnet::{
 //    COIN_TYPE, HRP_SAPLING_EXTENDED_FULL_VIEWING_KEY, HRP_SAPLING_EXTENDED_SPENDING_KEY,
 //    HRP_SAPLING_PAYMENT_ADDRESS,
 //};
+
 use zcash_client_backend::encoding::decode_extended_full_viewing_key;
 
 #[no_mangle]
@@ -224,6 +227,7 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_deriveAddressFro
             .unwrap()
             .1;
         let address_str = encode_payment_address(HRP_SAPLING_PAYMENT_ADDRESS, &address);
+        debug!("address: {}", address_str);
         let output = env
             .new_string(address_str)
             .expect("Couldn't create Java string!");

@@ -186,7 +186,7 @@ cargo {
 
 	variants {
         zcashmainnetDebug {
-			defaultFeaturesAnd("mainnet")
+			     defaultFeaturesAnd("mainnet")
         }
         //zcashmainnetRelease {
           //  defaultFeaturesAnd("mainnet")

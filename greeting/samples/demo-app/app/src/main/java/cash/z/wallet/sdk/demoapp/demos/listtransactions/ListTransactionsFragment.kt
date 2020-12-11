@@ -1,6 +1,7 @@
 package cash.z.wallet.sdk.demoapp.demos.listtransactions
 
 import android.view.LayoutInflater
+import android.content.Context
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
@@ -14,6 +15,8 @@ import cash.z.wallet.sdk.demoapp.databinding.FragmentListTransactionsBinding
 import cash.z.wallet.sdk.db.entity.ConfirmedTransaction
 import cash.z.wallet.sdk.ext.collectWith
 import cash.z.wallet.sdk.ext.twig
+import cash.z.wallet.sdk.KtJavaComLayer
+import cash.z.wallet.sdk.Coins
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -28,6 +31,7 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
     private val config = App.instance.defaultConfig
     private val initializer = Initializer(App.instance, alias="chris", host = config.host, port = config.port )
     private val birthday = config.loadBirthday()
+    private var coinNumber = -1;
     private lateinit var synchronizer: Synchronizer
     private lateinit var adapter: TransactionAdapter<ConfirmedTransaction>
     private lateinit var address: String
@@ -48,8 +52,11 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
         startSynchronizer()
         monitorStatus()
     }
-    
+
     override fun onClear() {
+        KtJavaComLayer.Companion.coins[coinNumber].initializer!!.clear()
+        val result = KtJavaComLayer.Companion.interDelete(coinNumber)
+        twig("result: ${result}")
         synchronizer.stop()
         initializer.clear()
     }
@@ -58,23 +65,50 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
         binding.recyclerTransactions.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         adapter = TransactionAdapter()
-        lifecycleScope.launch {
-            address = synchronizer.getAddress()
-            synchronizer.clearedTransactions.collect { onTransactionsUpdated(it) }
-        }
+
         binding.recyclerTransactions.adapter = adapter
+        val coinId = "VRSC"
+        val coinProtocol = "vrsc"
+        val accountHash = "8ccb033c0e48b27ff91e1ab948367e3bbc6921487c97624ed7ad064025e3dc99"
+        val host = "light.virtualsoundnw.com"
+        val port = 9077
+        val numberOfAccounts = 2
+        val seed = "wish puppy smile loan doll curve hole maze file ginger hair nose key relax knife witness cannon grab despair throw review deal slush frame"
+        val birthdayInt = 12400900
+        val birthdayString = "1_240_900"
+
+
+        coinNumber = KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, App.instance, seed.toByteArray(), host, port, seed, birthdayString, birthdayInt, "sapling", numberOfAccounts);
+
+
     }
 
     private fun startSynchronizer() {
+        //lifecycleScope.apply {
+          //  synchronizer.start(this)
+        //}
+        //var path = KtJavaComLayer.Companion.getPath(App.instance, "Test")
+        var response = KtJavaComLayer.Companion.Initer(App.instance, "cute", coinNumber)
+        twig(response)
+        response = KtJavaComLayer.Companion.InitClient(App.instance, coinNumber)
+        twig(response)
         lifecycleScope.apply {
-            synchronizer.start(this)
+            response = KtJavaComLayer.Companion.syncronizerstart(App.instance, coinNumber)
+            twig(response)
+        }
+
+        lifecycleScope.launch {
+            //address = KtJavaComLayer.Companion.coins[coinNumber].
+            address = synchronizer.getAddress()
+            KtJavaComLayer.Companion.coins[coinNumber].synchronizer!!.clearedTransactions.collect { onTransactionsUpdated(it) }
         }
     }
 
     private fun monitorStatus() {
-        synchronizer.status.collectWith(lifecycleScope, ::onStatus)
-        synchronizer.processorInfo.collectWith(lifecycleScope, ::onProcessorInfoUpdated)
-        synchronizer.progress.collectWith(lifecycleScope, ::onProgress)
+        KtJavaComLayer.Companion.coins[coinNumber].synchronizer!!.status.collectWith(lifecycleScope, ::onStatus)
+        KtJavaComLayer.Companion.coins[coinNumber].synchronizer!!.processorInfo.collectWith(lifecycleScope, ::onProcessorInfoUpdated)
+        KtJavaComLayer.Companion.coins[coinNumber].synchronizer!!.progress.collectWith(lifecycleScope, ::onProgress)
+        twig(KtJavaComLayer.Companion.coins[coinNumber].syncroProgress.toString())
     }
 
     private fun onProcessorInfoUpdated(info: CompactBlockProcessor.ProcessorInfo) {
@@ -83,6 +117,8 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
 
     private fun onProgress(i: Int) {
         if (i < 100) binding.textInfo.text = "Downloading blocks...$i%"
+        twig(KtJavaComLayer.Companion.coins[coinNumber].syncroProgress.toString())
+
     }
 
     private fun onStatus(status: Synchronizer.Status) {

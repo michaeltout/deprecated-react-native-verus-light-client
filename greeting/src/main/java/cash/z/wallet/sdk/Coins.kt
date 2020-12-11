@@ -91,9 +91,11 @@ class Coins (
 
      private lateinit var identities: ArrayList<Identities>;
 
-     private var syncroStatus: String = "";
+     //private
+    var syncroStatus: String = "";
 
-     private var syncroProgress: Int = -3;
+     //private
+    var syncroProgress: Int = -3;
 
      var sapling = "";
 

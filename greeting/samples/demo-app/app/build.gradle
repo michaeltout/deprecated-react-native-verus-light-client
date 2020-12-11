@@ -19,11 +19,11 @@ android {
     flavorDimensions 'network'
     productFlavors {
         // would rather name them "testnet" and "mainnet" but product flavor names cannot start with the word "test"
-        zcashtestnet {
-            dimension 'network'
-            applicationId 'cash.z.wallet.sdk.demoapp.testnet'
-            matchingFallbacks = ['zcashtestnet', 'debug']
-        }
+        //zcashtestnet {
+          //  dimension 'network'
+        //    applicationId 'cash.z.wallet.sdk.demoapp.testnet'
+        //    matchingFallbacks = ['zcashtestnet', 'debug']
+        //}
 
         zcashmainnet {
             dimension 'network'
