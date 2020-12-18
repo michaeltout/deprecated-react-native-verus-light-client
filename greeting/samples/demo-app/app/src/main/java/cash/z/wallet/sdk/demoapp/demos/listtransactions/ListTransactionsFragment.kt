@@ -152,6 +152,8 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
     }
 
     override fun onActionButtonClicked() {
-        if (::address.isInitialized) copyToClipboard(address)
+        val status = KtJavaComLayer.Companion.getSyncStatusDirty(coinNumber)
+        val progress = KtJavaComLayer.Companion.getSyncProgressDirty(coinNumber)
+        twig("status: ${status}, progress: ${progress}")
     }
 }

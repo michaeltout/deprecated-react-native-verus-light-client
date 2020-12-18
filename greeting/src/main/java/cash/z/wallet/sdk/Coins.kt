@@ -38,6 +38,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.Main
+import io.github.novacrypto.bip39.SeedCalculator
 
 import java.io.File
 
@@ -104,6 +105,10 @@ class Coins (
     var arraylistCleared = ArrayList<String>();
     var arraylistSend = ArrayList<String>();
 
+    override fun toSeed(mnemonic: CharArray): ByteArray {
+        return SeedCalculator().calculateSeed(String(mnemonic), "")
+    }
+
     init{ //all the vars are passed into vars
       var name: String = "$ticker _$accountHash _$protocol";
       path = Initializer.dataDbPath(context, name);
@@ -115,7 +120,7 @@ class Coins (
       seedInUft8 = iSeedInUft8;
       indexNumber = iIndexNumber;
       numberOfAccounts = iNumberOfAccounts;
-      seedInByteArray = iSeedInByteArray;
+      seedInByteArray = SimpleMnemonics().toSeed(seedWords.toCharArray());
       birthdayString = birthdayInt.toString();
       sapling = iSapling;
       val file = File("zcash/saplingtree/$birthdayString.json");
@@ -144,7 +149,7 @@ class Coins (
       addresses = Array<String>(numberOfAccounts,
         {
           x: Int ->
-          initializer?.deriveAddress(seedInByteArray!!, x)!!
+          initializer?.deriveAddress(seed!!, x)!!
         }
         );
       return addresses;
