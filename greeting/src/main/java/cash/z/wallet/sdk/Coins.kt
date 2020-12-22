@@ -105,7 +105,7 @@ class Coins (
     var arraylistCleared = ArrayList<String>();
     var arraylistSend = ArrayList<String>();
 
-    override fun toSeed(mnemonic: CharArray): ByteArray {
+    fun toSeed(mnemonic: CharArray): ByteArray {
         return SeedCalculator().calculateSeed(String(mnemonic), "")
     }
 
@@ -120,7 +120,7 @@ class Coins (
       seedInUft8 = iSeedInUft8;
       indexNumber = iIndexNumber;
       numberOfAccounts = iNumberOfAccounts;
-      seedInByteArray = SimpleMnemonics().toSeed(seedWords.toCharArray());
+      seedInByteArray = toSeed(seed.toCharArray());
       birthdayString = birthdayInt.toString();
       sapling = iSapling;
       val file = File("zcash/saplingtree/$birthdayString.json");
@@ -149,7 +149,7 @@ class Coins (
       addresses = Array<String>(numberOfAccounts,
         {
           x: Int ->
-          initializer?.deriveAddress(seed!!, x)!!
+          initializer?.deriveAddress(seedInByteArray!!, x)!!
         }
         );
       return addresses;
@@ -232,7 +232,7 @@ class Coins (
       return -1;
     }
 
-    public fun monitorWalletChanges() = {
+    public fun monitorWalletChanges() = runBlocking{
       GlobalScope.launch {
         synchronizer?.receivedTransactions!!.collect(
           {
@@ -280,11 +280,13 @@ class Coins (
           );
       }
 
+      twig("alles init correct")
 
       GlobalScope.launch {
         synchronizer?.clearedTransactions!!.collect({
         x ->
         var meme = x.toList()
+        twig("dit runt")
         for(p in 0 until meme.size){
           val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
           ", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()

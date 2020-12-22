@@ -138,7 +138,8 @@ class KtJavaComLayer (){
 		if(coins[index].initializer != null){
 			coins[index].synchronizer = Synchronizer(mContext, coins[index].initializer!!);
 			coins[index].monitorChanges();
-			coins[index].monitorWalletChanges()
+			twig("komt hij wel hier?")
+			coins[index].monitorWalletChanges();
 			try{
 				GlobalScope.launch { //has to happen here, becuase java does not have coroutines
 						coins[index].synchronizer?.start(this);
