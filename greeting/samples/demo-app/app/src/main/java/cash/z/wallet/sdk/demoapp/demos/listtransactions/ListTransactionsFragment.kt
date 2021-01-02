@@ -155,7 +155,7 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
         val status = KtJavaComLayer.Companion.getSyncStatusDirty(coinNumber)
         val progress = KtJavaComLayer.Companion.getSyncProgressDirty(coinNumber)
         twig("status: ${status}, progress: ${progress}")
-        var list = KtJavaComLayer.Companion.getListOfTransactionDirty(App.instance, "recieved", coinNumber)
+        var list = KtJavaComLayer.Companion.getListOfTransactionDirty(App.instance, "cleared", coinNumber)
         twig("list:")
         for(x in 0 until list.size){
             twig("string: ${list[x]}")

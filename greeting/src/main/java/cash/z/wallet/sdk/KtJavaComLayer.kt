@@ -281,15 +281,19 @@ class KtJavaComLayer (){
 				var arraylist = ArrayList<String>();
 				if(coins[index].synchronizer != null){
 				if(info.equals("pending")){
+					twig("pending")
 					arraylist = coins[index].arraylistPending;
 				}
 				else if(info.equals("cleared")){
+					twig("cleared")
 					arraylist = coins[index].arraylistCleared;
 				}
 				else if(info.equals("received")){
+					twig("received")
 					arraylist = coins[index].arraylistReceived;
 				}
 				else if(info.equals("send")){
+					twig("send")
 					arraylist = coins[index].arraylistSend;
 				}
 				}else{

@@ -280,7 +280,7 @@ class Coins (
           );
       }
 
-      twig("alles init correct")
+
 
       GlobalScope.launch {
         synchronizer?.clearedTransactions!!.collect({
@@ -288,10 +288,12 @@ class Coins (
         var meme = x.toList()
         twig("dit runt")
         for(p in 0 until meme.size){
+            twig("dit runt ook")
           val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount, " + meme[p]!!.value.toString() +
           ", category, cleared, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString()
           //here we can add all values together in
           //one big string
+          twig("dit runt ook ook ${info}")
           arraylistCleared.add(info)
         }
       }
