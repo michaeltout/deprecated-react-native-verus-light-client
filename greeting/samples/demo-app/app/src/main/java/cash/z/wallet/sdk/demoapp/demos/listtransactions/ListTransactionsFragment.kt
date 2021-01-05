@@ -160,6 +160,5 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
         for(x in 0 until list.size){
             twig("string: ${list[x]}")
         }
-
     }
 }
