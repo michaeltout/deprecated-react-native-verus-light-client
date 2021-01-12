@@ -213,8 +213,12 @@ class Coins (
           synchronizer?.status!!.collect({ x -> syncroStatus = "$x" });
         }
         GlobalScope.launch { //has to happen here, becuase java does not have coroutines
-            synchronizer?.progress!!.collect({x -> syncroProgress = x });
+            synchronizer?.progress!!.collect({x -> syncroProgress = x;
+              if(syncroProgress == 100){
+                  synchronizer?.processorInfo!!.collect({x -> syncroProgress = x.scanProgress });
+                } });
           }
+        
         }catch(e: Exception){
 
       }
