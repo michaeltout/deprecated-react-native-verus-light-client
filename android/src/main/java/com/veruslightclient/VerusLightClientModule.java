@@ -603,7 +603,7 @@ try {
 		use this method to load, all the data into the coin object. If you call this method Nothing
 		is started yet. It only loads the data into the relevant objects. If you also want to controll the zcash protocol
 	*/
-	public void createWallet ( String coinId, String coinProtocol, String accountHash, String host, int port,
+	public void createWalletsap ( String coinId, String coinProtocol, String accountHash, String host, int port,
 		int numberOfAccounts, String seed, int birthday, String sapling, Promise promise ) {
 		try{
 		Activity mActivity = getCurrentActivity();
@@ -628,6 +628,7 @@ try {
 		}
 	}
 
+	@ReactMethod //initialzes/new the back end, data base etc
 	/*
 		use this method to load, all the data into the coin object. If you call this method Nothing
 		is started yet. It only loads the data into the relevant objects.

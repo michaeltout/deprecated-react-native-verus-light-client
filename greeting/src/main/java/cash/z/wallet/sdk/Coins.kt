@@ -218,7 +218,7 @@ class Coins (
                   synchronizer?.processorInfo!!.collect({x -> syncroProgress = x.scanProgress });
                 } });
           }
-        
+
         }catch(e: Exception){
 
       }
@@ -267,7 +267,7 @@ class Coins (
                 answere = test(hex!!)
               }
               val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount," + meme[p]!!.value.toString() +
-              ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo, " + answere
+              ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo, " + answere + ","
               //here we can add all values together in
               //one big string
               arraylistReceived.add(info)
@@ -287,7 +287,7 @@ class Coins (
               answere = test(hex!!)
             }
             val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount," + meme[p]!!.value.toString() +
-            ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo, " + answere
+            ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo, " + answere + ","
             //here we can add all values together in
             //one big string
             arraylistSend.add(info)
@@ -308,7 +308,7 @@ class Coins (
                 answere = test(hex!!)
               }
               val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount," + meme[p]!!.value.toString() +
-              ", category, recieved, status, confirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo, " + answere
+              ", category, recieved, status, confirmed, time, , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo, " + answere + ","
               arraylistPending.add(info)
             }
           }
@@ -328,7 +328,7 @@ class Coins (
             answere = test(hex!!)
           }
           val info: String = "address, " + meme[p]!!.toAddress.toString() + ", amount," + meme[p]!!.value.toString() +
-          ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo, " + answere
+          ", category, recieved, status, confirmed, time," + meme[p]!!.blockTimeInSeconds.toString() +" , txid, " +  meme[p]!!.id.toString() + ", height," + meme[p]!!.minedHeight.toString() + ", memo, " + answere + ","
           //here we can add all values together in
           //one big string
           twig("dit runt ook ook ${info}")
