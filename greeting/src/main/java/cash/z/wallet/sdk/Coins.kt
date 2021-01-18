@@ -204,6 +204,7 @@ class Coins (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      //monitor the changes of the wallet
 =======
 <<<<<<< HEAD
@@ -219,6 +220,9 @@ class Coins (
      //monitor the changes of the wallet
 >>>>>>> b732607... extra comments
 >>>>>>> b86fa9f... extra comments
+=======
+     //monitor the changes
+>>>>>>> 4119ac2... add comments
     public fun monitorChanges() = runBlocking {
       try{
       //first load the status
