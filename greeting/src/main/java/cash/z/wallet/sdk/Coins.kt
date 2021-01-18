@@ -191,29 +191,27 @@ class Coins (
       return identities.size -1;
       }
 
-      private fun onStatus(status: Synchronizer.Status) {
-        syncroStatus = "$status";
-     }
-
-     private fun onProgress(i: Int){
-       syncroProgress = i;
-     }
-
+    //returns the status
      public fun getStatus(): String{
        return syncroStatus;
      }
 
+     //returns the progress
      public fun getProgress(): Int{
        return syncroProgress;
      }
 
+     //monitor the changes
     public fun monitorChanges() = runBlocking {
       try{
+      //first load the status
       GlobalScope.launch { //has to happen here, becuase java does not have coroutines
           synchronizer?.status!!.collect({ x -> syncroStatus = "$x" });
         }
+        //first load the download percentage
         GlobalScope.launch { //has to happen here, becuase java does not have coroutines
             synchronizer?.progress!!.collect({x -> syncroProgress = x;
+              //when that is 100 load the scan percentage
               if(syncroProgress == 100){
                   synchronizer?.processorInfo!!.collect({x -> syncroProgress = x.scanProgress });
                 } });
@@ -254,6 +252,7 @@ class Coins (
         return message
   }
 
+  //load the transactions
     public fun monitorWalletChanges() = runBlocking{
       GlobalScope.launch {
         synchronizer?.receivedTransactions!!.collect(

@@ -335,6 +335,7 @@ class KtJavaComLayer (){
 		}
 		}
 
+		//get the identity
 		fun getIdentityDirty(context: Context, index: Int, identity: String): Identities?{
 			if(index == -1){
 					return null;
@@ -353,6 +354,7 @@ class KtJavaComLayer (){
 		}
 		}
 
+		//get the identity info
 		fun getIdentityInfoDirty(context: Context, index: Int, identity: String): Identities?{
 			if(index == -1){
 					return null;
@@ -371,6 +373,7 @@ class KtJavaComLayer (){
 			}
 		}
 
+		//verify a message
 		fun verifyMessageDirty(context: Context, index: Int,signer: String, signature: String, message: String, checklast: Boolean): Boolean?{
 			if(index == -1){
 				return null;
@@ -386,6 +389,7 @@ class KtJavaComLayer (){
 			}
 		}
 
+		//get the wallet balance
 		fun getWalletBalanceDirty( includePending: Boolean, address: String, index: Int): String = runBlocking{
 					if(index == -1){
 							"error: not initialized coin usage";
