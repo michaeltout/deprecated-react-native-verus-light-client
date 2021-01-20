@@ -202,7 +202,7 @@ class Coins (
        return syncroProgress;
      }
 
-     //monitor the changes
+     //monitor the changes of the wallet
     public fun monitorChanges() = runBlocking {
       try{
       //first load the status
