@@ -202,7 +202,6 @@ class Coins (
        return syncroProgress;
      }
 
-
     public fun monitorChanges() = runBlocking {
       try{
       //first load the status
