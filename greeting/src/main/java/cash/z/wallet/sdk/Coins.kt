@@ -144,6 +144,7 @@ class Coins (
     }
       return "true";
     }
+
     //gets the addresses
     public fun getAddress(): Array<String>{
       addresses = Array<String>(numberOfAccounts,
@@ -201,7 +202,7 @@ class Coins (
        return syncroProgress;
      }
 
-     //monitor the changes
+     //monitor the changes of the wallet
     public fun monitorChanges() = runBlocking {
       try{
       //first load the status
