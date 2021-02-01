@@ -74,13 +74,20 @@ class CoinWallet {
         self.files = try generateDbUrls(coinId: self.coinId, coinProtocol: self.coinProto, accountHash: self.accountHash, spendParams: self.spendParams, outputParams: self.outputParams)
         
         if let walletFiles = self.files {
-            self.wallet = Initializer(cacheDbURL: walletFiles.cacheDb, dataDbURL: walletFiles.dataDb, pendingDbURL: walletFiles.pendingDb, endpoint: self.endpoint, spendParamsURL: walletFiles.spendParams, outputParamsURL: walletFiles.outputParams)
+            self.wallet = Initializer(
+                cacheDbURL: walletFiles.cacheDb, 
+                dataDbURL: walletFiles.dataDb, 
+                chainNetwork: self.coinId,
+                pendingDbURL: walletFiles.pendingDb, 
+                endpoint: self.endpoint, 
+                spendParamsURL: walletFiles.spendParams, 
+                outputParamsURL: walletFiles.outputParams)
             
             self.synchronizer = try SDKSynchronizer(initializer: self.wallet!)
                    
             self.service = LightWalletGRPCService(endpoint: self.endpoint)
             
-            let _ = try self.wallet?.initialize(viewingKeys: [try DerivationTool.default.deriveViewingKey(spendingKey: self.seed)], walletBirthday: self.birthday, network: self.coinId)
+            let _ = try self.wallet?.initialize(viewingKeys: [try DerivationTool.default.deriveViewingKey(spendingKey: self.seed)], walletBirthday: self.birthday)
             
             NotificationCenter.default.addObserver(self, selector: #selector(processorNotification(_:)), name: nil, object: wallet!.blockProcessor())
         }
