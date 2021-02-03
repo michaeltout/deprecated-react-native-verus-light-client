@@ -77,8 +77,8 @@ class CoinWallet {
             self.wallet = Initializer(
                 cacheDbURL: walletFiles.cacheDb, 
                 dataDbURL: walletFiles.dataDb, 
+                pendingDbURL: walletFiles.pendingDb,
                 chainNetwork: self.coinId,
-                pendingDbURL: walletFiles.pendingDb, 
                 endpoint: self.endpoint, 
                 spendParamsURL: walletFiles.spendParams, 
                 outputParamsURL: walletFiles.outputParams)
