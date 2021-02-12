@@ -11,3 +11,7 @@ import Foundation
 func getCoinKey(coinId: String, coinProtocol: String, accountHash: String) -> String {
     return coinId + "_" + coinProtocol + "_" + accountHash
 }
+
+func getCoinKey(coinId: String, coinProtocol: String) -> String {
+    return coinId + "_" + coinProtocol
+}

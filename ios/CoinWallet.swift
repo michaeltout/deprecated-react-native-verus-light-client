@@ -46,7 +46,7 @@ class CoinWallet {
     func deleteWallet() throws {
         try stopSync()
         if let syncer = self.synchronizer {
-            try syncer.stop()
+            syncer.stop()
         }
         
         if let walletFiles = self.files {
@@ -60,13 +60,13 @@ class CoinWallet {
         try stopSync()
         
         if let syncer = self.synchronizer {
-            try syncer.stop()
+            syncer.stop()
         }
     }
     
     deinit {
         if let syncer = self.synchronizer {
-            try! syncer.stop()
+            syncer.stop()
         }
     }
     
@@ -74,10 +74,20 @@ class CoinWallet {
         self.files = try generateDbUrls(coinId: self.coinId, coinProtocol: self.coinProto, accountHash: self.accountHash, spendParams: self.spendParams, outputParams: self.outputParams)
         
         if let walletFiles = self.files {
-            self.wallet = Initializer(cacheDbURL: walletFiles.cacheDb, dataDbURL: walletFiles.dataDb, pendingDbURL: walletFiles.pendingDb, endpoint: self.endpoint, spendParamsURL: walletFiles.spendParams, outputParamsURL: walletFiles.outputParams)
+            self.wallet = Initializer(
+                cacheDbURL: walletFiles.cacheDb, 
+                dataDbURL: walletFiles.dataDb, 
+                pendingDbURL: walletFiles.pendingDb,
+                chainNetwork: self.coinId,
+                endpoint: self.endpoint, 
+                spendParamsURL: walletFiles.spendParams, 
+                outputParamsURL: walletFiles.outputParams)
+            
             self.synchronizer = try SDKSynchronizer(initializer: self.wallet!)
-                   self.service = LightWalletGRPCService(endpoint: self.endpoint)
-            let _ = try self.wallet?.initialize(seedProvider: provideSeed(seed: self.seed), walletBirthdayHeight: self.birthday, numberOfAccounts: self.accounts)
+                   
+            self.service = LightWalletGRPCService(endpoint: self.endpoint)
+            
+            let _ = try self.wallet?.initialize(viewingKeys: [try DerivationTool.default.deriveViewingKey(spendingKey: self.seed)], walletBirthday: self.birthday)
             
             NotificationCenter.default.addObserver(self, selector: #selector(processorNotification(_:)), name: nil, object: wallet!.blockProcessor())
         }
@@ -115,10 +125,6 @@ class CoinWallet {
                 return
             }
         }
-    }
-    
-    private func provideSeed(seed: String) -> SeedBox {
-        return SeedBox(seedString: seed)
     }
     
     func getInitializer() throws -> Initializer {
@@ -197,17 +203,6 @@ class CoinWallet {
             return openWallet.getVerifiedBalance(account: accountIndex).fromSats()
         }
     }
-}
-
-struct SeedBox: SeedProvider {
-  var _seed: [UInt8]
-  func seed() -> [UInt8] {
-    _seed
-  }
-  
-  init(seedString: String) {
-    _seed = Array(seedString.utf8)
-  }
 }
 
 struct WalletSyncState {
