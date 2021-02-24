@@ -120,7 +120,7 @@ class Coins (
       seedInUft8 = iSeedInUft8;
       indexNumber = iIndexNumber;
       numberOfAccounts = iNumberOfAccounts;
-      seedInByteArray = toSeed(seed.toCharArray());
+      seedInByteArray = seed.toByteArray();//toSeed(seed.toCharArray());
       birthdayString = birthdayInt.toString();
       sapling = iSapling;
       val file = File("zcash/saplingtree/$birthdayString.json");

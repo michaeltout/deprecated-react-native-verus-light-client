@@ -73,7 +73,7 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
         val host = "light.virtualsoundnw.com"
         val port = 9077
         val numberOfAccounts = 2
-        val seed = "wish puppy smile loan doll curve hole maze file ginger hair nose key relax knife witness cannon grab despair throw review deal slush frame"
+        val seed = "1qdrya89mqqqqpqq6l5dhy40a7ytluhr3vpev4ggzkyzw3vm8fx89c7d6wrc6wqt25a9yzffy5lvyk4nwx63rjwqgg3tmz4lrpmvystzpw83ncnmp6urs2tu95jpwa49d2xshyf57j7fzmp6zecjgrypw9xxfdudx25aszusp8mdrrvauvq0sn8ntcrv9kp37ajwnhq36dtxp4rcxmq389s7v7xzc76fysmt9kmcmt4w3gcucgq8xkanq4q5a488cqtaw7a2cnltlpvqnxrdeg"
         val birthdayInt = 12400900
         val birthdayString = "1_240_900"
 
@@ -154,7 +154,8 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
     override fun onActionButtonClicked() {
         val status = KtJavaComLayer.Companion.getSyncStatusDirty(coinNumber)
         val progress = KtJavaComLayer.Companion.getSyncProgressDirty(coinNumber)
-        twig("status: ${status}, progress: ${progress}")
+        val address = KtJavaComLayer.Companion.getAddressDirty(coinNumber)
+        twig("status: ${status}, progress: ${progress}, address: ${address[0]!!}")
         var list = KtJavaComLayer.Companion.getListOfTransactionDirty(App.instance, "cleared", coinNumber)
         twig("list:")
         for(x in 0 until list.size){
