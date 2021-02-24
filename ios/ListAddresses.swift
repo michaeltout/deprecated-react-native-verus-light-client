@@ -11,7 +11,7 @@ import ZcashLightClientKit
 
 func listAddresses(wallet: CoinWallet, params: [String], id: Int?, completion: @escaping (Int?, Any?, RequestError?) ->()) {
     guard params.count == 0 else {
-        return completion(id, nil, RequestError.badRequestParams(desc: "z_listaddresses expected no params, received " + String(params.count)))
+        return completion(id, nil, RequestError.badRequestParams(desc: "z_listaddresses expected no parameters, received " + String(params.count)))
     }
     
     do {

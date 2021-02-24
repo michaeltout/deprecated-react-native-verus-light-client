@@ -13,7 +13,7 @@ func listZTransactions(wallet: CoinWallet, params: [String], id: Int?, completio
     var typeParam: String?
     
     if params.count > 1 {
-        return completion(id, nil, RequestError.badRequestParams(desc: "listprivatetransactions expected max 1 param, received " + String(params.count)))
+        return completion(id, nil, RequestError.badRequestParams(desc: "listprivatetransactions expected max 1 parameter, received " + String(params.count)))
     } else if params.count == 1 {
         typeParam = params[0]
     }

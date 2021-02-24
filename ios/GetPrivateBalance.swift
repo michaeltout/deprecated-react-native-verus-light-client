@@ -11,7 +11,7 @@ import ZcashLightClientKit
 
 func getPrivateBalance(wallet: CoinWallet, params: [String], id: Int?, completion: @escaping (Int?, Any?, RequestError?) ->()) {
     if params.count > 0 {
-        return completion(id, nil, RequestError.badRequestParams(desc: "getbalance expected 0 params, received " + String(params.count)))
+        return completion(id, nil, RequestError.badRequestParams(desc: "getbalance expected 0 parameters, received " + String(params.count)))
     }
     
     do {

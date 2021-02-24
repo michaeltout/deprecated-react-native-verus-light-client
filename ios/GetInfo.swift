@@ -11,7 +11,7 @@ import ZcashLightClientKit
 
 func getInfo(wallet: CoinWallet, params: [String], id: Int?, completion: @escaping (Int?, Any?, RequestError?) ->()) {
     guard params.count == 0 else {
-        return completion(id, nil, RequestError.badRequestParams(desc: "getinfo expected no params, received " + String(params.count)))
+        return completion(id, nil, RequestError.badRequestParams(desc: "getinfo expected no parameters, received " + String(params.count)))
     }
     
     do {

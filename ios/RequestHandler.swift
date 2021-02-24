@@ -23,6 +23,9 @@ func handleJsRequest(wallet: CoinWallet, id: Int?, method: String?, params: [Str
         case "getprivatebalance":
             chainCall = getPrivateBalance
             break;
+        case "sendprivatetransaction":
+            chainCall = sendPrivateTransaction
+            break;
         case "z_getbalance",
              "getaddressbalance":
             chainCall = getAddressBalance
