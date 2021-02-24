@@ -13,7 +13,7 @@ func sendPrivateTransaction(wallet: CoinWallet, params: [String], id: Int?, comp
     var spendingKey: String
     var zatoshi: Int64
     var toAddress: String
-    var memo: String? = nil
+    var memo: String = ""
     var fromAddress: String?
     var accountIndex: Int = 0
     
@@ -39,16 +39,14 @@ func sendPrivateTransaction(wallet: CoinWallet, params: [String], id: Int?, comp
     }
     
     do {
-        let type = typeParam ?? "all"
         let synchronizer = try wallet.getSynchronizer()
         var accountIndex: Int = 0
-        var transactions = [TransactionJson]()
         
         if let fromAddressUnwrapped = fromAddress {
             accountIndex = try wallet.getAccountIndex(address: fromAddressUnwrapped)
         }
         
-        synchronizer.sendToAddress(spendingKey: spendingKey, zatoshi: zatoshi, toAddress: toAddress, memo: memo.count > 0 ? memo : nil, from: accountIndex) {  [weak self] result in
+        synchronizer.sendToAddress(spendingKey: spendingKey, zatoshi: zatoshi, toAddress: toAddress, memo: memo.count > 0 ? memo : nil, from: accountIndex) {  result in
             
             switch result {
             case .success(let pendingTransaction):
