@@ -185,9 +185,9 @@ class CoinWallet {
         
         for n in 0...(self.accounts - 1) {
             if (includePending) {
-                totalBalance += openWallet.getVerifiedBalance(account: n)
-            } else {
                 totalBalance += openWallet.getBalance(account: n)
+            } else {
+                totalBalance += openWallet.getVerifiedBalance(account: n)
             }
         }
         
