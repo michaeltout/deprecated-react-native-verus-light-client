@@ -13,7 +13,7 @@ func getBlockCount(wallet: CoinWallet, params: [String], id: Int?, completion: @
     do {
         let service: LightWalletService = try wallet.getService()
         guard params.count == 0 else {
-            return completion(id, nil, RequestError.badRequestParams(desc: "getblockcount expected no params, received " + String(params.count)))
+            return completion(id, nil, RequestError.badRequestParams(desc: "getblockcount expected no parameters, received " + String(params.count)))
         }
 
         service.latestBlockHeight { (result) in

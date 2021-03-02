@@ -14,13 +14,13 @@ func getAddressBalance(wallet: CoinWallet, params: [String], id: Int?, completio
     var searchAddress: String? = nil
     
     if params.count > 2 {
-        return completion(id, nil, RequestError.badRequestParams(desc: "getbalance expected max 1 param, received " + String(params.count)))
+        return completion(id, nil, RequestError.badRequestParams(desc: "getbalance expected max 1 parameter, received " + String(params.count)))
     } else if params.count > 0 {
         searchAddress = params[0]
         
         if params.count > 1 {
             guard let pendingRequested = params[1].bool else {
-                return completion(id, nil, RequestError.badRequestParams(desc: "getbalance expected boolean as second param, received " + String(describing: type(of: params[1]))))
+                return completion(id, nil, RequestError.badRequestParams(desc: "getbalance expected boolean as second parameter, received " + String(describing: type(of: params[1]))))
             }
             
             includePending = pendingRequested
