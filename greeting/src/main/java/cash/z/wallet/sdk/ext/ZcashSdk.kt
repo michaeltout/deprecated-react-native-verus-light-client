@@ -1,4 +1,4 @@
-package cash.z.wallet.sdk.ext
+//package cash.z.wallet.sdk.ext
 
 /**
  * Wrapper for all the constant values in the SDK. It is important that these values stay fixed for
@@ -7,25 +7,25 @@ package cash.z.wallet.sdk.ext
  * relates to network requests.
  */
 
-object ZcashSdk : ZcashSdkCommon() {
+// object ZcashSdk : ZcashSdkCommon() {
 
     /**
      * The height of the first sapling block. When it comes to shielded transactions, we do not need to consider any blocks
      * prior to this height, at all.
      */
-    override val SAPLING_ACTIVATION_HEIGHT = 419_200
+  //  override val SAPLING_ACTIVATION_HEIGHT = 419_200
 
     /**
      * The default port to use for connecting to lightwalletd instances.
      */
-    override val DEFAULT_LIGHTWALLETD_PORT = 9077
+  //  override val DEFAULT_LIGHTWALLETD_PORT = 9077
 
     /**
      * The default host to use for lightwalletd.
      */
-    override val DEFAULT_LIGHTWALLETD_HOST = "light.virtualsoundnw.com"
+  //  override val DEFAULT_LIGHTWALLETD_HOST = "light.virtualsoundnw.com"
 
     //override val DEFAULT_DB_NAME_PREFIX = "ZcashSdk_mainnet"
 
-     override val NETWORK = "mainnet"
-}
+    // override val NETWORK = "mainnet"
+//}

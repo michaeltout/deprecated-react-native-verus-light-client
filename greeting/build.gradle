@@ -197,7 +197,7 @@ cargo {
     module = "."
     libname = "zcashwalletsdk"
     targets = [
-        "arm",
+        //"arm",
         "arm64",
         //"x86",
         //"x86_64"
@@ -227,6 +227,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.architectureComponents.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.architectureComponents.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-common-java8:${versions.architectureComponents.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
 
     // Architecture Components: Room
     implementation "androidx.room:room-runtime:${versions.architectureComponents.room}"
@@ -239,6 +240,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Deps.kotlinVersion}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+
+    //novacrypto
+    implementation 'io.github.novacrypto:BIP39:2019.01.27'
+    implementation 'io.github.novacrypto:securestring:2019.01.27'
 
     // grpc-java
     implementation "io.grpc:grpc-okhttp:${versions.grpc}"
@@ -296,4 +301,4 @@ taskTree{
 // defaultTasks 'ciBuild'
 
 preBuild.dependsOn includeDirBugFix
-check.dependsOn dependencyCheckAggregate
+//check.dependsOn dependencyCheckAggregate

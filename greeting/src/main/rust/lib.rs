@@ -50,7 +50,7 @@ use zcash_primitives::consensus::TestNetwork as Network;
 #[cfg(feature = "mainnet")]
 use zcash_primitives::constants::mainnet::{
     COIN_TYPE, HRP_SAPLING_EXTENDED_FULL_VIEWING_KEY, HRP_SAPLING_EXTENDED_SPENDING_KEY,
-    HRP_SAPLING_PAYMENT_ADDRESS, COIN_TYPE
+    HRP_SAPLING_PAYMENT_ADDRESS
 };
 
 #[cfg(feature = "mainnet")]
