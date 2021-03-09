@@ -33,9 +33,9 @@ import kotlin.reflect.KProperty
 class Initializer(
     appContext: Context,
     val alias: String,
+    val coinType: String,
     val host: String = ZcashSdk.DEFAULT_LIGHTWALLETD_HOST,
-    val port: Int = ZcashSdk.DEFAULT_LIGHTWALLETD_PORT,
-    val coinType: String
+    val port: Int = ZcashSdk.DEFAULT_LIGHTWALLETD_PORT
 ) {
 
     private lateinit var paramsType: String

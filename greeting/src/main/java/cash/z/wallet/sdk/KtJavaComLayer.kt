@@ -107,7 +107,7 @@ class KtJavaComLayer (){
 	}
 
 	//initializes syncronizer for the first time
-	fun Initer(mContext: Context, path: String, index: Int): String{
+	fun Initer(mContext: Context, path: String, index: Int, coinType: String): String{
 		if(index == -1){
 			return	"error: not initialized coin usage";
 		}else{
@@ -115,7 +115,7 @@ class KtJavaComLayer (){
 		val checkPath = Initializer.dataDbPath(mContext, path);
 		val file = File(checkPath);
 
-		coins[index].initializer = Initializer(mContext, path); //path
+		coins[index].initializer = Initializer(mContext, path, coinType); //path
 		if(file.exists() == true){
 			coins[index].putInitOpen();
 		}else{

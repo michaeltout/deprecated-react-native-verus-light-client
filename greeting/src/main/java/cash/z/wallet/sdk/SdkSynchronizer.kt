@@ -390,9 +390,10 @@ fun Synchronizer(
     lightwalletdHost: String = ZcashSdk.DEFAULT_LIGHTWALLETD_HOST,
     lightwalletdPort: Int = ZcashSdk.DEFAULT_LIGHTWALLETD_PORT,
     seed: ByteArray? = null,
-    birthdayStore: Initializer.WalletBirthdayStore = Initializer.DefaultBirthdayStore(appContext, path)
+    birthdayStore: Initializer.WalletBirthdayStore = Initializer.DefaultBirthdayStore(appContext, path),
+    coinType: String
 ): Synchronizer {
-    val initializer = Initializer(appContext, path, lightwalletdHost, lightwalletdPort)
+    val initializer = Initializer(appContext, path, coinType, lightwalletdHost, lightwalletdPort)
     if (seed != null && birthdayStore.hasExistingBirthday()) {
         twig("Initializing existing wallet")
         initializer.open(birthdayStore.getBirthday())
