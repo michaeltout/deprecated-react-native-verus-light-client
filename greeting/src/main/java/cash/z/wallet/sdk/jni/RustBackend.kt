@@ -21,6 +21,7 @@ class RustBackend : RustBackendWelding {
     internal lateinit var pathDataDb: String
     internal lateinit var pathCacheDb: String
     internal lateinit var pathParamsDir: String
+    internal lateinit var chain_network_string: String
 
     internal var birthdayHeight: Int = -1
         get() = if (field != -1) field else throw BirthdayException.UninitializedBirthdayException
@@ -32,12 +33,14 @@ class RustBackend : RustBackendWelding {
     fun init(
         cacheDbPath: String,
         dataDbPath: String,
-        paramsPath: String
+        paramsPath: String,
+        paramsType: String
     ): RustBackend {
         twig("Creating RustBackend") {
             pathCacheDb = cacheDbPath
             pathDataDb = dataDbPath
             pathParamsDir = paramsPath
+            chain_network_string = paramsType
         }
         return this
     }
@@ -89,19 +92,19 @@ class RustBackend : RustBackendWelding {
 
     override fun getSentMemoAsUtf8(idNote: Long) = getSentMemoAsUtf8(pathDataDb, idNote)
 
-    override fun validateCombinedChain() = validateCombinedChain(pathCacheDb, pathDataDb)
+    override fun validateCombinedChain() = validateCombinedChain(pathCacheDb, pathDataDb, chain_network_string)
 
-    override fun rewindToHeight(height: Int) = rewindToHeight(pathDataDb, height)
+    override fun rewindToHeight(height: Int) = rewindToHeight(pathDataDb, height, chain_network_string)
 
     override fun scanBlocks(limit: Int): Boolean {
         return if (limit > 0) {
-            scanBlockBatch(pathCacheDb, pathDataDb, limit)
+            scanBlockBatch(pathCacheDb, pathDataDb, limit, chain_network_string)
         } else {
-            scanBlocks(pathCacheDb, pathDataDb)
+            scanBlocks(pathCacheDb, pathDataDb, chain_network_string)
         }
     }
 
-    override fun decryptAndStoreTransaction(tx: ByteArray) = decryptAndStoreTransaction(pathDataDb, tx)
+    override fun decryptAndStoreTransaction(tx: ByteArray) = decryptAndStoreTransaction(pathDataDb, tx, chain_network_string)
 
     override fun createToAddress(
         account: Int,
@@ -119,7 +122,8 @@ class RustBackend : RustBackendWelding {
         sapling,
         memo ?: ByteArray(0),
         "${pathParamsDir}/$SPEND_PARAM_FILE_NAME",
-        "${pathParamsDir}/$OUTPUT_PARAM_FILE_NAME"
+        "${pathParamsDir}/$OUTPUT_PARAM_FILE_NAME",
+        chain_network_string
     )
 
     override fun deriveSpendingKeys(seed: ByteArray, numberOfAccounts: Int) =
@@ -211,15 +215,15 @@ class RustBackend : RustBackendWelding {
 
         @JvmStatic private external fun getSentMemoAsUtf8(dbDataPath: String, idNote: Long): String
 
-        @JvmStatic private external fun validateCombinedChain(dbCachePath: String, dbDataPath: String): Int
+        @JvmStatic private external fun validateCombinedChain(dbCachePath: String, dbDataPath: String, chain_network_string: String): Int
 
-        @JvmStatic private external fun rewindToHeight(dbDataPath: String, height: Int): Boolean
+        @JvmStatic private external fun rewindToHeight(dbDataPath: String, height: Int, chain_network_string: String): Boolean
 
-        @JvmStatic private external fun scanBlocks(dbCachePath: String, dbDataPath: String): Boolean
+        @JvmStatic private external fun scanBlocks(dbCachePath: String, dbDataPath: String, chain_network_string: String): Boolean
 
-        @JvmStatic private external fun scanBlockBatch(dbCachePath: String, dbDataPath: String, limit: Int): Boolean
+        @JvmStatic private external fun scanBlockBatch(dbCachePath: String, dbDataPath: String, limit: Int, chain_network_string: String): Boolean
 
-        @JvmStatic private external fun decryptAndStoreTransaction(dbDataPath: String, tx: ByteArray)
+        @JvmStatic private external fun decryptAndStoreTransaction(dbDataPath: String, tx: ByteArray, chain_network_string: String)
 
         @JvmStatic private external fun createToAddress(
             dbDataPath: String,
@@ -230,7 +234,8 @@ class RustBackend : RustBackendWelding {
             sapling: String,
             memo: ByteArray,
             spendParamsPath: String,
-            outputParamsPath: String
+            outputParamsPath: String,
+            chain_network_string: String
         ): Long
 
         @JvmStatic private external fun initLogs()

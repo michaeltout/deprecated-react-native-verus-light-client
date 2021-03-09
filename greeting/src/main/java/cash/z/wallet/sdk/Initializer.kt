@@ -34,10 +34,15 @@ class Initializer(
     appContext: Context,
     val alias: String,
     val host: String = ZcashSdk.DEFAULT_LIGHTWALLETD_HOST,
-    val port: Int = ZcashSdk.DEFAULT_LIGHTWALLETD_PORT
+    val port: Int = ZcashSdk.DEFAULT_LIGHTWALLETD_PORT,
+    val coinType: String
 ) {
+
+    private lateinit var paramsType: String
+
     init {
         validateAlias(alias)
+        paramsType = coinType
     }
 
     /**
@@ -55,6 +60,7 @@ class Initializer(
      * The path used for storing the data derived from the cached compact blocks.
      */
     private val pathDataDb: String = dataDbPath(appContext, alias)
+
 
     /**
      * A wrapped version of [cash.z.wallet.sdk.jni.RustBackendWelding] that will be passed to the
@@ -251,7 +257,7 @@ class Initializer(
     private fun requireRustBackend(): RustBackend {
         if (!isInitialized) {
             twig("Initializing cache: $pathCacheDb  data: $pathDataDb  params: $pathParams")
-            rustBackend = RustBackend().init(pathCacheDb, pathDataDb, pathParams)
+            rustBackend = RustBackend().init(pathCacheDb, pathDataDb, pathParams, paramsType)
         }
         return rustBackend
     }

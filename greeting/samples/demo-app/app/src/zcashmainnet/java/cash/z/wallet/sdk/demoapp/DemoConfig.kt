@@ -1,4 +1,4 @@
-package cash.z.wallet.sdk.demoapp
+apackage cash.z.wallet.sdk.demoapp
 
 import cash.z.wallet.sdk.Initializer
 import cash.z.wallet.sdk.demoapp.util.SimpleMnemonics
