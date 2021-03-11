@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
   s.dependency "React"
   s.dependency 'React-Core'
   s.dependency 'ZcashLightClientKit'
+  s.dependency 'MnemonicSwift'
   # ...
   # s.dependency "..."
 end
