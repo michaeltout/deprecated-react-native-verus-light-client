@@ -14,7 +14,7 @@ class CoinWallet {
     private var synchronizer: SDKSynchronizer?
     private var service: LightWalletService?
     private var files: WalletFiles?
-    private var seed: String
+    private var viewingKeys: [String]
     private var coinId: String
     private var coinProto: String
     private var endpoint: LightWalletEndpoint
@@ -25,8 +25,8 @@ class CoinWallet {
     var accounts: Int
     var birthday: Int
 
-    init(coinId: String, coinProto: String, endpoint: [String: String], accountHash: String, seed: String, spendParams: URL, outputParams: URL, birthday: Int = 0, accounts: Int = 100) {
-        self.seed = seed
+    init(coinId: String, coinProto: String, endpoint: [String: String], accountHash: String, viewingKeys: [String], spendParams: URL, outputParams: URL, birthday: Int = 0, accounts: Int = 100) {
+        self.viewingKeys = viewingKeys
         self.coinId = coinId
         self.endpoint = LightWalletEndpoint(address: endpoint["address"]!, port: Int(endpoint["port"]!)!, secure: true)
         self.wallet = nil
@@ -87,7 +87,7 @@ class CoinWallet {
                    
             self.service = LightWalletGRPCService(endpoint: self.endpoint)
             
-            let _ = try self.wallet?.initialize(viewingKeys: [try DerivationTool.default.deriveViewingKey(spendingKey: self.seed)], walletBirthday: self.birthday)
+            let _ = try self.wallet?.initialize(viewingKeys: self.viewingKeys, walletBirthday: self.birthday)
             
             NotificationCenter.default.addObserver(self, selector: #selector(processorNotification(_:)), name: nil, object: wallet!.blockProcessor())
         }

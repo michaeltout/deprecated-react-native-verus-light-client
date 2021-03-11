@@ -8,6 +8,7 @@
 
 import Foundation
 import ZcashLightClientKit
+import MnemonicSwift
 
 @objc(VerusLightClient)
 class VerusLightClient : NSObject {
@@ -15,8 +16,30 @@ class VerusLightClient : NSObject {
     let MainWallet: WalletFolder = WalletFolder()
     
     @objc
-    func createWallet(_ coinId: String, coinProto: String, accountHash: String, address: String, port: Int, numAddresses: Int, seed: String, birthday: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
-        MainWallet.createWallet(coinId: coinId, coinProto: coinProto, accountHash: accountHash, address: address, port: port, numAddresses: numAddresses, seed: seed, spendParams: Bundle.main.url(forResource: "sapling-spend", withExtension: ".params")!, outputParams: Bundle.main.url(forResource: "sapling-output", withExtension: ".params")!, birthday: birthday)
+    func deriveViewingKey(_ spendingKey: String, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        do {
+            resolve(try DerivationTool.default.deriveViewingKey(spendingKey: spendingKey))
+        } catch {
+            reject(String(JsonRpcErrors.INTERNAL_ERROR), "Failed to derive viewing key.", error)
+        }
+    }
+    
+    @objc
+    func deriveSpendingKeys(_ seed: String, isMnemonic: Bool, numberOfAccounts: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        do {
+            if (isMnemonic) {
+                resolve(try DerivationTool.default.deriveSpendingKeys(seed: Mnemonic.deterministicSeedBytes(from: seed), numberOfAccounts: numberOfAccounts))
+            } else {
+                resolve(try DerivationTool.default.deriveSpendingKeys(seed: Array(seed.utf8), numberOfAccounts: numberOfAccounts))
+            }
+        } catch {
+            reject(String(JsonRpcErrors.INTERNAL_ERROR), "Failed to derive spending keys.", error)
+        }
+    }
+    
+    @objc
+    func createWallet(_ coinId: String, coinProto: String, accountHash: String, address: String, port: Int, numAddresses: Int, viewingKeys: [String], birthday: Int, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        MainWallet.createWallet(coinId: coinId, coinProto: coinProto, accountHash: accountHash, address: address, port: port, numAddresses: numAddresses, viewingKeys: viewingKeys, spendParams: Bundle.main.url(forResource: "sapling-spend", withExtension: ".params")!, outputParams: Bundle.main.url(forResource: "sapling-output", withExtension: ".params")!, birthday: birthday)
         
         resolve(true)
     }

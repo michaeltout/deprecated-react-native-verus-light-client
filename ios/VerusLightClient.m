@@ -59,8 +59,26 @@ RCT_EXTERN_METHOD(
                   address: (NSString *)address
                   port: (NSInteger *)port
                   numAddresses: (NSInteger *)numAddresses
-                  seed: (NSString *)seed
+                  viewingKeys: (NSArray *)viewingKeys
                   birthday: (NSInteger *)birthday
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject
+                  )
+
+// Export methods to a native module
+// https://facebook.github.io/react-native/docs/native-modules-ios.html#exporting-swift
+RCT_EXTERN_METHOD(
+                  deriveViewingKey: (NSString *)spendingKey
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject
+                  )
+
+// Export methods to a native module
+// https://facebook.github.io/react-native/docs/native-modules-ios.html#exporting-swift
+RCT_EXTERN_METHOD(
+                  deriveSpendingKeys: (NSString *)seed
+                  coinProto: (BOOL *)isMnemonic
+                  numAddresses: (NSInteger *)numAddresses
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject
                   )
