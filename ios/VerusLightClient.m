@@ -77,8 +77,8 @@ RCT_EXTERN_METHOD(
 // https://facebook.github.io/react-native/docs/native-modules-ios.html#exporting-swift
 RCT_EXTERN_METHOD(
                   deriveSpendingKeys: (NSString *)seed
-                  coinProto: (BOOL *)isMnemonic
-                  numAddresses: (NSInteger *)numAddresses
+                  isMnemonic: (BOOL)isMnemonic
+                  numberOfAccounts: (NSInteger *)numberOfAccounts
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject
                   )

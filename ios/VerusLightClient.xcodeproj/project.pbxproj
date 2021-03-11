@@ -52,6 +52,7 @@
 		4E65B92D24094BA10022D01A /* GetBlockCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92C24094BA10022D01A /* GetBlockCount.swift */; };
 		4E65B92F24094BBF0022D01A /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B92E24094BBF0022D01A /* AppConfig.swift */; };
 		4E65B96C240955070022D01A /* VerusLightClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E65B96B240955070022D01A /* VerusLightClientTests.swift */; };
+		4E7DE89A25E537E400DFE8AA /* SendPrivateTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DE89925E537E400DFE8AA /* SendPrivateTransaction.swift */; };
 		4EA0E3E024194C3900D8130D /* ListTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E3DF24194C3900D8130D /* ListTransactions.swift */; };
 		4EA0E3E124194C3C00D8130D /* ListTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E3DF24194C3900D8130D /* ListTransactions.swift */; };
 		4EA0E40724194DB600D8130D /* TransactionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA0E40624194DB600D8130D /* TransactionProtocols.swift */; };
@@ -118,6 +119,7 @@
 		4E65B957240952AC0022D01A /* VerusLightClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerusLightClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E65B96B240955070022D01A /* VerusLightClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerusLightClientTests.swift; sourceTree = "<group>"; };
 		4E65B96D2409550F0022D01A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E7DE89925E537E400DFE8AA /* SendPrivateTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPrivateTransaction.swift; sourceTree = "<group>"; };
 		4EA0E3DF24194C3900D8130D /* ListTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTransactions.swift; sourceTree = "<group>"; };
 		4EA0E40624194DB600D8130D /* TransactionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionProtocols.swift; sourceTree = "<group>"; };
 		4EA0E40A241BE74D00D8130D /* GetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInfo.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 		4E65B92724094B460022D01A /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				4E7DE89825E537C100DFE8AA /* SendPrivateTransaction */,
 				4E595A8E24250E3A00D256FB /* GetAddressBalance */,
 				4EA0E409241BE60900D8130D /* GetInfo */,
 				4EA0E3DE24194C2A00D8130D /* ListTransactions */,
@@ -346,6 +349,14 @@
 				4E4F32FD240D597900F9B5C9 /* TestConfig.swift */,
 			);
 			path = VerusLightClientTests;
+			sourceTree = "<group>";
+		};
+		4E7DE89825E537C100DFE8AA /* SendPrivateTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				4E7DE89925E537E400DFE8AA /* SendPrivateTransaction.swift */,
+			);
+			name = SendPrivateTransaction;
 			sourceTree = "<group>";
 		};
 		4EA0E3DE24194C2A00D8130D /* ListTransactions */ = {
@@ -711,6 +722,7 @@
 				4E65B92424094B070022D01A /* JsonRpcErrors.swift in Sources */,
 				4E65B8DC240949670022D01A /* VerusLightClient.swift in Sources */,
 				4E65B92624094B110022D01A /* JsonRpcResponse.swift in Sources */,
+				4E7DE89A25E537E400DFE8AA /* SendPrivateTransaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,6 +901,7 @@
 			baseConfigurationReference = CC191137BBB727EA6DE183E6 /* Pods-VerusLightClient.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
@@ -905,6 +918,7 @@
 			baseConfigurationReference = FF482BDBFECAE6754E1C98CB /* Pods-VerusLightClient.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = VerusLightClient;
