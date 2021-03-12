@@ -11,10 +11,9 @@ import ZcashLightClientKit
 
 func generateDbUrls(coinId: String, coinProtocol: String, accountHash: String, spendParams: URL, outputParams: URL) throws -> WalletFiles {
     let dbPrefix = getCoinKey(coinId: coinId, coinProtocol: coinProtocol, accountHash: accountHash) + "_"
-    let cachePrefix = getCoinKey(coinId: coinId, coinProtocol: coinProtocol) + "_"
     let documentsDirectory = try __documentsDirectory()
     
-    let cacheUrl = documentsDirectory.appendingPathComponent(cachePrefix+ZcashSDK.DEFAULT_CACHES_DB_NAME, isDirectory: false)
+    let cacheUrl = documentsDirectory.appendingPathComponent(dbPrefix+ZcashSDK.DEFAULT_CACHES_DB_NAME, isDirectory: false)
     let dataUrl = documentsDirectory.appendingPathComponent(dbPrefix+ZcashSDK.DEFAULT_DATA_DB_NAME, isDirectory: false)
     let pendingUrl = documentsDirectory.appendingPathComponent(dbPrefix+ZcashSDK.DEFAULT_PENDING_DB_NAME)
     
