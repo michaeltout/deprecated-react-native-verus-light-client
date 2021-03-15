@@ -1,4 +1,4 @@
-//package cash.z.wallet.sdk.ext
+package cash.z.wallet.sdk.ext
 
 /**
  * Wrapper for all the constant values in the SDK. It is important that these values stay fixed for
@@ -7,7 +7,7 @@
  * relates to network requests.
  */
 
-// object ZcashSdk : ZcashSdkCommon() {
+ object ZcashSdk : ZcashSdkCommon() {
 
     /**
      * The height of the first sapling block. When it comes to shielded transactions, we do not need to consider any blocks
@@ -28,4 +28,4 @@
     //override val DEFAULT_DB_NAME_PREFIX = "ZcashSdk_mainnet"
 
     // override val NETWORK = "mainnet"
-//}
+}

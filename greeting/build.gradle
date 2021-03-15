@@ -1,4 +1,4 @@
-import cash.z.ecc.android.Deps
+
 
 buildscript {
     ext.buildConfig = [
@@ -28,12 +28,12 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Deps.kotlinVersion}"
-        classpath "org.jetbrains.kotlin:kotlin-allopen:${Deps.kotlinVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:1.4.10"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.10.1"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.31.0"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.14"
+        classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.9"
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.2'
         classpath 'com.github.str4d:rust-android-gradle:68b4ecc053'
         classpath 'org.owasp:dependency-check-gradle:6.0.0'
@@ -61,8 +61,8 @@ apply plugin: "com.dorongold.task-tree"
 
 
 
-group = Deps.group
-version = Deps.versionName
+group = "cash.z.ecc.android"
+version = "1.1.0-beta10"
 
 repositories {
     google()
@@ -80,12 +80,12 @@ android {
     defaultConfig {
         minSdkVersion buildConfig.minSdkVersion
         targetSdkVersion buildConfig.targetSdkVersion
-        versionCode = Deps.versionCode
-        versionName = Deps.versionName
+        versionCode = 1_01_00_210
+        versionName = "1.1.0-beta10"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
         multiDexEnabled true
-        archivesBaseName = "zcash-android-sdk-${Deps.versionName}"
+        archivesBaseName = "zcash-android-sdk-1.1.0-beta10"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -94,7 +94,7 @@ android {
         }
     }
 
-    buildTypes {
+  buildTypes {
         debug {
             // for test builds, which exceed the dex limit because they pull in things like mockito and grpc-testing
             multiDexEnabled true
@@ -108,18 +108,7 @@ android {
         }
     }
 
-    flavorDimensions 'network'
 
-    productFlavors {
-        // would rather name them "testnet" and "mainnet" but product flavor names cannot start with the word "test"
-        zcashtestnet {
-            dimension 'network'
-        }
-
-        zcashmainnet {
-            dimension 'network'
-        }
-    }
 
     sourceSets {
         main {
@@ -205,18 +194,7 @@ cargo {
     profile = "release"
     forceTargets = true
     prebuiltToolchains = true
-    variants {
-        zcashmainnetDebug {
-            defaultFeaturesAnd("mainnet")
-        }
-        zcashmainnetRelease {
-            defaultFeaturesAnd("mainnet")
-        }
-        zcashtestnetDebug {
-        }
-        zcashtestnetRelease {
-        }
-    }
+
 }
 
 dependencies {
@@ -237,7 +215,7 @@ dependencies {
     kapt "androidx.room:room-compiler:${versions.architectureComponents.room}"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Deps.kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
@@ -267,7 +245,7 @@ dependencies {
 
     // Tests
     testImplementation 'androidx.multidex:multidex:2.0.1'
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:${Deps.kotlinVersion}"
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:1.4.10"
     testImplementation 'org.mockito:mockito-junit-jupiter:3.5.10'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation "org.junit.jupiter:junit-jupiter-api:${versions.junitJupiter}"
