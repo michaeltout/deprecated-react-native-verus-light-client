@@ -662,13 +662,13 @@ try {
 	this funciton initializes the initializer. THis actually start stuff up, and does nto only load data.
 	*/
 	@ReactMethod
-	public void openWallet(String coinId, String coinProto, String accountHash, Promise promise){
+	public void openWallet(String coinId, String coinProto, String accountHash, String chaintype, Promise promise){
 		try{
 
 		int index = getIndex(coinId, coinProto, accountHash); //index number to link correct object to the function
 		String path = coinId + "_" + accountHash + "_" + coinProto;
 
-		String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.Initer(VerusLightClientModule.context, path, index);
+		String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.Initer(VerusLightClientModule.context, path, index, chaintype);
 
 		if(checkError(response) == true){
 			promise.reject(response);
