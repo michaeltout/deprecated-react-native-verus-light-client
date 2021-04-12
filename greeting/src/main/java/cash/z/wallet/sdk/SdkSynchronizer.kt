@@ -389,25 +389,23 @@ fun Synchronizer(
     path: String,
     lightwalletdHost: String = ZcashSdk.DEFAULT_LIGHTWALLETD_HOST,
     lightwalletdPort: Int = ZcashSdk.DEFAULT_LIGHTWALLETD_PORT,
-    seed: ByteArray? = null,
+    viewingKey: String,
     birthdayStore: Initializer.WalletBirthdayStore = Initializer.DefaultBirthdayStore(appContext, path),
     coinType: String
 ): Synchronizer {
     val initializer = Initializer(appContext, path, coinType, lightwalletdHost, lightwalletdPort)
-    if (seed != null && birthdayStore.hasExistingBirthday()) {
+    if (birthdayStore.hasExistingBirthday()) {
         twig("Initializing existing wallet")
         initializer.open(birthdayStore.getBirthday())
         twig("${initializer.rustBackend.pathDataDb}")
     } else {
-        require(seed != null) {
-            "Failed to initialize. A seed is required when no wallet exists on the device."
-        }
+        
         if (birthdayStore.hasImportedBirthday()) {
             twig("Initializing new wallet")
-            initializer.new(seed, birthdayStore.newWalletBirthday, 1, true, true)
+            initializer.new(viewingKey, birthdayStore.newWalletBirthday, 1, true, true)
         } else {
             twig("Initializing imported wallet")
-            initializer.import(seed, birthdayStore.getBirthday(), true, true)
+            initializer.import(viewingKey, birthdayStore.getBirthday(), true, true)
         }
     }
     return Synchronizer(appContext, initializer)

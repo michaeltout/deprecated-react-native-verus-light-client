@@ -81,7 +81,7 @@ class KtJavaComLayer (){
 	}
 
 	//adds a coin object, the object that enables multicoin functionality.
-			fun addCoin(icoinId: String, iProtocol: String, iAccountHash: String, mContext: Context, seedInByteArray: ByteArray,
+			fun addCoin(icoinId: String, iProtocol: String, iAccountHash: String, mContext: Context, viewingkey: String,
 				host: String, port: Int, seed: String, birthdayString: String, birthdayInt: Int, sapling: String, numberOfAccounts: Int): Int{
 
 				//it starts at 0
@@ -92,7 +92,7 @@ class KtJavaComLayer (){
 					indexNumber = coins.size;
 				}
 				//create a coin object, it stores the information, and enables multiple coins
-				val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, seedInByteArray, port, host, seed, "", birthdayString, birthdayInt, sapling, numberOfAccounts);
+				val newCoins = Coins(icoinId, iProtocol, iAccountHash, indexNumber, mContext, viewingkey, port, host, birthdayString, birthdayInt, sapling, numberOfAccounts);
 
 				//add the object to the array
 				coins.add(newCoins);
@@ -259,13 +259,13 @@ class KtJavaComLayer (){
 		}
 
 		//return privatekey
-		fun getPrivateKeyDirty(seed: ByteArray, index: Int): String = runBlocking{
+		/*fun getPrivateKeyDirty(seed: ByteArray, index: Int): String = runBlocking{
 			if(index == -1){
 				"error: not initialized coin usage"
 			}else{
 			 coins[index].getPrivKey();
 		 }
-		}
+		}*/
 
 		//return list of transactions
 		fun getListOfTransactionDirty(mContext: Context, info: String, index: Int): Array<String?> = runBlocking{
@@ -445,7 +445,7 @@ class KtJavaComLayer (){
 			}
 
 		//sends a transactions
-		fun putSendDirty(mContext: Context, toAddress: String, fromAddress: String, amount: Long, memo: String, index: Int): String = runBlocking{
+		fun putSendDirty(mContext: Context, toAddress: String, fromAddress: String, amount: Long, spendingKey: String, memo: String, index: Int): String = runBlocking{
 			if(index == -1){
 					"error: not initialized coin usage";
 			}else{
@@ -454,7 +454,7 @@ class KtJavaComLayer (){
 			var text: String = "haha";
 			val fromIndex = coins[index].getAccountIndex(fromAddress);
 			try{
-				txFlow = coins[index].synchronizer?.sendToAddress(coins[index].getPrivKey(), amount, toAddress, "", memo, fromIndex);
+				txFlow = coins[index].synchronizer?.sendToAddress(spendingKey, amount, toAddress, "", memo, fromIndex);
 				text = "pending"
 			} catch (e: Exception) {
     		text = "The flow has thrown an exception: $e";
@@ -493,7 +493,7 @@ class KtJavaComLayer (){
 			}
 		}
 
-		//gets spendingKeys
+		/*//gets spendingKeys
 		private fun getSpendingKeys(seed: ByteArray, index: Int): String?{
 			if(index == -1){
 				return "error: not initialized coin usage";
@@ -509,7 +509,7 @@ class KtJavaComLayer (){
 			}else{
 			return coins[index].getViewingKeys();
 		}
-		}
+		}*/
 
 		//gets the list of address
 		private fun getAddress(index: Int): Array<String>{

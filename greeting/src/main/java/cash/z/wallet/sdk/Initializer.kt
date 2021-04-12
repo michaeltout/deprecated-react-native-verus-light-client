@@ -106,13 +106,13 @@ class Initializer(
      * @return the spending key(s) associated with this wallet, for convenience.
      */
     fun new(
-        seed: ByteArray,
+        viewingKey: String,
         newWalletBirthday: WalletBirthday,
         numberOfAccounts: Int = 1,
         clearCacheDb: Boolean = false,
         clearDataDb: Boolean = false
     ): Array<String> {
-        return initializeAccounts(seed, newWalletBirthday, numberOfAccounts,
+        return initializeAccounts(viewingKey, newWalletBirthday, numberOfAccounts,
             clearCacheDb = clearCacheDb, clearDataDb = clearDataDb)
     }
 
@@ -138,12 +138,12 @@ class Initializer(
      * @return the spending key(s) associated with this wallet, for convenience.
      */
     fun import(
-       seed: ByteArray,
+       spendingKey: String,
        previousWalletBirthday: WalletBirthday,
        clearCacheDb: Boolean = false,
        clearDataDb: Boolean = false
     ): Array<String> {
-        return initializeAccounts(seed, previousWalletBirthday,
+        return initializeAccounts(spendingKey, previousWalletBirthday,
             clearCacheDb = clearCacheDb, clearDataDb = clearDataDb)
     }
 
@@ -197,7 +197,7 @@ class Initializer(
      * spending funds.
      */
     private fun initializeAccounts(
-        seed: ByteArray,
+        viewingKey: String,
         birthday: WalletBirthday,
         numberOfAccounts: Int = 1,
         clearCacheDb: Boolean = false,
@@ -231,7 +231,7 @@ class Initializer(
         }
 
         try {
-            return requireRustBackend().initAccountsTable(seed, numberOfAccounts).also {
+            return requireRustBackend().initAccountsTable(viewingKey, numberOfAccounts).also {
                 twig("Initialized the accounts table with ${numberOfAccounts} account(s)")
             }
         } catch (t: Throwable) {
@@ -311,8 +311,8 @@ class Initializer(
      *
      * @return the address that corresponds to the seed and account index.
      */
-    fun deriveAddress(seed: ByteArray, accountIndex: Int = 0) =
-        requireRustBackend().deriveAddress(seed, accountIndex)
+    fun deriveAddress(viewingKey: String, accountIndex: Int = 0) =
+        requireRustBackend().deriveAddress(viewingKey)
 
     /**
      * Given a viewing key string, return the associated address.

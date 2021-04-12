@@ -67,9 +67,9 @@ class RustBackend : RustBackendWelding {
 //        initAccountsTableWithKeys(dbDataPath, extfvks)
 
     override fun initAccountsTable(
-        seed: ByteArray,
+        viewingKey: String,
         numberOfAccounts: Int
-    ) = initAccountsTable(pathDataDb, seed, numberOfAccounts)
+    ) = initAccountsTableWithKeys(pathDataDb, viewingKey, numberOfAccounts)
 
     override fun initBlocksTable(
         height: Int,
@@ -134,9 +134,6 @@ class RustBackend : RustBackendWelding {
 
     override fun deriveViewingKey(spendingKey: String) = deriveExtendedFullViewingKey(spendingKey)
 
-    override fun deriveAddress(seed: ByteArray, accountIndex: Int) =
-        deriveAddressFromSeed(seed, accountIndex)
-
     override fun deriveAddress(viewingKey: String) = deriveAddressFromViewingKey(viewingKey)
 
     override fun isValidShieldedAddr(addr: String) =
@@ -182,9 +179,9 @@ class RustBackend : RustBackendWelding {
 
         @JvmStatic private external fun initDataDb(dbDataPath: String): Boolean
 
-        @JvmStatic private external fun initAccountsTable(
+        @JvmStatic private external fun initAccountsTableWithKeys(
             dbDataPath: String,
-            seed: ByteArray,
+            viewingKey: String,
             accounts: Int
         ): Array<String>
 
@@ -245,8 +242,6 @@ class RustBackend : RustBackendWelding {
         @JvmStatic private external fun deriveExtendedFullViewingKeys(seed: ByteArray, numberOfAccounts: Int): Array<String>
 
         @JvmStatic private external fun deriveExtendedFullViewingKey(spendingKey: String): String
-
-        @JvmStatic private external fun deriveAddressFromSeed(seed: ByteArray, accountIndex: Int): String
 
         @JvmStatic private external fun deriveAddressFromViewingKey(key: String): String
     }

@@ -49,11 +49,9 @@ class Coins (
   accountHash: String,
   iIndexNumber: Int,
   context: Context,
-  iSeedInByteArray: ByteArray,
+  iviewingkey: String,
   iPort: Int,
   iHost: String,
-  iSeed: String,
-  iSeedInUft8: String,
   iBirthdayString: String,
   iBirthdayInt: Int,
   iSapling: String,
@@ -74,11 +72,11 @@ class Coins (
      //the port on which to communicate
      private var port: Int = -1; //67
      //the seed of this account-coin
-     private var seed: String = "";
+     //private var seed: String = "";
      //seed in uft8
-     private var seedInUft8: String = "";
+     //private var seedInUft8: String = "";
      //seed in byte array
-     private var seedInByteArray: ByteArray? = null;
+     private var viewingkey: String = "";
      //birthday as string
      private var birthdayString: String = "";
      //birthday as int
@@ -114,13 +112,13 @@ class Coins (
       path = Initializer.dataDbPath(context, name);
       host = iHost;
       port = iPort;
-      seed = iSeed;
+      //seed = iSeed;
       birthdayInt = iBirthdayInt;
       birthdayString = iBirthdayString;
-      seedInUft8 = iSeedInUft8;
+      //seedInUft8 = iSeedInUft8;
       indexNumber = iIndexNumber;
       numberOfAccounts = iNumberOfAccounts;
-      seedInByteArray = seed.toByteArray();//toSeed(seed.toCharArray());
+      viewingkey = iviewingkey;//toSeed(seed.toCharArray());
       birthdayString = birthdayInt.toString();
       sapling = iSapling;
       val file = File("zcash/saplingtree/$birthdayString.json");
@@ -150,14 +148,14 @@ class Coins (
       addresses = Array<String>(numberOfAccounts,
         {
           x: Int ->
-          initializer?.deriveAddress(seedInByteArray!!, x)!!
+          initializer?.deriveAddress(viewingkey)!!
         }
         );
       return addresses;
     }
 
     //gets the privatekey
-    public fun getPrivKey(): String{
+  /*  public fun getPrivKey(): String{
       return initializer?.deriveSpendingKeys(seedInByteArray!!)!!.first().toString();
     }
     //gets the spendingKeys
@@ -168,11 +166,13 @@ class Coins (
     public fun getViewingKeys(): String{
       return initializer?.deriveViewingKey(getSpendingKeys())!!;
     }
+    */
     //makes a new initialzer
     public fun putInitNew(){
-        initializer?.new(seedInByteArray!!, birthdayWallet, numberOfAccounts)!!;
+        initializer?.new(viewingkey, birthdayWallet, numberOfAccounts)!!;
         getAddress();
     }
+
     //opens a new initialzer
     public fun putInitOpen(){
         initializer?.open( birthdayWallet)
