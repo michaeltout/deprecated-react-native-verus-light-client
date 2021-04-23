@@ -120,10 +120,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			}
 				break;
 
-			case "getprivatekey":
 
-				result = this.getPrivateKey(index);
-				break;
 			case "getidentities":
 
 				JSONObject id2 = this.getId(index, params.getString(3));
@@ -246,7 +243,7 @@ class VerusLightClientModule extends ReactContextBaseJavaModule {
 			param 6: amount,
 			param 7: memo
 			*/
-				result = this.putSend(params.getString(3), params.getString(4), Long.parseLong(params.getString(5)), params.getString(6), index);
+				result = this.putSend(params.getString(3), params.getString(4), Long.parseLong(params.getString(5)), params.getString(6), params.getString(7), index);
 
 				try{
 					response.put("result", result);
@@ -546,10 +543,7 @@ try {
 			return cash.z.wallet.sdk.KtJavaComLayer.Companion.getAddressDirty(index);
 	}
 
-	//calculates your privatekey for you from your seed
-	private String getPrivateKey(int index){
-			return cash.z.wallet.sdk.KtJavaComLayer.Companion.getPrivateKeyDirty( VerusLightClientModule.SeedinByteArrayuft8, index);
-	}
+
 
 	//lists all transactions assosiated with your private key
 	private String[] getListOfTransaction(String info, int index){
@@ -576,12 +570,12 @@ try {
 	}
 
 	//sends a message
-	private String putSend(String toAddress, String fromAddress, Long amount, String memo, int index){
+	private String putSend(String toAddress, String fromAddress, Long amount, String spendingKey, String memo, int index){
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
 		VerusLightClientModule.context = mContext;
 
-			return cash.z.wallet.sdk.KtJavaComLayer.Companion.putSendDirty(VerusLightClientModule.context, toAddress, fromAddress, amount, memo, index);
+			return cash.z.wallet.sdk.KtJavaComLayer.Companion.putSendDirty(VerusLightClientModule.context, toAddress, fromAddress, amount, spendingKey, memo, index);
 	}
 
 	//gets the status of the syncronizer, this changes all the time
@@ -604,7 +598,7 @@ try {
 		is started yet. It only loads the data into the relevant objects. If you also want to controll the zcash protocol
 	*/
 	public void createWalletsap ( String coinId, String coinProtocol, String accountHash, String host, int port,
-		int numberOfAccounts, String seed, int birthday, String sapling, Promise promise ) {
+		int numberOfAccounts, String viewkey, int birthday, String sapling, Promise promise ) {
 		try{
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
@@ -615,12 +609,12 @@ try {
 		//int port = 9067;
 		//String seed = "urban kind wise collect social marble riot primary craft lucky head cause syrup odor artist decorate rhythm phone style benefit portion bus truck top";
 		//String seedInUft8 = "dXJiYW4ga2luZCB3aXNlIGNvbGxlY3Qgc29jaWFsIG1hcmJsZSByaW90IHByaW1hcnkgY3JhZnQgbHVja3kgaGVhZCBjYXVzZSBzeXJ1cCBvZG9yIGFydGlzdCBkZWNvcmF0ZSByaHl0aG0gcGhvbmUgc3R5bGUgYmVuZWZpdCBwb3J0aW9uIGJ1cyB0cnVjayB0b3A=";
-		byte[] seedToByteArray = seed.getBytes(StandardCharsets.UTF_8); //chance to real seed
+		String seed = "";
 		int birthdayInt = birthday;
 		String birthdayString = turnIntIntoBirthdayString(birthday);
 		//int numberOfAccounts = 1;
 
-		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, birthdayString, birthdayInt, sapling, numberOfAccounts);
+		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, viewkey, host, port, seed, birthdayString, birthdayInt, sapling, numberOfAccounts);
 		coinToIndex.put(path, indexNumber);
 		promise.resolve("true");
 	}catch (IllegalViewOperationException e) {
@@ -634,7 +628,7 @@ try {
 		is started yet. It only loads the data into the relevant objects.
 	*/
 	public void createWallet ( String coinId, String coinProtocol, String accountHash, String host, int port,
-	 	int numberOfAccounts, String seed, int birthday, Promise promise ) {
+	 	int numberOfAccounts, String viewingkey, int birthday, Promise promise ) {
 		try{
 		Activity mActivity = getCurrentActivity();
 		Context mContext = mActivity.getApplicationContext();
@@ -645,12 +639,12 @@ try {
 		//int port = 9067;
 		//String seed = "urban kind wise collect social marble riot primary craft lucky head cause syrup odor artist decorate rhythm phone style benefit portion bus truck top";
 		//String seedInUft8 = "dXJiYW4ga2luZCB3aXNlIGNvbGxlY3Qgc29jaWFsIG1hcmJsZSByaW90IHByaW1hcnkgY3JhZnQgbHVja3kgaGVhZCBjYXVzZSBzeXJ1cCBvZG9yIGFydGlzdCBkZWNvcmF0ZSByaHl0aG0gcGhvbmUgc3R5bGUgYmVuZWZpdCBwb3J0aW9uIGJ1cyB0cnVjayB0b3A=";
-		byte[] seedToByteArray = seed.getBytes(StandardCharsets.UTF_8); //chance to real seed
+		String seed = "";
 		int birthdayInt = birthday;
 		String birthdayString = turnIntIntoBirthdayString(birthday);
 		//int numberOfAccounts = 1;
 
-		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, seedToByteArray, host, port, seed, birthdayString, birthdayInt, "sapling", numberOfAccounts);
+		int indexNumber = cash.z.wallet.sdk.KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, VerusLightClientModule.context, viewingkey, host, port, seed, birthdayString, birthdayInt, "sapling", numberOfAccounts);
 		coinToIndex.put(path, indexNumber);
 		promise.resolve("true");
 	}catch (IllegalViewOperationException e) {
