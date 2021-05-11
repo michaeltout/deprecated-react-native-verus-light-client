@@ -79,12 +79,12 @@ open class ZcashSdkCommon {
     /**
      * The default port to use for connecting to lightwalletd instances.
      */
-    open val DEFAULT_LIGHTWALLETD_PORT = 9067
+    open val DEFAULT_LIGHTWALLETD_PORT = 9077
 
     /**
      * The default host to use for lightwalletd.
      */
-    open val DEFAULT_LIGHTWALLETD_HOST = "listwallted.electriccoin.co"
+    open val DEFAULT_LIGHTWALLETD_HOST = "light.virtualsoundnw.com"
 
     val DB_DATA_NAME = "Data.db"
     val DB_CACHE_NAME = "Cache.db"

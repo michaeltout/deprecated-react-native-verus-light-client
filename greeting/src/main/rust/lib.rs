@@ -208,6 +208,8 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_initAccountsTabl
     unwrap_exc_or(&env, res, JNI_FALSE)
 }
 
+
+
 #[no_mangle]
 pub unsafe extern "C" fn Java_cash_z_wallet_sdk_tool_DerivationTool_deriveExtendedSpendingKeys(
     env: JNIEnv<'_>,
@@ -242,6 +244,45 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_tool_DerivationTool_deriveExtend
     });
     unwrap_exc_or(&env, res, ptr::null_mut())
 }
+
+
+#[no_mangle]
+pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_deriveExtendedSpendingKeys(
+    env: JNIEnv<'_>,
+    _: JClass<'_>,
+    extsk_string: JString<'_>,
+) -> jobjectArray {
+    let res = panic::catch_unwind(|| {
+        let extsk_string = utils::java_string_to_rust(&env, extsk_string);
+        let extfvk = match decode_extended_spending_key(
+            HRP_SAPLING_EXTENDED_SPENDING_KEY,
+            &extsk_string,
+        ) {
+            Ok(Some(extsk)) => ExtendedFullViewingKey::from(&extsk),
+            Ok(None) => {
+                return Err(format_err!("Deriving viewing key from spending key returned no results. Encoding was valid but type was incorrect."));
+            }
+            Err(e) => {
+                return Err(format_err!(
+                    "Error while deriving viewing key from spending key: {}",
+                    e
+                ));
+            }
+        };
+
+        let output = env
+            .new_string(encode_extended_full_viewing_key(
+                HRP_SAPLING_EXTENDED_FULL_VIEWING_KEY,
+                &extfvk,
+            ))
+            .expect("Couldn't create Java string!");
+
+        Ok(output.into_inner())
+    });
+    unwrap_exc_or(&env, res, ptr::null_mut())
+}
+
+
 
 #[no_mangle]
 pub unsafe extern "C" fn Java_cash_z_wallet_sdk_tool_DerivationTool_deriveExtendedFullViewingKeys(
@@ -409,6 +450,79 @@ pub unsafe extern "C" fn Java_cash_z_wallet_sdk_KtJavaComLayer_deriveExtendedSpe
     });
     unwrap_exc_or(&env, res, ptr::null_mut())
 }
+
+#[no_mangle]
+pub unsafe extern "C" fn cash_z_wallet_sdk_jni_RustBackend_deriveExtendedSpendingKeys(
+    env: JNIEnv<'_>,
+    _: JClass<'_>,
+    seed: jbyteArray,
+    accounts: jint,
+) -> jobjectArray {
+    let res = panic::catch_unwind(|| {
+        let seed = env.convert_byte_array(seed).unwrap();
+        let accounts = if accounts > 0 {
+            accounts as u32
+        } else {
+            return Err(format_err!("accounts argument must be greater than zero"));
+        };
+
+        let extsks: Vec<_> = (0..accounts)
+            .map(|account| spending_key(&seed, COIN_TYPE, account))
+            .collect();
+
+        Ok(utils::rust_vec_to_java(
+            &env,
+            extsks,
+            "java/lang/String",
+            |env, extsk| {
+                env.new_string(encode_extended_spending_key(
+                    HRP_SAPLING_EXTENDED_SPENDING_KEY,
+                    &extsk,
+                ))
+            },
+            |env| env.new_string(""),
+        ))
+    });
+    unwrap_exc_or(&env, res, ptr::null_mut())
+}
+
+
+#[no_mangle]
+pub unsafe extern "C" fn Java_cash_z_wallet_sdk_jni_RustBackend_deriveExtendedFullViewingKey(
+    env: JNIEnv<'_>,
+    _: JClass<'_>,
+    seed: jbyteArray,
+    accounts: jint,
+) -> jobjectArray {
+    let res = panic::catch_unwind(|| {
+        let seed = env.convert_byte_array(seed).unwrap();
+        let accounts = if accounts > 0 {
+            accounts as u32
+        } else {
+            return Err(format_err!("accounts argument must be greater than zero"));
+        };
+
+        let extsks: Vec<_> = (0..accounts)
+            .map(|account| spending_key(&seed, COIN_TYPE, account))
+            .collect();
+
+        Ok(utils::rust_vec_to_java(
+            &env,
+            extsks,
+            "java/lang/String",
+            |env, extsk| {
+                env.new_string(encode_extended_spending_key(
+                    HRP_SAPLING_EXTENDED_SPENDING_KEY,
+                    &extsk,
+                ))
+            },
+            |env| env.new_string(""),
+        ))
+    });
+    unwrap_exc_or(&env, res, ptr::null_mut())
+}
+
+
 
 #[no_mangle]
 pub unsafe extern "C" fn Java_cash_z_wallet_sdk_KtJavaComLayer_deriveExtendedFullViewingKey(

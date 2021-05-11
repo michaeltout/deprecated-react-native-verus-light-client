@@ -10,7 +10,7 @@ interface RustBackendWelding {
 
     fun initDataDb(): Boolean
 
-//    fun initAccountsTable(extfvks: Array<ByteArray>, numberOfAccounts: Int)
+    fun initAccountsTable(extfvks: Array<String>)
 
     fun initAccountsTable(viewingKey: String, numberOfAccounts: Int): Array<String>
 

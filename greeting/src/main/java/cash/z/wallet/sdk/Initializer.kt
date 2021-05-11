@@ -111,7 +111,7 @@ class Initializer(
         numberOfAccounts: Int = 1,
         clearCacheDb: Boolean = false,
         clearDataDb: Boolean = false
-    ): Array<String> {
+    ){
         return initializeAccounts(viewingKey, newWalletBirthday, numberOfAccounts,
             clearCacheDb = clearCacheDb, clearDataDb = clearDataDb)
     }
@@ -142,7 +142,7 @@ class Initializer(
        previousWalletBirthday: WalletBirthday,
        clearCacheDb: Boolean = false,
        clearDataDb: Boolean = false
-    ): Array<String> {
+    ){
         return initializeAccounts(spendingKey, previousWalletBirthday,
             clearCacheDb = clearCacheDb, clearDataDb = clearDataDb)
     }
@@ -202,7 +202,7 @@ class Initializer(
         numberOfAccounts: Int = 1,
         clearCacheDb: Boolean = false,
         clearDataDb: Boolean = false
-    ): Array<String> {
+    ) {
         this.birthday = birthday
         twig("Initializing accounts with birthday ${birthday.height}")
         try {
@@ -231,7 +231,7 @@ class Initializer(
         }
 
         try {
-            return requireRustBackend().initAccountsTable(viewingKey, numberOfAccounts).also {
+            return requireRustBackend().initAccountsTable(arrayOf<String>(viewingKey) ).also {
                 twig("Initialized the accounts table with ${numberOfAccounts} account(s)")
             }
         } catch (t: Throwable) {

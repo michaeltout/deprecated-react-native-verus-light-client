@@ -1,45 +1,13 @@
 package cash.z.wallet.sdk
 
 import android.content.Context
-import android.content.SharedPreferences
-import cash.z.wallet.sdk.exception.BirthdayException
-import cash.z.wallet.sdk.exception.InitializerException
-import cash.z.wallet.sdk.block.CompactBlockProcessor
-import cash.z.wallet.sdk.ext.*
-import cash.z.wallet.sdk.Initializer
-import cash.z.wallet.sdk.Initializer.*
-import cash.z.wallet.sdk.Coins
 import cash.z.wallet.sdk.rpc.Service
-import cash.z.wallet.sdk.Initializer.WalletBirthday
-import cash.z.wallet.sdk.Synchronizer.AddressType.Shielded
-import cash.z.wallet.sdk.Synchronizer.AddressType.Transparent
-import cash.z.wallet.sdk.Synchronizer.Status.*
-import cash.z.wallet.sdk.block.CompactBlockDbStore
-import cash.z.wallet.sdk.block.CompactBlockDownloader
-import cash.z.wallet.sdk.block.CompactBlockProcessor.*
-import cash.z.wallet.sdk.block.CompactBlockProcessor.State.*
-import cash.z.wallet.sdk.block.CompactBlockProcessor.WalletBalance
-import cash.z.wallet.sdk.block.CompactBlockStore
 import cash.z.wallet.sdk.db.entity.*
-import cash.z.wallet.sdk.exception.SynchronizerException
-import cash.z.wallet.sdk.ext.ZcashSdk
 import cash.z.wallet.sdk.ext.twig
-import cash.z.wallet.sdk.ext.twigTask
-import cash.z.wallet.sdk.jni.RustBackend
-import cash.z.wallet.sdk.service.LightWalletGrpcService
 import cash.z.wallet.sdk.service.LightWalletService
-import cash.z.wallet.sdk.transaction.*
-import cash.z.wallet.sdk.DemoConfig
-import cash.z.wallet.sdk.Identities
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.*
-import kotlin.coroutines.CoroutineContext
-import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Default
-import kotlinx.coroutines.Dispatchers.Main
 
 import java.util.*
 import java.io.File
@@ -399,9 +367,10 @@ class KtJavaComLayer (){
 			//init.clear()
 			return viewingkey//viewingkey;
 		}
+
 		@JvmStatic private external fun deriveExtendedSpendingKeys(seed: ByteArray, numberOfAccounts: Int): Array<String>
 
-		fun getderiveViewingKey(spendingKey: String, mContext: Context): String{
+		fun getderiveViewingKey(spendingKey: String): String{
 			//var init = Initializer(mContext, "test2", "VRSC");
 			//var walletBirthday = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(mContext);
 			//init.new("j28ej892jf92fj2fj9e28fj2fgebf72nf92efn92f98m2jfj828mfj2ef7jm287ejmf782jm87jm78ejm278mje2jdx78j2me87dx7m2xe2", walletBirthday);
