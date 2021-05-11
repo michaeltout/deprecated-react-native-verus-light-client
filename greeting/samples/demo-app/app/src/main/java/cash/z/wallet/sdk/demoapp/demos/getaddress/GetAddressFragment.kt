@@ -13,7 +13,7 @@ import cash.z.wallet.sdk.demoapp.databinding.FragmentGetAddressBinding
 class GetAddressFragment : BaseDemoFragment<FragmentGetAddressBinding>() {
 
     private var seed: ByteArray = App.instance.defaultConfig.seed
-    private val initializer: Initializer = Initializer(App.instance, "chris")
+    private val initializer: Initializer = Initializer(App.instance, "chris", "VRSC")
 
     private lateinit var address: String
 
@@ -21,7 +21,9 @@ class GetAddressFragment : BaseDemoFragment<FragmentGetAddressBinding>() {
             = FragmentGetAddressBinding.inflate(layoutInflater)
 
     override fun resetInBackground() {
-        address = initializer.deriveAddress(seed)
+        var key = initializer.deriveSpendingKeys(seed)
+        var viewingkey = initializer.deriveViewingKey(key[0])
+        address = initializer.deriveAddress(viewingkey)
     }
 
     override fun onResetComplete() {

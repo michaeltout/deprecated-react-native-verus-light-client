@@ -389,6 +389,30 @@ class KtJavaComLayer (){
 			}
 		}
 
+		fun getderiveSpendingKeys(seed: String, numberOfAccounts: Int, mContext: Context): Array<String>{
+			//var init = Initializer(mContext, "test2", "VRSC");
+			//var walletBirthday = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(mContext);
+			//init.new("j28ej892jf92fj2fj9e28fj2fgebf72nf92efn92f98m2jfj828mfj2ef7jm287ejmf782jm87jm78ejm278mje2jdx78j2me87dx7m2xe2", walletBirthday);
+			System.loadLibrary("zcashwalletsdk")
+			var seed2 = Coins.toSeed(seed.toCharArray());
+			var viewingkey = deriveExtendedSpendingKeys(seed2, numberOfAccounts)
+			//init.clear()
+			return viewingkey//viewingkey;
+		}
+		@JvmStatic private external fun deriveExtendedSpendingKeys(seed: ByteArray, numberOfAccounts: Int): Array<String>
+
+		fun getderiveViewingKey(spendingKey: String, mContext: Context): String{
+			//var init = Initializer(mContext, "test2", "VRSC");
+			//var walletBirthday = Initializer.DefaultBirthdayStore.loadBirthdayFromAssets(mContext);
+			//init.new("j28ej892jf92fj2fj9e28fj2fgebf72nf92efn92f98m2jfj828mfj2ef7jm287ejmf782jm87jm78ejm278mje2jdx78j2me87dx7m2xe2", walletBirthday);
+			System.loadLibrary("zcashwalletsdk")
+			var viewingkey = deriveExtendedFullViewingKey(spendingKey)
+			//init.clear()
+			return viewingkey//viewingkey;
+		}
+
+		@JvmStatic private external fun deriveExtendedFullViewingKey(spendingKey: String): String
+
 		//get the wallet balance
 		fun getWalletBalanceDirty( includePending: Boolean, address: String, index: Int): String = runBlocking{
 					if(index == -1){

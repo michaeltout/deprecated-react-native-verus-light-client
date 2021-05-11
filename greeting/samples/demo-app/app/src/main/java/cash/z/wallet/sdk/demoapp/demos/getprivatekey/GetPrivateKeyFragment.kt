@@ -14,7 +14,7 @@ import cash.z.wallet.sdk.demoapp.databinding.FragmentGetPrivateKeyBinding
  */
 class GetPrivateKeyFragment : BaseDemoFragment<FragmentGetPrivateKeyBinding>() {
     private var seed: ByteArray = App.instance.defaultConfig.seed
-    private val initializer: Initializer = Initializer(App.instance, "chris")
+    private val initializer: Initializer = Initializer(App.instance, "chris", "VRSC")
     private val birthday = App.instance.defaultConfig.newWalletBirthday()
     private lateinit var spendingKeys: Array<String>
     private lateinit var viewingKeys: Array<String>
@@ -31,7 +31,9 @@ class GetPrivateKeyFragment : BaseDemoFragment<FragmentGetPrivateKeyBinding>() {
          * a call to `initializer.new` or `initializer.import` are the only time a wallet passes the
          * seed to the SDK. From that point forward, only spending or viewing keys are needed.
          */
-        spendingKeys = initializer.new(seed, birthday)
+        var key = initializer.deriveSpendingKeys(seed)
+        var viewingkey = initializer.deriveViewingKey(key[0])
+        spendingKeys = initializer.new(viewingkey, birthday)
 
         /*
          * Alternatively, viewing keys can also be derived directly from a seed or spending keys.

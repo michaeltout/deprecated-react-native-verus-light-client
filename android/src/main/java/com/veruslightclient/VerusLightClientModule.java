@@ -652,6 +652,35 @@ try {
 		}
 	}
 
+	@ReactMethod
+	public void deriveSpendingKeys(String seed, Boolean iets, int numberOfAccounts, Promise promise){
+		try{
+			Activity mActivity = getCurrentActivity();
+			Context mContext = mActivity.getApplicationContext();
+			String[] response = cash.z.wallet.sdk.KtJavaComLayer.Companion.getderiveSpendingKeys(seed, numberOfAccounts, mContext);
+			JSONArray array = new JSONArray();
+
+			for(int x = 0; x < response.length; x++){
+				array.put(response[x]);
+			}
+			promise.resolve(array.toString());
+		}catch (IllegalViewOperationException e) {
+				promise.reject(E_LAYOUT_ERROR, e);
+			}
+	}
+
+	@ReactMethod
+	public void deriveViewingKey(String spendingKey, Promise promise){
+		try{
+			Activity mActivity = getCurrentActivity();
+			Context mContext = mActivity.getApplicationContext();
+			String response = cash.z.wallet.sdk.KtJavaComLayer.Companion.getderiveViewingKey(spendingKey, mContext);
+			promise.resolve(response);
+		}catch (IllegalViewOperationException e) {
+			promise.reject(E_LAYOUT_ERROR, e);
+		}
+	}
+
 	/*
 	this funciton initializes the initializer. THis actually start stuff up, and does nto only load data.
 	*/

@@ -25,7 +25,7 @@ import cash.z.wallet.sdk.ext.*
  */
 class SendFragment : BaseDemoFragment<FragmentSendBinding>() {
     private val config = App.instance.defaultConfig
-    private val initializer = Initializer(App.instance, alias="chris", host = config.host, port = config.port)
+    private val initializer = Initializer(App.instance, alias="chris", host = config.host, port = config.port, coinType = "VRSC")
     private val birthday = config.loadBirthday()
 
     private lateinit var synchronizer: Synchronizer
@@ -65,7 +65,9 @@ class SendFragment : BaseDemoFragment<FragmentSendBinding>() {
         FragmentSendBinding.inflate(layoutInflater)
 
     override fun resetInBackground() {
-        val spendingKeys = initializer.new(config.seed, birthday)
+        var key = initializer.deriveSpendingKeys(App.instance.defaultConfig.seed)
+        var viewingkey = initializer.deriveViewingKey(key[0])
+        val spendingKeys = initializer.new(viewingkey, birthday)
         keyManager = SampleStorageBridge().securelyStorePrivateKey(spendingKeys[0])
         synchronizer = Synchronizer(App.instance, initializer)
     }

@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
  */
 class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBinding>() {
     private val config = App.instance.defaultConfig
-    private val initializer = Initializer(App.instance, alias="chris", host = config.host, port = config.port )
+    private val initializer = Initializer(App.instance, alias="chris", host = config.host, port = config.port , coinType = "VRSC")
     private val birthday = config.loadBirthday()
     private var coinNumber = -1;
     private lateinit var synchronizer: Synchronizer
@@ -43,7 +43,9 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
         FragmentListTransactionsBinding.inflate(layoutInflater)
 
     override fun resetInBackground() {
-        initializer.new(config.seed, birthday)
+        var key = initializer.deriveSpendingKeys(App.instance.defaultConfig.seed)
+        var viewingkey = initializer.deriveViewingKey(key[0])
+        initializer.new(viewingkey, birthday)
         synchronizer = Synchronizer(App.instance, initializer)
     }
 
@@ -76,9 +78,10 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
         val seed = "1qdrya89mqqqqpqq6l5dhy40a7ytluhr3vpev4ggzkyzw3vm8fx89c7d6wrc6wqt25a9yzffy5lvyk4nwx63rjwqgg3tmz4lrpmvystzpw83ncnmp6urs2tu95jpwa49d2xshyf57j7fzmp6zecjgrypw9xxfdudx25aszusp8mdrrvauvq0sn8ntcrv9kp37ajwnhq36dtxp4rcxmq389s7v7xzc76fysmt9kmcmt4w3gcucgq8xkanq4q5a488cqtaw7a2cnltlpvqnxrdeg"
         val birthdayInt = 12400900
         val birthdayString = "1_240_900"
+        var key = initializer.deriveSpendingKeys(App.instance.defaultConfig.seed)
+        var viewingkey = initializer.deriveViewingKey(key[0])
 
-
-        coinNumber = KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, App.instance, seed.toByteArray(), host, port, seed, birthdayString, birthdayInt, "sapling", numberOfAccounts);
+        coinNumber = KtJavaComLayer.Companion.addCoin(coinId, accountHash, coinProtocol, App.instance, viewingkey, host, port, seed, birthdayString, birthdayInt, "sapling", numberOfAccounts);
 
 
     }
@@ -88,7 +91,7 @@ class ListTransactionsFragment : BaseDemoFragment<FragmentListTransactionsBindin
           //  synchronizer.start(this)
         //}
         //var path = KtJavaComLayer.Companion.getPath(App.instance, "Test")
-        var response = KtJavaComLayer.Companion.Initer(App.instance, "cute", coinNumber)
+        var response = KtJavaComLayer.Companion.Initer(App.instance, "cute", coinNumber, "VRSC")
         twig(response)
         response = KtJavaComLayer.Companion.InitClient(App.instance, coinNumber)
         twig(response)

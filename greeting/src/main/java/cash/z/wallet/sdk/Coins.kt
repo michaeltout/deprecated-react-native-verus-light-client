@@ -103,8 +103,10 @@ class Coins (
     var arraylistCleared = ArrayList<String>();
     var arraylistSend = ArrayList<String>();
 
-    fun toSeed(mnemonic: CharArray): ByteArray {
-        return SeedCalculator().calculateSeed(String(mnemonic), "")
+    companion object {
+      public fun toSeed(mnemonic: CharArray): ByteArray {
+          return SeedCalculator().calculateSeed(String(mnemonic), "")
+      }
     }
 
     init{ //all the vars are passed into vars
