@@ -35,8 +35,8 @@
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
   "dependencies": {
-    "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react": "17.0.1",
+    "react-native": "0.64.0"
   },
   "devDependencies": {},
   "react-native": {
